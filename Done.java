@@ -1,13 +1,14 @@
 // klasa reprezentująca wykonane zadanie
 
+import javax.swing.*;
 import java.time.LocalDate;
 
 public class Done extends Task{
     LocalDate end_date; // data zakończenia
 
     // konstruktor tworzący ukończone zadanie
-    public Done(String name, User user, int day, int month, int year) {
-        super(name, user, day, month, year);
+    public Done(String name, DefaultListModel<User> assignees, int day, int month, int year) {
+        super(name, assignees, day, month, year);
         end_date = LocalDate.now();
     }
 
@@ -17,4 +18,14 @@ public class Done extends Task{
         end_date = LocalDate.now();
     }
 
+    // metoda pomocniczna zwracająca napis rezprezentujący zadanie
+    public String toString() {
+        return super.toString() + " : zakończono";
+    }
+
+    // metoda pomocnicza wypisująca informacje o zadaniu do konsoli
+    public void getInfo() {
+        super.getInfo();
+        System.out.println("zakończono : " + end_date);
+    }
 }

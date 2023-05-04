@@ -1,6 +1,13 @@
+// klasa reprezentująca użytkownika aplikacji
+
 public class User {
     String name; // nazwa użytkownika
     LoginData login_data; // dane do logowania
+
+    User(String name, String email, String password) {
+        this.name = name;
+        this.login_data = new LoginData(email, password);
+    }
 
     static class LoginData { // FIXME: IDE kazało mi dać tu static, ale nie wiem czemu
         String email;
@@ -16,5 +23,9 @@ public class User {
         void login() {}
 
         void signup() {}
+    }
+
+    public String toString() {
+        return name;
     }
 }
