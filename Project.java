@@ -28,9 +28,22 @@ public class Project implements Serializable {
         participants.addElement(user);
     }
 
+    // usuwanie uczestnika z projektu
+    void deleteParticipant(User user) {
+        participants.removeElement(user);
+    }
+
     // dodawanie zadania do projektu
     void addTask(Task task) {
-        tasks.addElement(task);
+        task.project = this;
+        if (!tasks.contains(task)) {
+            tasks.addElement(task);
+        }
+    }
+
+    // usuwanie zadania z projektu
+    public void deleteTask(Task task) {
+        tasks.removeElement(task);
     }
 
     // zmiana daty końcowej

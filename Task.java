@@ -5,6 +5,7 @@ import java.io.*;
 import java.time.LocalDate;
 
 public abstract class Task implements Serializable {
+    Project project; // projekt, do którego należy zadanie
     String name; // nazwa zadania
     String description; // opis zadania
     DefaultListModel<User> assignees; // osoby odpowiedzialne
@@ -21,12 +22,14 @@ public abstract class Task implements Serializable {
         deadline = LocalDate.of(year, month, day);
     }
 
-    // używany przy zmianie statusu zadania
+    // konstruktor "częściowo kopiujący" używany przy zmianie statusu zadania
     public Task(Task task) {
+        this.project = task.project;
         this.name = task.name;
         this.assignees = task.assignees;
         description = task.description;
         deadline = task.deadline;
+        task.project.addTask(this);
     }
 
     // zmiana nazwy zadania

@@ -30,5 +30,22 @@ public class Main {
         task1.deleteAssignee(assignee1);
         task1.getInfo();
         System.out.println();
+
+        // FIXME: generalnie to jest risky, bo jeśli jeszcze raz to wywołamy (jak w zakomentowanej linijce)
+        //  to doda nam się ten Current task wielokrotnie.
+        //  na poziomie aplikacji ofc zablokujemy tę opcję, bo ten Task będzie znikał z listy
+        //  więc jak masz pomysł na poprawkę tego, to przyjmę, a jak nie, to póki co zostawiamy
+        //  (ten problem jest też dla makeProgress() w Current)
+        task1.start();
+//        task1.start();
+        project.getInfo();
+
+        task3.makeProgress();
+        task3.makeProgress();
+        task3.makeProgress();
+        task3.makeProgress();
+        task3.makeProgress();
+        project.getInfo();
+
     }
 }

@@ -32,25 +32,25 @@ public class Current extends Task{
     }
 
     // metoda reprezentująca robienie postępu w zadaniu
-    public Task makeProgress() {
+    public void makeProgress() {
         int index = Arrays.asList(progress_level).indexOf(progress);
         // jeżeli zadanie nie jest jeszcze na ostatnim poziomie
         if (index < progress_level.length - 1 ) {
             // przenosimy je na wyższy poziom
             progress = progress_level[index + 1];
-            return this;
         }
         // w przeciwnym wypadku
         else {
             // tworzymy nowy obiekt reprezentujący wykonane zadanie
-            // TODO: akcja usunięcia tego zadania z listy
-            return new Done(this);
+            project.addTask(new Done(this));
+            // i usuwamy stary
+            project.deleteTask(this);
         }
     }
 
     // metoda pomocniczna zwracająca napis rezprezentujący zadanie
     public String toString() {
-        return super.toString() + " : w trakcie";
+        return super.toString() + " : aktualne";
     }
 
     // metoda pomocnicza wypisująca informacje o zadaniu do konsoli
