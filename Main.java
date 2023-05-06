@@ -4,6 +4,7 @@ public class Main {
     public static void main(String[] args) {
         Project project = new Project("Projekt z po", 20, 6, 2023);
         DefaultListModel<User> assignees = new DefaultListModel<>();
+
         User assignee1 = new User("Basia", "basia@mail.com", "haslo1");
         User assignee2 = new User("Kasia", "kasia@mail.com", "haslo2");
         User assignee3 = new User("Asia", "asia@mail.com", "haslo3");
@@ -46,6 +47,9 @@ public class Main {
         task3.makeProgress();
         task3.makeProgress();
         project.getInfo();
+
+        // Uruchomienie programu
+        MainProgram program = new MainProgram();
 
     }
 }
