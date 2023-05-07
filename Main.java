@@ -3,24 +3,21 @@ import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
-        DatabaseManager dbManager = new DatabaseManager();
-        try {
-            dbManager.connectToDatabase();
-            // Do something with the database
-//            User assignee1 = new User("Basia", "basia@mail.com", "haslo1");
-//            User assignee2 = new User("Kasia", "kasia@mail.com", "haslo2");
-//            User assignee3 = new User("Asia", "asia@mail.com", "haslo3");
-//            dbManager.addUser(assignee2);
-//            dbManager.addUser(assignee3);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                dbManager.disconnectFromDatabase();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+        MainProgram program = new MainProgram();
+//        DatabaseManager dbManager = new DatabaseManager();
+//        try {
+//            dbManager.connectToDatabase();
+//            // Do something with the database
+//            MainProgram program = new MainProgram();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } finally {
+//            try {
+//                dbManager.disconnectFromDatabase();
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//        }
 
 
 

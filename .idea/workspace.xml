@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a6cc3313-cad9-4cc3-8b3f-4e1b13531a9b" name="Changes" comment="database added and works I guess">
+      <change afterPath="$PROJECT_DIR$/WelcomeScene.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DatabaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/DatabaseManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LoginScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/LoginScene.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainProgram.java" beforeDir="false" afterPath="$PROJECT_DIR$/MainProgram.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/Window.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,10 +46,14 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "version__with__database",
-    "last_opened_file_path": "C:/Users/mszal/OneDrive/Documents/Onedrive/2_semestr/Programowanie_Obiektowe/Projekt",
+    "jdk.selected.JAVA_MODULE": "openjdk-20",
+    "last_opened_file_path": "C:/Users/lilka/IdeaProjects/Project-Management-App/lib/sqlite-jdbc-3.41.2.1.jar",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.21714285",
+    "project.structure.side.proportion": "0.2",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -82,7 +91,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683463383057</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="database added and works I guess">
+      <created>1683473561913</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1683473561913</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
