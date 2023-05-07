@@ -4,22 +4,25 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class ProjectsScene extends JPanel {
-    DefaultListModel<Project> all_projects;
+    MainProgram app;
     JList<Project> Jall_projects;
 
-    public ProjectsScene(DefaultListModel<Project> projects) {
-        all_projects = projects;
-        Jall_projects = new JList<>(projects);
+    public ProjectsScene(MainProgram app) {
+        this.app = app;
+        Jall_projects = new JList<>(app.projects);
         CreateProjectsScene();
     }
 
     private void CreateProjectsScene() {
         new JPanel();
-        setLayout(new GridLayout(1, 1));
+        setLayout(new BorderLayout());
         addElements();
     }
 
     private void addElements() {
+        DefaultListModel<Project> all_projects = app.projects;
+        User logged_user = app.logged_user;
+        add(new Label("Zalogowano jako " + logged_user), BorderLayout.NORTH);
         Jall_projects.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
                 if (evt.getClickCount() == 2) { // jeżeli kilknięto 2 razy...
@@ -31,6 +34,6 @@ public class ProjectsScene extends JPanel {
                 }
             }
         });
-        add(Jall_projects);
+        add(Jall_projects, BorderLayout.CENTER);
     }
 }

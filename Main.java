@@ -10,9 +10,11 @@ public class Main {
         User assignee2 = new User("Kasia", "kasia@mail.com", "haslo2");
         User assignee3 = new User("Asia", "asia@mail.com", "haslo3");
         User assignee4 = new User("Lusia", "lusia@mail.com", "haslo4");
+        User assignee5 = new User("test", "test", "");
         project.addParticipant(assignee1);
         project.addParticipant(assignee2);
         project.addParticipant(assignee3);
+        project.addParticipant(assignee5);
         empty_project.addParticipant(assignee3);
         empty_project.addParticipant(assignee4);
         // FIXME?: makabryczny jest ten konstruktor, ma 8 argumentów XDD
@@ -60,6 +62,7 @@ public class Main {
         u.addElement(assignee2);
         u.addElement(assignee3);
         u.addElement(assignee4);
+        u.addElement(assignee5);
 
         // Uruchomienie programu
         MainProgram program = new MainProgram(u, p);

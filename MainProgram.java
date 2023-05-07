@@ -5,6 +5,7 @@ public class MainProgram {
     Window window; // Okno programu
 
     //TODO: Dane programu
+    User logged_user; // aktualnie zalogowany użytkownik
     DefaultListModel<User> users; // lista wszystkich użytkowników
     DefaultListModel<Project> projects; // lista wszystkich projektów
 
@@ -13,6 +14,6 @@ public class MainProgram {
         this.users = users;
         this.projects = projects;
         // Utworzenie głównego okna programu
-        window = new Window(users, projects);
+        window = new Window(this);
     }
 }

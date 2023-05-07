@@ -10,12 +10,12 @@ public class Window extends JFrame{
 
 
     // Konstruktor okna
-    public Window(DefaultListModel<User> users, DefaultListModel<Project> projects) {
+    public Window(MainProgram app) {
         // Utworzenie okna
         CreateWindow();
 
         // Dodanie scen do okna i przekazanie im danych
-        AddScenes(users, projects);
+        AddScenes(app);
 
         // Wyświetlenie okna
         setVisible(true);
@@ -36,17 +36,22 @@ public class Window extends JFrame{
     }
 
     // Dodanie scen do okna
-    private void AddScenes(DefaultListModel<User> users, DefaultListModel<Project> projects) {
+    private void AddScenes(MainProgram app) {
         // TODO: Dodanie wszystkich scen
 
         // Utworzenie scen
-        login_scene = new LoginScene();
-        projects_scene = new ProjectsScene(projects);
+        login_scene = new LoginScene(app);
+        projects_scene = new ProjectsScene(app);
 
         // Dodanie scen do okna
         add(login_scene);
-        add(projects_scene);
     }
 
     // TODO: Wygodne wyświetlenie jednej ze scen i ukrycie reszty
+    public void setScene(JPanel scene) {
+        getContentPane().removeAll();
+        getContentPane().add(scene);
+        revalidate();
+        repaint();
+    }
 }
