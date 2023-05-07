@@ -64,4 +64,8 @@ public class Project implements Serializable {
         System.out.println(is_done);
         System.out.println();
     }
+
+    public String toString() {
+        return name;
+    }
 }

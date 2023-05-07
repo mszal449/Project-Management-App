@@ -3,14 +3,18 @@ import javax.swing.*;
 public class Main {
     public static void main(String[] args) {
         Project project = new Project("Projekt z po", 20, 6, 2023);
+        Project empty_project = new Project("Projekt pusty", 13, 5, 2024);
         DefaultListModel<User> assignees = new DefaultListModel<>();
 
         User assignee1 = new User("Basia", "basia@mail.com", "haslo1");
         User assignee2 = new User("Kasia", "kasia@mail.com", "haslo2");
         User assignee3 = new User("Asia", "asia@mail.com", "haslo3");
+        User assignee4 = new User("Lusia", "lusia@mail.com", "haslo4");
         project.addParticipant(assignee1);
         project.addParticipant(assignee2);
         project.addParticipant(assignee3);
+        empty_project.addParticipant(assignee3);
+        empty_project.addParticipant(assignee4);
         // FIXME?: makabryczny jest ten konstruktor, ma 8 argumentów XDD
         Planned task1 = new Planned("task1", assignees,
                 1, 5, 2024, 20, 5, 2023);
@@ -48,8 +52,17 @@ public class Main {
         task3.makeProgress();
         project.getInfo();
 
+        DefaultListModel<Project> p = new DefaultListModel<>();
+        p.addElement(project);
+        p.addElement(empty_project);
+        DefaultListModel<User> u = new DefaultListModel<>();
+        u.addElement(assignee1);
+        u.addElement(assignee2);
+        u.addElement(assignee3);
+        u.addElement(assignee4);
+
         // Uruchomienie programu
-        MainProgram program = new MainProgram();
+        MainProgram program = new MainProgram(u, p);
 
     }
 }
