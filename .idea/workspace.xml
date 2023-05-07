@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6cc3313-cad9-4cc3-8b3f-4e1b13531a9b" name="Changes" comment="basic methods and tests added">
+    <list default="true" id="a6cc3313-cad9-4cc3-8b3f-4e1b13531a9b" name="Changes" comment="database added and works I guess">
+      <change beforePath="$PROJECT_DIR$/DatabaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/DatabaseManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -74,7 +75,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683235328820</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="database added and works I guess">
+      <created>1683463383057</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1683463383057</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -84,6 +92,7 @@
     <MESSAGE value="first draft of project structure" />
     <MESSAGE value="basic methods and tests added" />
     <MESSAGE value="projectlist added" />
-    <option name="LAST_COMMIT_MESSAGE" value="projectlist added" />
+    <MESSAGE value="database added and works I guess" />
+    <option name="LAST_COMMIT_MESSAGE" value="database added and works I guess" />
   </component>
 </project>

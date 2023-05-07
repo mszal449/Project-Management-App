@@ -19,5 +19,14 @@ public class DatabaseManager {
         }
     }
 
+    public void addUser(User user) throws SQLException {
+        String sql = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, user.name);
+        statement.setString(2, user.login_data.email);
+        statement.setString(3, user.login_data.password);
+        statement.executeUpdate();
+    }
+
     // Other methods for executing SQL queries and updates
 }

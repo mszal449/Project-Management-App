@@ -2,11 +2,16 @@ import javax.swing.*;
 import java.sql.SQLException;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         DatabaseManager dbManager = new DatabaseManager();
         try {
             dbManager.connectToDatabase();
             // Do something with the database
+//            User assignee1 = new User("Basia", "basia@mail.com", "haslo1");
+//            User assignee2 = new User("Kasia", "kasia@mail.com", "haslo2");
+//            User assignee3 = new User("Asia", "asia@mail.com", "haslo3");
+//            dbManager.addUser(assignee2);
+//            dbManager.addUser(assignee3);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -16,6 +21,9 @@ public class Main {
                 e.printStackTrace();
             }
         }
+
+
+
 //        Project project = new Project("Projekt z po", 20, 6, 2023);
 //        DefaultListModel<User> assignees = new DefaultListModel<>();
 //
