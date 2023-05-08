@@ -11,21 +11,22 @@ import java.util.Objects;
 
 
 // Scena logowania
-public class LoginScene extends JPanel {
-    JTextField login_text;          // Pole tekstowe na login
+public class SignupScene extends JPanel {
+    JTextField name_text;           // Pole tekstowe na nazwę
+    JTextField email_text;          // Pole tekstowe na email
     JPasswordField password_text;   // Pole tekstowe na hasło
-    JButton login_button;           // Przycisk logowania się
-    JButton signup_button;          // Przycisk przejścia na stronę rejestracji
+    JButton signup_button;          // Przycisk rejestrowania się
+    JButton back_to_login_button;   // Przycisk powrotu do ekranu logowania
 
     // Konstruktor sceny
-    public LoginScene() {
+    public SignupScene() {
         CreateLoginScene();
     }
 
     // Utworzenie sceny
     private void CreateLoginScene() {
         new JPanel();
-        setLayout(new GridLayout(4, 1));
+        setLayout(new GridLayout(5, 1));
         addElements();
     }
 
@@ -33,35 +34,38 @@ public class LoginScene extends JPanel {
     private void addElements() {
 
         // Utworzenie elementów sceny
-        login_text = new JTextField(40);
+        name_text = new JTextField(40);
+        email_text = new JTextField(40);
         password_text = new JPasswordField(40);
-        login_button = new JButton("Zaloguj się");
         signup_button = new JButton("Zarejestruj się");
+        back_to_login_button = new JButton("Wróć do logowania");
 
         // Dodanie elementów do sceny
-        add(login_text);
+        add(name_text);
+        add(email_text);
         add(password_text);
-        add(login_button);
         add(signup_button);
+        add(back_to_login_button);
 
-        // Action Listener przycisku
-        login_button.addActionListener(new ActionListener() {
+        // Action Listener przycisku rejestracji
+        signup_button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String login = login_text.getText();
+                String name = name_text.getText();
+                String email = email_text.getText();
                 String password = new String(password_text.getPassword());
-                if (User.logIn(login, password)) {
-                    // TODO: zapewne lepsze wyświetlanie scen z tym hide and show
+                if (User.signUp(name, email, password)) {
                     ProjectsScene projects_scene = new ProjectsScene();
                     MainProgram.setWindow(projects_scene);
                 }
             }
         });
 
-        signup_button.addActionListener(new ActionListener() {
+        // Action Listener przycisku powrotu do ekranu logowania
+        back_to_login_button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SignupScene scene = new SignupScene();
+                LoginScene scene = new LoginScene();
                 MainProgram.setWindow(scene);
             }
         });
