@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6cc3313-cad9-4cc3-8b3f-4e1b13531a9b" name="Changes" comment="dodano logowanie">
+    <list default="true" id="a6cc3313-cad9-4cc3-8b3f-4e1b13531a9b" name="Changes" comment="fix: dodanie globalnej instancji MainProgram">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LoginScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/LoginScene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainProgram.java" beforeDir="false" afterPath="$PROJECT_DIR$/MainProgram.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectsScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectsScene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/Window.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/User.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +93,9 @@
       <workItem from="1683223327735" duration="5505000" />
       <workItem from="1683313440726" duration="3371000" />
       <workItem from="1683441500488" duration="11425000" />
-      <workItem from="1683526982319" duration="3117000" />
+      <workItem from="1683526982319" duration="3500000" />
+      <workItem from="1683549093608" duration="958000" />
+      <workItem from="1683566635350" duration="415000" />
     </task>
     <task id="LOCAL-00001" summary="first draft of project structure">
       <created>1683215433286</created>
@@ -119,7 +118,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683487994153</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="fix: dodanie globalnej instancji MainProgram">
+      <created>1683530411635</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1683530411635</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -140,6 +146,7 @@
     <MESSAGE value="first draft of project structure" />
     <MESSAGE value="basic methods and tests added" />
     <MESSAGE value="dodano logowanie" />
-    <option name="LAST_COMMIT_MESSAGE" value="dodano logowanie" />
+    <MESSAGE value="fix: dodanie globalnej instancji MainProgram" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: dodanie globalnej instancji MainProgram" />
   </component>
 </project>

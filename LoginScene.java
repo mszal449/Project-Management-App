@@ -12,7 +12,6 @@ import java.util.Objects;
 
 // Scena logowania
 public class LoginScene extends JPanel {
-    DefaultListModel<User> users_list;
     JTextField login_text;          // Pole tekstowe na login
     JPasswordField password_text;   // Pole tekstowe na hasło
     JButton login_button;           // Przycisk logowania się
@@ -52,7 +51,7 @@ public class LoginScene extends JPanel {
                 if (user == null) {
                     System.out.println("Nie istnieje taki użytkownik");
                 }
-                else if (Objects.equals(user.login_data.password, password)) {
+                else if (Objects.equals(user.password, password)) {
                     System.out.println("Logowanie zakończyło się sukcesem :)");
                     MainProgram.setLoggedUser(user);
                     ProjectsScene projects_scene = new ProjectsScene();
@@ -71,7 +70,7 @@ public class LoginScene extends JPanel {
         DefaultListModel<User> users = MainProgram.getUsers();
         for (int i = 0; i < users.getSize(); i++) {
             User user = users.getElementAt(i);
-            if (Objects.equals(user.login_data.email, email)) {
+            if (Objects.equals(user.email, email)) {
                 return user;
             }
         }
