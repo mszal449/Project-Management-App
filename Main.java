@@ -17,7 +17,6 @@ public class Main {
         project.addParticipant(assignee5);
         empty_project.addParticipant(assignee3);
         empty_project.addParticipant(assignee4);
-        // FIXME?: makabryczny jest ten konstruktor, ma 8 argumentów XDD
         Planned task1 = new Planned("task1", assignees,
                 1, 5, 2024, 20, 5, 2023);
         Planned task2 = new Planned("task2", assignees,
@@ -65,7 +64,8 @@ public class Main {
         u.addElement(assignee5);
 
         // Uruchomienie programu
-        MainProgram program = new MainProgram(u, p);
+        MainProgram program = MainProgram.getInstance(u, p);
+        System.out.println(program);
 
     }
 }

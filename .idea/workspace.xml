@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6cc3313-cad9-4cc3-8b3f-4e1b13531a9b" name="Changes" comment="to, co mi sie udalo z bazą danych (prosze nie prosze nie)">
+    <list default="true" id="a6cc3313-cad9-4cc3-8b3f-4e1b13531a9b" name="Changes" comment="dodano logowanie">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LoginScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/LoginScene.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main.java" afterDir="false" />
@@ -66,6 +66,11 @@
     ]
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\lilka\IdeaProjects\Project-Management-App\lib" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
       <classpathModifications>
@@ -91,6 +96,7 @@
       <workItem from="1683223327735" duration="5505000" />
       <workItem from="1683313440726" duration="3371000" />
       <workItem from="1683441500488" duration="11425000" />
+      <workItem from="1683526982319" duration="3117000" />
     </task>
     <task id="LOCAL-00001" summary="first draft of project structure">
       <created>1683215433286</created>
@@ -106,7 +112,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683235328820</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="dodano logowanie">
+      <created>1683487994153</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1683487994153</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -126,6 +139,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first draft of project structure" />
     <MESSAGE value="basic methods and tests added" />
-    <option name="LAST_COMMIT_MESSAGE" value="basic methods and tests added" />
+    <MESSAGE value="dodano logowanie" />
+    <option name="LAST_COMMIT_MESSAGE" value="dodano logowanie" />
   </component>
 </project>

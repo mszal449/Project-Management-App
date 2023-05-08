@@ -4,12 +4,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class ProjectsScene extends JPanel {
-    MainProgram app;
     JList<Project> Jall_projects;
 
-    public ProjectsScene(MainProgram app) {
-        this.app = app;
-        Jall_projects = new JList<>(app.projects);
+    public ProjectsScene() {
+        Jall_projects = new JList<>(MainProgram.getProjects());
         CreateProjectsScene();
     }
 
@@ -20,8 +18,8 @@ public class ProjectsScene extends JPanel {
     }
 
     private void addElements() {
-        DefaultListModel<Project> all_projects = app.projects;
-        User logged_user = app.logged_user;
+        DefaultListModel<Project> all_projects = MainProgram.getProjects();
+        User logged_user = MainProgram.getLoggedUser();
         add(new Label("Zalogowano jako " + logged_user), BorderLayout.NORTH);
         Jall_projects.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {

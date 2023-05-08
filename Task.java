@@ -13,7 +13,6 @@ public abstract class Task implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    // FIXME: być może do wywalenia
     // używany w "zwykłych" konstruktorach Done i Current
     public Task(String name, DefaultListModel<User> assignees, int day, int month, int year) {
         this.name = name;

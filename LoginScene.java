@@ -6,23 +6,19 @@ import java.util.Arrays;
 import java.util.Objects;
 
 // TODO:
-//  Action listener przycisku
 //  Przycisk rejestracji
 //  Layout
-//  Procedura Logowania (w kontrolerze)
 
 
 // Scena logowania
 public class LoginScene extends JPanel {
-    MainProgram app;
     DefaultListModel<User> users_list;
     JTextField login_text;          // Pole tekstowe na login
     JPasswordField password_text;   // Pole tekstowe na hasło
     JButton login_button;           // Przycisk logowania się
 
     // Konstruktor sceny
-    public LoginScene(MainProgram app) {
-        this.app = app;
+    public LoginScene() {
         CreateLoginScene();
     }
 
@@ -58,9 +54,9 @@ public class LoginScene extends JPanel {
                 }
                 else if (Objects.equals(user.login_data.password, password)) {
                     System.out.println("Logowanie zakończyło się sukcesem :)");
-                    app.logged_user = user;
-                    ProjectsScene projects = new ProjectsScene(app);
-                    app.window.setScene(projects);
+                    MainProgram.setLoggedUser(user);
+                    ProjectsScene projects_scene = new ProjectsScene();
+                    MainProgram.setWindow(projects_scene);
                 }
                 else {
                     System.out.println("Niepoprawne hasło - spróbuj jeszcze raz");
@@ -72,8 +68,9 @@ public class LoginScene extends JPanel {
 
     // matoda pomocicza - znajdowanie użytkowanika o danej nazwie na liscie użytkowników
     private User findUser(String email) {
-        for (int i = 0; i < app.users.getSize(); i++) {
-            User user = app.users.getElementAt(i);
+        DefaultListModel<User> users = MainProgram.getUsers();
+        for (int i = 0; i < users.getSize(); i++) {
+            User user = users.getElementAt(i);
             if (Objects.equals(user.login_data.email, email)) {
                 return user;
             }
