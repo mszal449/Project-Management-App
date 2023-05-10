@@ -49,6 +49,7 @@ public class Main {
         task1.start();
 //        task1.start();
         project.getInfo();
+        project.setPrivileges(assignee1, true);
 
         task3.makeProgress();
         task3.makeProgress();

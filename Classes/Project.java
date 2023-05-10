@@ -1,19 +1,19 @@
-package Classes;// klasa reprezentująca "cały" projekt z jego wszystkimi zadaniami i uczestnikami
-
-import Classes.Task;
-import Classes.User;
+package Classes;
 
 import javax.swing.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 
+// klasa reprezentująca "cały" projekt z jego wszystkimi zadaniami i uczestnikami
 public class Project implements Serializable {
     String name;                            // nazwa projektu
     LocalDate deadline;                     // termin ukończenia projektu
     Boolean is_done;                        // czy projekt jest ukończony?
     DefaultListModel<Task> tasks;           // lista zadań
-    DefaultListModel<User> participants;    // lista uczestników projektu
+    Map<User, Boolean> participants; // lista uczestników projektu wraz z uprawnieniami
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -21,19 +21,29 @@ public class Project implements Serializable {
     public Project(String name, int day, int month, int year) {
         this.name = name;
         tasks = new DefaultListModel<>();
-        participants = new DefaultListModel<>();
+        participants = new HashMap<>();
         is_done = false;
         deadline = LocalDate.of(year, month, day);
     }
 
     // dodawanie uczestnika do projektu
     public void addParticipant(User user) {
-        participants.addElement(user);
+        participants.putIfAbsent(user, false);
     }
 
     // usuwanie uczestnika z projektu
-    void deleteParticipant(User user) {
-        participants.removeElement(user);
+    public void deleteParticipant(User user) {
+        participants.remove(user);
+    }
+
+    // zmiana uprawnień użytkownika
+    public void setPrivileges(User user, Boolean privileges) {
+        participants.put(user, privileges);
+    }
+
+    // odczytanie uprawnień użytkownika
+    public void getPrivileges(User user) {
+        participants.get(user);
     }
 
     // dodawanie zadania do projektu
@@ -80,7 +90,7 @@ public class Project implements Serializable {
     }
 
     // dostęp do listy użytkowników w projekcie
-    public DefaultListModel<User> getParticipants() {
+    public Map<User, Boolean> getParticipants() {
         return participants;
     }
 }

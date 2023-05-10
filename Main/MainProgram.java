@@ -82,7 +82,7 @@ public class MainProgram {
 
         for (int i = 0; i < all_projects.size(); i++) {
             Project current = all_projects.getElementAt(i);
-            if (current.getParticipants().contains(user)) {
+            if (current.getParticipants().containsKey(user)) {
                 users_projects.addElement(current);
             }
         }
