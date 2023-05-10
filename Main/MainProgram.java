@@ -1,10 +1,15 @@
-import javax.management.DescriptorAccess;
+package Main;
+
+import Classes.Project;
+import Classes.Task;
+import Classes.User;
+
 import javax.swing.*;
 
 // Główna klasa programu
 // zastosowany wzorzec projektowy: https://pl.wikipedia.org/wiki/Singleton_(wzorzec_projektowy)
 public class MainProgram {
-    private static MainProgram app_instance; // (jedyna) instancja klasy MainProgram
+    private static MainProgram app_instance; // (jedyna) instancja klasy Main.MainProgram
     Window window; // Okno programu
     User logged_user; // aktualnie zalogowany użytkownik
     DefaultListModel<User> users; // lista wszystkich użytkowników

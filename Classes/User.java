@@ -1,14 +1,16 @@
-// klasa reprezentująca użytkownika aplikacji
+package Classes;
+import Main.MainProgram;
 
 import javax.swing.*;
 import java.util.Objects;
 
+// klasa reprezentująca użytkownika aplikacji
 public class User {
     String name; // nazwa użytkownika
     String email; // email
     String password; // hasło
 
-    User(String name, String email, String password) {
+    public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -26,7 +28,6 @@ public class User {
             return false;
         }
         else if (Objects.equals(user.password, password)) {
-            System.out.println("Logowanie zakończyło się sukcesem :)");
             MainProgram.setLoggedUser(user);
             return true;
         }
@@ -44,9 +45,7 @@ public class User {
         else {
             User user = new User(name, email, password);
             MainProgram.addUser(user);
-            System.out.println("Rejestracja powiodła się");
             MainProgram.setLoggedUser(user);
-            System.out.println("Zalogowano");
             return true;
         }
     }

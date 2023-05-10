@@ -1,10 +1,12 @@
-// klasa reprezentująca zadanie w trakcie wykonywania
+package Classes;// klasa reprezentująca zadanie w trakcie wykonywania
+
+import Classes.User;
 
 import javax.swing.*;
 import java.time.LocalDate;
 import java.util.Arrays;
 
-public class Current extends Task{
+public class Current extends Task {
     // poziomy postępu zadania
     // są ułożone kolejno, od najbardziej
     static String[] progress_level = {

@@ -1,9 +1,12 @@
-// klasa reprezentująca wykonane zadanie
+package Classes;// klasa reprezentująca wykonane zadanie
+
+import Classes.Current;
+import Classes.User;
 
 import javax.swing.*;
 import java.time.LocalDate;
 
-public class Done extends Task{
+public class Done extends Task {
     LocalDate end_date; // data zakończenia
 
     // konstruktor tworzący ukończone zadanie

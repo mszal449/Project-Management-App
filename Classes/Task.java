@@ -1,4 +1,4 @@
-// klasa reprezentująca zadanie do wykonania w ramach projektu
+package Classes;// klasa reprezentująca zadanie do wykonania w ramach projektu
 
 import javax.swing.*;
 import java.io.*;
@@ -13,7 +13,7 @@ public abstract class  Task implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    // używany w "zwykłych" konstruktorach Done i Current
+    // używany w "zwykłych" konstruktorach Classes.Done i Classes.Current
     public Task(String name, DefaultListModel<User> assignees, int day, int month, int year) {
         this.name = name;
         this.assignees = assignees;

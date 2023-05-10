@@ -1,9 +1,11 @@
+package Scenes;
+import Classes.User;
+import Main.MainProgram;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
-import java.util.Objects;
 
 // TODO:
 //  Przycisk rejestracji

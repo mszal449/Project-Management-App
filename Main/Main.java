@@ -1,3 +1,7 @@
+package Main;
+
+import Classes.*;
+
 import javax.swing.*;
 
 public class Main {
@@ -38,10 +42,10 @@ public class Main {
         System.out.println();
 
         // FIXME: generalnie to jest risky, bo jeśli jeszcze raz to wywołamy (jak w zakomentowanej linijce)
-        //  to doda nam się ten Current task wielokrotnie.
-        //  na poziomie aplikacji ofc zablokujemy tę opcję, bo ten Task będzie znikał z listy
+        //  to doda nam się ten Classes.Current task wielokrotnie.
+        //  na poziomie aplikacji ofc zablokujemy tę opcję, bo ten Classes.Task będzie znikał z listy
         //  więc jak masz pomysł na poprawkę tego, to przyjmę, a jak nie, to póki co zostawiamy
-        //  (ten problem jest też dla makeProgress() w Current)
+        //  (ten problem jest też dla makeProgress() w Classes.Current)
         task1.start();
 //        task1.start();
         project.getInfo();

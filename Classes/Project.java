@@ -1,4 +1,7 @@
-// klasa reprezentująca "cały" projekt z jego wszystkimi zadaniami i uczestnikami
+package Classes;// klasa reprezentująca "cały" projekt z jego wszystkimi zadaniami i uczestnikami
+
+import Classes.Task;
+import Classes.User;
 
 import javax.swing.*;
 import java.io.Serial;
@@ -15,7 +18,7 @@ public class Project implements Serializable {
     private static final long serialVersionUID = 1L;
 
     // konstruktor
-    Project(String name, int day, int month, int year) {
+    public Project(String name, int day, int month, int year) {
         this.name = name;
         tasks = new DefaultListModel<>();
         participants = new DefaultListModel<>();
@@ -24,7 +27,7 @@ public class Project implements Serializable {
     }
 
     // dodawanie uczestnika do projektu
-    void addParticipant(User user) {
+    public void addParticipant(User user) {
         participants.addElement(user);
     }
 
@@ -34,7 +37,7 @@ public class Project implements Serializable {
     }
 
     // dodawanie zadania do projektu
-    void addTask(Task task) {
+    public void addTask(Task task) {
         task.project = this;
         if (!tasks.contains(task)) {
             tasks.addElement(task);

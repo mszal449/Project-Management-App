@@ -1,3 +1,9 @@
+package Scenes;
+import Classes.Project;
+import Classes.Task;
+import Classes.User;
+import Main.MainProgram;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -179,7 +185,6 @@ public class ProjectsScene extends JPanel {
                     int index = Jusers_projects.locationToIndex(evt.getPoint());
                     // wybranie wpisu o danym indeksie
                     Project selectedProject = all_projects.get(index);
-                    System.out.println("Wybrano projekt " + selectedProject);
                     // TODO: Otwieranie projektu po 2 kliknięciach
                 }
                 // TODO: Wybór projektu po 1 kliknięciu
