@@ -38,6 +38,10 @@ public class LoginScene extends JPanel {
         login_button = new JButton("Zaloguj się");
         signup_button = new JButton("Zarejestruj się");
 
+        // FIXME: Usunięcie automatycznego wprowadzania danych
+        login_text.setText("basia@mail.com");
+        password_text.setText("haslo1");
+
         // Dodanie elementów do sceny
         add(login_text);
         add(password_text);

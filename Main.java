@@ -66,6 +66,5 @@ public class Main {
         // Uruchomienie programu
         MainProgram program = MainProgram.getInstance(u, p);
         System.out.println(program);
-
     }
 }

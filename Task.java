@@ -4,12 +4,12 @@ import javax.swing.*;
 import java.io.*;
 import java.time.LocalDate;
 
-public abstract class Task implements Serializable {
-    Project project; // projekt, do którego należy zadanie
-    String name; // nazwa zadania
-    String description; // opis zadania
-    DefaultListModel<User> assignees; // osoby odpowiedzialne
-    LocalDate deadline; // planowana data ukończenia
+public abstract class  Task implements Serializable {
+    Project project;                        // projekt, do którego należy zadanie
+    String name;                            // nazwa zadania
+    String description;                     // opis zadania
+    DefaultListModel<User> assignees;       // osoby odpowiedzialne
+    LocalDate deadline;                     // planowana data ukończenia
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -66,4 +66,10 @@ public abstract class Task implements Serializable {
         System.out.println(this);
         System.out.println(assignees);
     }
+
+    // dostęp do listy osób przypisanych do zadania
+    public DefaultListModel<User> getAssignees() {
+        return assignees;
+    }
+
 }

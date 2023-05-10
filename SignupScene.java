@@ -20,11 +20,11 @@ public class SignupScene extends JPanel {
 
     // Konstruktor sceny
     public SignupScene() {
-        CreateLoginScene();
+        CreateSignupScene();
     }
 
     // Utworzenie sceny
-    private void CreateLoginScene() {
+    private void CreateSignupScene() {
         new JPanel();
         setLayout(new GridLayout(5, 1));
         addElements();

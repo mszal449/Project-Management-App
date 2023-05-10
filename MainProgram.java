@@ -1,3 +1,4 @@
+import javax.management.DescriptorAccess;
 import javax.swing.*;
 
 // Główna klasa programu
@@ -44,13 +45,13 @@ public class MainProgram {
         app_instance.users.removeElement(user);
     }
 
-    // dostęp do listy projektów
-    public static DefaultListModel<Project> getProjects() {
-        return app_instance.projects;
-    }
+
+    // dodanie projektu
     public static void addProject(Project project) {
         app_instance.projects.addElement(project);
     }
+
+    // usunięcie projektu
     public static void deleteProject(Project project) {
         app_instance.projects.removeElement(project);
     }
@@ -59,7 +60,61 @@ public class MainProgram {
     public static User getLoggedUser() {
         return app_instance.logged_user;
     }
+
     public static void setLoggedUser(User user) {
         app_instance.logged_user = user;
     }
+
+    // dostęp do listy projektów
+    public static DefaultListModel<Project> getProjects() {
+        return app_instance.projects;
+    }
+
+    // dostęp do listy projektów użytkownika
+    public static DefaultListModel<Project> getProjects(User user) {
+        DefaultListModel<Project> users_projects = new DefaultListModel<>();
+        DefaultListModel<Project> all_projects = getProjects();
+
+        for (int i = 0; i < all_projects.size(); i++) {
+            Project current = all_projects.getElementAt(i);
+            if (current.getParticipants().contains(user)) {
+                users_projects.addElement(current);
+            }
+        }
+
+        return users_projects;
+    }
+
+    // dostęp do listy zadań wszystkich projektów
+    public static DefaultListModel<Task> getTasks() {
+        DefaultListModel<Task> tasks = new DefaultListModel<>();
+        DefaultListModel<Project> projects = getProjects();
+
+        for (int i = 0; i < projects.size(); i++) {
+            DefaultListModel<Task> temp_tasks = projects.getElementAt(i).getTasks();
+            for (int j = 0; j < temp_tasks.size(); j++) {
+                tasks.addElement(temp_tasks.getElementAt(j));
+            }
+        }
+
+        return tasks;
+    }
+
+    // dostęp do listy zadań użytkownika
+    public static DefaultListModel<Task> getTasks(User user) {
+        // Lista znalezionych zadań użytkownika
+        DefaultListModel<Task> users_tasks = new DefaultListModel<>();
+        DefaultListModel<Task> all_tasks = getTasks();
+
+        for (int i = 0; i < all_tasks.size(); i++) {
+            DefaultListModel<User> task_assignees = all_tasks.getElementAt(i).getAssignees();
+            if (task_assignees.contains(user)) {
+                users_tasks.addElement(all_tasks.getElementAt(i));
+            }
+        }
+
+        return users_tasks;
+    }
+
+
 }

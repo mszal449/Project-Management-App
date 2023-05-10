@@ -6,11 +6,11 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 public class Project implements Serializable {
-    String name; // nazwa projektu
-    LocalDate deadline; // termin ukończenia projektu
-    Boolean is_done; // czy projekt jest ukończony?
-    DefaultListModel<Task> tasks; // lista zadań
-    DefaultListModel<User> participants; // lista uczestników projektu
+    String name;                            // nazwa projektu
+    LocalDate deadline;                     // termin ukończenia projektu
+    Boolean is_done;                        // czy projekt jest ukończony?
+    DefaultListModel<Task> tasks;           // lista zadań
+    DefaultListModel<User> participants;    // lista uczestników projektu
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -56,6 +56,7 @@ public class Project implements Serializable {
         is_done = true;
     }
 
+    // metoda pomocnicza napis z informacjami o projekcie
     public void getInfo() {
         System.out.println(name);
         System.out.println(deadline);
@@ -65,7 +66,18 @@ public class Project implements Serializable {
         System.out.println();
     }
 
+    // metoda pomocnicza zwracająca nazwę projektu
     public String toString() {
         return name;
+    }
+
+    // dostęp do listy zadań projektu
+    public DefaultListModel<Task> getTasks() {
+        return tasks;
+    }
+
+    // dostęp do listy użytkowników w projekcie
+    public DefaultListModel<User> getParticipants() {
+        return participants;
     }
 }
