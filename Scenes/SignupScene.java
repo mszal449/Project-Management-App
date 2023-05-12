@@ -21,6 +21,9 @@ public class SignupScene extends JPanel {
     JButton signup_button;          // Przycisk rejestrowania się
     JButton back_to_login_button;   // Przycisk powrotu do ekranu logowania
 
+
+    // ---------------    SCENA    ---------------
+
     // Konstruktor sceny
     public SignupScene() {
         CreateSignupScene();
@@ -33,7 +36,10 @@ public class SignupScene extends JPanel {
         addElements();
     }
 
-    // Dodanie elementów logowania do sceny
+
+    // ---------------    ELEMENTY SCENY    ---------------
+
+    // Elementy systemu logowania
     private void addElements() {
 
         // Utworzenie elementów sceny
@@ -58,8 +64,7 @@ public class SignupScene extends JPanel {
                 String email = email_text.getText();
                 String password = new String(password_text.getPassword());
                 if (User.signUp(name, email, password)) {
-                    ProjectsScene projects_scene = new ProjectsScene();
-                    MainProgram.setWindow(projects_scene);
+                    MainProgram.setWindow("projects_scene");
                 }
             }
         });
@@ -68,20 +73,10 @@ public class SignupScene extends JPanel {
         back_to_login_button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                LoginScene scene = new LoginScene();
-                MainProgram.setWindow(scene);
+                MainProgram.setWindow("login_scene");
             }
         });
 
     }
 
-    // Ukrycie sceny
-    public void hideScene() {
-        setVisible(false);
-    }
-
-    // Wyświetlenie sceny
-    public void showScene() {
-        setVisible(true);
-    }
 }

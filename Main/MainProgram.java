@@ -9,11 +9,12 @@ import javax.swing.*;
 // Główna klasa programu
 // zastosowany wzorzec projektowy: https://pl.wikipedia.org/wiki/Singleton_(wzorzec_projektowy)
 public class MainProgram {
-    private static MainProgram app_instance; // (jedyna) instancja klasy Main.MainProgram
-    Window window; // Okno programu
-    User logged_user; // aktualnie zalogowany użytkownik
-    DefaultListModel<User> users; // lista wszystkich użytkowników
-    DefaultListModel<Project> projects; // lista wszystkich projektów
+    private static MainProgram app_instance;    // (jedyna) instancja klasy Main.MainProgram
+    Window window;                              // Okno programu
+    User logged_user;                           // aktualnie zalogowany użytkownik
+    Project chosen_project;                     // Aktualny projekt
+    DefaultListModel<User> users;               // lista wszystkich użytkowników
+    DefaultListModel<Project> projects;         // lista wszystkich projektów
 
     private MainProgram(DefaultListModel<User> users, DefaultListModel<Project> projects) {
         // Wczytanie danych
@@ -35,8 +36,8 @@ public class MainProgram {
     public static Window getWindow() {
         return app_instance.window;
     }
-    public static void setWindow(JPanel scene) {
-        app_instance.window.setScene(scene);
+    public static void setWindow(String scene_name) {
+        app_instance.window.setScene(scene_name);
     }
 
     // dostęp do listy użytkowników aplikacji
@@ -69,6 +70,15 @@ public class MainProgram {
     public static void setLoggedUser(User user) {
         app_instance.logged_user = user;
     }
+
+    public static Project getChosenProject() {
+        return app_instance.chosen_project;
+    }
+
+    public static void setChosenProject(Project project) {
+        app_instance.chosen_project = project;
+    }
+
 
     // dostęp do listy projektów
     public static DefaultListModel<Project> getProjects() {

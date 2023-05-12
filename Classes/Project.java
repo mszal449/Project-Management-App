@@ -6,9 +6,10 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicLongArray;
 
 // klasa reprezentująca "cały" projekt z jego wszystkimi zadaniami i uczestnikami
-public class Project implements Serializable {
+public class Project implements Serializable, Cloneable {
     String name;                            // nazwa projektu
     LocalDate deadline;                     // termin ukończenia projektu
     Boolean is_done;                        // czy projekt jest ukończony?
@@ -92,5 +93,10 @@ public class Project implements Serializable {
     // dostęp do listy użytkowników w projekcie
     public Map<User, Boolean> getParticipants() {
         return participants;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

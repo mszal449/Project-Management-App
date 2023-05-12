@@ -3,14 +3,10 @@ package Main;
 import Scenes.*;
 
 import javax.swing.*;
+import java.util.Objects;
 
 public class Window extends JFrame{
-    private LoginScene login_scene;         // Scena logowania
-    private ProjectsScene projects_scene;   // Lista wszystkich projektów
-    private JPanel account_scene;           // Listy projektów i zadań konta
-    private JPanel project_overview_scene;  // Podgląd projektu
-    private JPanel project_edit_scene;      // Scena edytowania projektu? (zmiana opisu, dedline'u, itp.)
-    private JPanel task_editor;             // Scena dodawania i edytowania zadań
+
 
 
     // Konstruktor okna
@@ -19,7 +15,7 @@ public class Window extends JFrame{
         CreateWindow();
 
         // Dodanie scen do okna i przekazanie im danych
-        AddScenes();
+        setScene("login_scene");
 
         // Wyświetlenie okna
         setVisible(true);
@@ -32,25 +28,47 @@ public class Window extends JFrame{
 
         // Konfiguracja parametrów okna
         setTitle("Projekt");
-        setSize(800, 800);
+        setSize(1100, 800);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-        // TODO: Layout
-    }
-
-    // Dodanie scen do okna
-    private void AddScenes() {
-        // Utworzenie sceny początkowej
-        login_scene = new LoginScene();
-        // Dodanie sceny do okna
-        add(login_scene);
     }
 
     // Wyświetlenie jednej ze scen i ukrycie reszty
-    public void setScene(JPanel scene) {
-        getContentPane().removeAll();
-        getContentPane().add(scene);
+    public void setScene(String scene_name) {
+        // Ukrycie scen
+
+
+        // Pokazanie wybranej sceny
+        if(Objects.equals(scene_name, "login_scene")) {
+            getContentPane().removeAll();
+            JPanel login_scene = new LoginScene();
+            add(login_scene);
+        }
+        else if (Objects.equals(scene_name, "signup_scene")) {
+            getContentPane().removeAll();
+            JPanel signup_scene = new SignupScene();
+            add(signup_scene);
+        }
+        else if (Objects.equals(scene_name, "projects_scene")) {
+            getContentPane().removeAll();
+            JPanel projects_scene = new ProjectsScene();
+            add(projects_scene);
+        }
+        else if (Objects.equals(scene_name, "project_preview_scene")) {
+            try {
+                getContentPane().removeAll();
+                JPanel project_preview = new ProjectPreviewScene(MainProgram.getChosenProject());
+                add(project_preview);
+            } catch (CloneNotSupportedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        else {
+            System.out.println("Nie znaleziono okna");
+        }
+
+        // Odświeżenie okna
+        System.out.println("Scena wczytana");
         revalidate();
         repaint();
     }

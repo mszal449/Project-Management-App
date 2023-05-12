@@ -1,6 +1,7 @@
 package Scenes;
 import Classes.User;
 import Main.MainProgram;
+import Main.Window;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,14 +11,13 @@ import java.awt.event.ActionListener;
 // TODO:
 //  Przycisk rejestracji
 //  Layout
+//
 
 
 // Scena logowania
 public class LoginScene extends JPanel {
-    JTextField login_text;          // Pole tekstowe na login
-    JPasswordField password_text;   // Pole tekstowe na hasło
-    JButton login_button;           // Przycisk logowania się
-    JButton signup_button;          // Przycisk przejścia na stronę rejestracji
+
+    // ---------------    SCENA    ---------------
 
     // Konstruktor sceny
     public LoginScene() {
@@ -31,14 +31,16 @@ public class LoginScene extends JPanel {
         addElements();
     }
 
+    // ---------------    ELEMENTY SCENY    ---------------
+
     // Dodanie elementów logowania do sceny
     private void addElements() {
 
         // Utworzenie elementów sceny
-        login_text = new JTextField(40);
-        password_text = new JPasswordField(40);
-        login_button = new JButton("Zaloguj się");
-        signup_button = new JButton("Zarejestruj się");
+        JTextField login_text = new JTextField(40);
+        JPasswordField password_text = new JPasswordField(40);
+        JButton login_button = new JButton("Zaloguj się");
+        JButton signup_button = new JButton("Zarejestruj się");
 
         // FIXME: Usunięcie automatycznego wprowadzania danych
         login_text.setText("basia@mail.com");
@@ -58,29 +60,16 @@ public class LoginScene extends JPanel {
                 String password = new String(password_text.getPassword());
                 if (User.logIn(login, password)) {
                     // TODO: zapewne lepsze wyświetlanie scen z tym hide and show
-                    ProjectsScene projects_scene = new ProjectsScene();
-                    MainProgram.setWindow(projects_scene);
-                }
+                    MainProgram.setWindow("projects_scene");                }
             }
         });
 
         signup_button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SignupScene scene = new SignupScene();
-                MainProgram.setWindow(scene);
+                MainProgram.setWindow("signup_scene");
             }
         });
 
-    }
-
-    // Ukrycie sceny
-    public void hideScene() {
-        setVisible(false);
-    }
-
-    // Wyświetlenie sceny
-    public void showScene() {
-        setVisible(true);
     }
 }
