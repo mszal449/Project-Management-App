@@ -1,5 +1,6 @@
 package Main;
 
+import Classes.Project;
 import Scenes.*;
 
 import javax.swing.*;
@@ -34,39 +35,32 @@ public class Window extends JFrame{
     }
 
     // Wyświetlenie jednej ze scen i ukrycie reszty
-    public void setScene(String scene_name) {
+    public void setScene(String scene_name, Object ... args) {
         // Ukrycie scen
-
-
+        getContentPane().removeAll();
+        JPanel scene;
         // Pokazanie wybranej sceny
         if(Objects.equals(scene_name, "login_scene")) {
-            getContentPane().removeAll();
-            JPanel login_scene = new LoginScene();
-            add(login_scene);
+            scene = new LoginScene();
         }
         else if (Objects.equals(scene_name, "signup_scene")) {
-            getContentPane().removeAll();
-            JPanel signup_scene = new SignupScene();
-            add(signup_scene);
+            scene = new SignupScene();
         }
         else if (Objects.equals(scene_name, "projects_scene")) {
-            getContentPane().removeAll();
-            JPanel projects_scene = new ProjectsScene();
-            add(projects_scene);
+            scene = new ProjectsScene();
         }
         else if (Objects.equals(scene_name, "project_preview_scene")) {
             try {
-                getContentPane().removeAll();
-                JPanel project_preview = new ProjectPreviewScene(MainProgram.getChosenProject());
-                add(project_preview);
+                scene = new ProjectPreviewScene((Project) args[0]);
             } catch (CloneNotSupportedException e) {
                 throw new RuntimeException(e);
             }
         }
         else {
             System.out.println("Nie znaleziono okna");
+            return;
         }
-
+        add(scene);
         // Odświeżenie okna
         System.out.println("Scena wczytana");
         revalidate();

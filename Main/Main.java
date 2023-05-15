@@ -1,6 +1,7 @@
 package Main;
 
 import Classes.*;
+import Scenes.TaskEditor;
 
 import javax.swing.*;
 
@@ -70,6 +71,5 @@ public class Main {
 
         // Uruchomienie programu
         MainProgram program = MainProgram.getInstance(u, p);
-        System.out.println(program);
     }
 }

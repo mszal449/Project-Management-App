@@ -15,6 +15,8 @@ import java.awt.event.MouseEvent;
 public class ProjectsScene extends JPanel {
     JList<Project> Jusers_projects;     // Lista wszystkich projektów
     JList<Task> Jusers_tasks;           // Lista wszystkich zadań
+    Project chosen_project;             // wybrany projekt
+    JButton open_project_button;        // przycisk otwarcia projektu
 
 
     // Wygląd okna
@@ -166,7 +168,8 @@ public class ProjectsScene extends JPanel {
         panel.setLayout(new GridLayout(1,2));
 
         // Utworzenie przycisków
-        JButton open_project_button = new JButton("Otwórz projekt");
+        open_project_button = new JButton("Otwórz projekt");
+        open_project_button.setEnabled(false);
         open_project_button.addActionListener(OpenProjectListener());
 
         JButton new_project_button = new JButton("Nowy projekt");
@@ -198,9 +201,12 @@ public class ProjectsScene extends JPanel {
                     // pobranie numeru indeksu
                     int index = Jusers_projects.locationToIndex(evt.getPoint());
                     // wybranie wpisu o danym indeksie
-                    Project selectedProject = all_projects.get(index);
-                    MainProgram.setChosenProject(selectedProject);
-                    MainProgram.getChosenProject().getInfo();
+                    chosen_project = all_projects.get(index);
+                    // ustawienie możliwości otwarcia projektu
+                    open_project_button.setEnabled(true);
+
+//                    MainProgram.setChosenProject(selectedProject);
+//                    MainProgram.getChosenProject().getInfo();
                 }
                 // TODO: Otwieranie projektu po 2 kliknięciach
 
@@ -213,14 +219,8 @@ public class ProjectsScene extends JPanel {
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-             if (MainProgram.getChosenProject() == null) {
-                    System.out.println("Nie wybrano projektu.");
-                }
-                else {
-                    MainProgram.setWindow("project_preview_scene");
-                }
+                MainProgram.setWindow("project_preview_scene", chosen_project);
             }
-
         };
     }
 

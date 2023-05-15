@@ -36,8 +36,8 @@ public class MainProgram {
     public static Window getWindow() {
         return app_instance.window;
     }
-    public static void setWindow(String scene_name) {
-        app_instance.window.setScene(scene_name);
+    public static void setWindow(String scene_name, Object ... args) {
+        app_instance.window.setScene(scene_name, args);
     }
 
     // dostęp do listy użytkowników aplikacji
