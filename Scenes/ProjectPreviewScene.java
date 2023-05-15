@@ -1,13 +1,14 @@
 package Scenes;
 import Classes.Project;
+import Classes.Task;
+import Main.MainProgram;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 public class ProjectPreviewScene extends JPanel {
-    private Project project;                // Skopiowanie oryginalnej isntancji projektu
+    private Project project;                // Skopiowanie oryginalnej instancji projektu
     private Project original_project;       // Oryginalna instancja projektu (potrzebne do zapisania zmian)
 
     private JList Jusers;                   // Lista użytkowników
@@ -88,6 +89,7 @@ public class ProjectPreviewScene extends JPanel {
         panel.add(project_name_label, BorderLayout.NORTH);
 
         panel.add(Jtasks, BorderLayout.CENTER);
+        Jtasks.addMouseListener(chooseTaskListener());
 
         JPanel tasks_button_box = createTasksButtons();
         panel.add(tasks_button_box, BorderLayout.SOUTH);
@@ -273,4 +275,17 @@ public class ProjectPreviewScene extends JPanel {
     }
 
     // TODO: listenery list
+
+    // wejście do podglądu zadania po podwójnym kliknięciu
+    private MouseAdapter chooseTaskListener() {
+        return new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                if (evt.getClickCount() == 2) {
+                    int index = Jtasks.locationToIndex(evt.getPoint());
+                    Task selected = project.getTasks().get(index);
+                    MainProgram.setWindow("task_preview_scene", selected);
+                }
+            }
+        };
+    }
 }

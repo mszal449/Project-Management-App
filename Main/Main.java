@@ -1,7 +1,6 @@
 package Main;
 
 import Classes.*;
-import Scenes.TaskEditor;
 
 import javax.swing.*;
 

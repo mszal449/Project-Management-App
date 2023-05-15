@@ -1,6 +1,7 @@
 package Main;
 
 import Classes.Project;
+import Classes.Task;
 import Scenes.*;
 
 import javax.swing.*;
@@ -55,6 +56,12 @@ public class Window extends JFrame{
             } catch (CloneNotSupportedException e) {
                 throw new RuntimeException(e);
             }
+        }
+        else if (Objects.equals(scene_name, "task_preview_scene")) {
+            scene = new TaskPreviewScene((Task) args[0]);
+        }
+        else if (Objects.equals(scene_name, "task_edit_scene")) {
+            scene = new TaskEditorScene((Task) args[0]);
         }
         else {
             System.out.println("Nie znaleziono okna");

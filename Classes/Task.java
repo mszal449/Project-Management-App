@@ -1,9 +1,10 @@
-package Classes;// klasa reprezentująca zadanie do wykonania w ramach projektu
+package Classes;
 
 import javax.swing.*;
 import java.io.*;
 import java.time.LocalDate;
 
+// klasa reprezentująca zadanie do wykonania w ramach projektu
 public abstract class  Task implements Serializable {
     Project project;                        // projekt, do którego należy zadanie
     String name;                            // nazwa zadania
@@ -13,7 +14,7 @@ public abstract class  Task implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    // używany w "zwykłych" konstruktorach Classes.Done i Classes.Current
+    // "zwykły" konstruktor
     public Task(String name, DefaultListModel<User> assignees, int day, int month, int year) {
         this.name = name;
         this.assignees = assignees;
@@ -31,19 +32,32 @@ public abstract class  Task implements Serializable {
         task.project.addTask(this);
     }
 
-    // zmiana nazwy zadania
+    // dostęp do nazwy zadania
+    public String getName() {
+        return name;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
-    // zmiana opisu zadania
+    // dostęp opisu zadania
+    public String getDescription() {
+        return description;
+    }
     public void setDescription(String description) {
         this.description = description;
     }
 
     // zmiana daty końcowej
+    public LocalDate getDeadline() {
+        return deadline;
+    }
     public void setDeadline(int day, int month, int year) {
         deadline = LocalDate.of(year, month, day);
+    }
+    public void setDeadline(LocalDate date) {
+        deadline = date;
     }
 
     // dodanie osoby do listy
