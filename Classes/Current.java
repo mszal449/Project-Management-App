@@ -8,20 +8,19 @@ import java.util.Arrays;
 
 public class Current extends Task {
     // poziomy postępu zadania
-    // są ułożone kolejno, od najbardziej
-    static String[] progress_level = {
+    private static final String[] progress_level = {
             "Rozpoczęto",
             "W trakcie",
             "Wysłano pierwszą wersję",
             "W trakcie poprawy",
             "Czeka na zatwierdzenie"};
 
-    LocalDate start_date; // data rozpoczęcia
-    String progress; // poziom postępu
+    private final LocalDate start_date; // data rozpoczęcia
+    private String progress; // aktualny poziom postępu
 
     // konstruktor tworzący trwające zadanie
-    public Current(String name, DefaultListModel<User> assignees, int day, int month, int year) {
-        super(name, assignees, day, month, year);
+    public Current(String name, int day, int month, int year) {
+        super(name, day, month, year);
         start_date = LocalDate.now();
         progress = progress_level[0];
     }
@@ -48,6 +47,16 @@ public class Current extends Task {
             // i usuwamy stary
             project.deleteTask(this);
         }
+    }
+
+    // dostęp do informacji o statusie postępu
+    public String getProgressLevel() {
+        return progress;
+    }
+
+    // dostęp do daty rozpoczęcia zadania
+    public LocalDate getStartdate() {
+        return start_date;
     }
 
     // metoda pomocniczna zwracająca napis rezprezentujący zadanie

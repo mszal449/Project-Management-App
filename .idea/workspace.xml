@@ -4,14 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6cc3313-cad9-4cc3-8b3f-4e1b13531a9b" name="Changes" comment="made setScene variadic">
-      <change afterPath="$PROJECT_DIR$/Scenes/TaskEditorScene.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Scenes/TaskPreviewScene.java" afterDir="false" />
+    <list default="true" id="a6cc3313-cad9-4cc3-8b3f-4e1b13531a9b" name="Changes" comment="awful but working task editor">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Task.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main/Window.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scenes/ProjectPreviewScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/ProjectPreviewScene.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scenes/TaskEditorScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/TaskEditorScene.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +102,11 @@
       <workItem from="1683730544611" duration="3733000" />
       <workItem from="1683988418808" duration="1329000" />
       <workItem from="1684156247437" duration="4873000" />
-      <workItem from="1684162044616" duration="5221000" />
+      <workItem from="1684162044616" duration="5478000" />
+      <workItem from="1684229076971" duration="209000" />
+      <workItem from="1684244761998" duration="10680000" />
+      <workItem from="1684350137943" duration="12286000" />
+      <workItem from="1684399342303" duration="1680000" />
     </task>
     <task id="LOCAL-00001" summary="first draft of project structure">
       <created>1683215433286</created>
@@ -172,7 +171,28 @@
       <option name="project" value="LOCAL" />
       <updated>1684159793493</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="task preview and task editor added (but not complete yet)">
+      <created>1684171594869</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1684171594869</updated>
+    </task>
+    <task id="LOCAL-00011" summary="awful but working task editor">
+      <created>1684362710908</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1684362710908</updated>
+    </task>
+    <task id="LOCAL-00012" summary="awful but working task editor">
+      <created>1684400488197</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1684400488197</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -198,6 +218,18 @@
     <MESSAGE value="SignupScene view added" />
     <MESSAGE value="Updated project structure" />
     <MESSAGE value="made setScene variadic" />
-    <option name="LAST_COMMIT_MESSAGE" value="made setScene variadic" />
+    <MESSAGE value="task preview and task editor added (but not complete yet)" />
+    <MESSAGE value="awful but working task editor" />
+    <option name="LAST_COMMIT_MESSAGE" value="awful but working task editor" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -8,7 +8,6 @@ public class Main {
     public static void main(String[] args) {
         Project project = new Project("Projekt z po", 20, 6, 2023);
         Project empty_project = new Project("Projekt pusty", 13, 5, 2024);
-        DefaultListModel<User> assignees = new DefaultListModel<>();
 
         User assignee1 = new User("Basia", "basia@mail.com", "haslo1");
         User assignee2 = new User("Kasia", "kasia@mail.com", "haslo2");
@@ -21,12 +20,17 @@ public class Main {
         project.addParticipant(assignee5);
         empty_project.addParticipant(assignee3);
         empty_project.addParticipant(assignee4);
-        Planned task1 = new Planned("task1", assignees,
+        Planned task1 = new Planned("task1",
                 1, 5, 2024, 20, 5, 2023);
-        Planned task2 = new Planned("task2", assignees,
+        Planned task2 = new Planned("task2",
                 1, 5, 2024, 20, 5, 2023);
-        Current task3 = new Current("task3", assignees, 3, 5, 2023);
-        Done task4 = new Done("task4", assignees, 3, 5, 2023);
+        Current task3 = new Current("task3", 3, 5, 2023);
+        Done task4 = new Done("task4", 3, 5, 2023);
+        task1.addAssignee(assignee1);
+        task1.addAssignee(assignee2);
+        task1.addAssignee(assignee3);
+        task3.addAssignee(assignee3);
+        task4.addAssignee(assignee4);
         project.addTask(task1);
         project.addTask(task2);
         project.addTask(task3);
@@ -67,6 +71,9 @@ public class Main {
         u.addElement(assignee3);
         u.addElement(assignee4);
         u.addElement(assignee5);
+        System.out.println(task1.getAssignees());
+        User[] assignees_list_copy = new User[5];
+        task1.getAssignees().copyInto(assignees_list_copy);
 
         // Uruchomienie programu
         MainProgram program = MainProgram.getInstance(u, p);
