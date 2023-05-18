@@ -20,13 +20,15 @@ public class TaskPreviewScene extends JPanel {
 
     private void CreateTaskPreviewScene() {
         new JPanel();
-        setLayout(new GridLayout(4, 1));
+        setLayout(new GridLayout(6, 1));
         addElements();
     }
 
     private void addElements() {
         add(namePanel());
+        add(descriptionPanel());
         add(statePanel());
+        add(deadlinePanel());
         add(assigneesPanel());
         add(buttonsPanel());
     }
@@ -37,6 +39,25 @@ public class TaskPreviewScene extends JPanel {
         panel.setLayout(new GridLayout(1, 2));
         panel.add(new JLabel("Nazwa: "));
         panel.add(new JLabel(task.getName()));
+        return panel;
+    }
+
+    // panel z opisem zadania
+    private JPanel descriptionPanel() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(1, 2));
+        panel.add(new JLabel("Opis: "));
+        panel.add(new JLabel(task.getDescription()));
+        return panel;
+    }
+
+    // panel z datą końcową
+    private JPanel deadlinePanel() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(1, 2));
+        panel.add(new JLabel("Data końcowa: "));
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        panel.add(new JLabel(task.getDeadline().format(dateTimeFormatter)));
         return panel;
     }
 
