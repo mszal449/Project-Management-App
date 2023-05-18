@@ -15,7 +15,7 @@ import java.time.ZoneId;
 import java.util.Date;
 
 // okno edycji zadania
-public class TaskEditorScene extends JPanel{
+public abstract class TaskEditorScene extends JPanel{
     Task task;
     DefaultListModel<User> assignees_list_copy; // kopia listy osób aktualnie przydzielonych do zadania
     User[] participants; // lista wszystkich uczestników projektu
@@ -28,10 +28,13 @@ public class TaskEditorScene extends JPanel{
 
     public TaskEditorScene(Task task) {
         this.task = task;
-        CreateTaskEditorScene();
+        initializeAttributes();
+        createMainPanel();
+        addElements();
     }
 
-    private void CreateTaskEditorScene() {
+    // utworzenie wszystkich atrybutów klasy
+    private void initializeAttributes() {
         // skopiowanie listy osób odpowiedzialnych za zadanie
         assignees_list_copy = new DefaultListModel<>();
         for (Object element : task.getAssignees().toArray()) {
@@ -40,33 +43,41 @@ public class TaskEditorScene extends JPanel{
         // lista wszystkich uczestników projektu
         participants
                 = task.getProject().getParticipants().keySet().toArray(new User[0]);
-        // utworzenie panelu
-        new JPanel();
-        setLayout(new GridLayout(5, 2));
+        // utworzenie pól edytowalnych
         name_field = new JTextField(task.getName());
         description_field = createDescriptionField();
         deadline_spinner = createDeadlineField();
         all_participants_combobox = createParticipantsCombobox();
         assignees_jlist = new JList<>(assignees_list_copy);
-        addElements();
     }
 
-    private void addElements() {
-        add(new JLabel("Nazwa: "));
-        add(name_field);
-        add(new JLabel("Opis:"));
-        add(description_field);
-        add(new JLabel("Data końcowa:"));
-        add(deadline_spinner);
+    protected abstract void createMainPanel();
+
+    // dodanie elementów do panelu głównego
+    protected void addElements() {
+        add(namePanel());
+        add(descriptionPanel());
+        add(deadlinePanel());
         add(assigneesListPanel());
-        add(new JLabel());
-        // dodanie przycisków
-        JButton save_button = new JButton("Zapisz");
-        save_button.addMouseListener(saveButtonListener());
-        add(save_button);
-        JButton cancel_button = new JButton("Anuluj");
-        cancel_button.addMouseListener(cancelButtonListener());
-        add(cancel_button);
+        add(buttonsPanel());
+    }
+
+    // ------------- panel edycji nazwy zadania -------------
+    private JPanel namePanel() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(1, 2));
+        panel.add(new JLabel("Nazwa: "));
+        panel.add(name_field);
+        return panel;
+    }
+
+    // ------------- panel edycji opisu zadania -------------
+    private JPanel descriptionPanel() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(1, 2));
+        panel.add(new JLabel("Opis: "));
+        panel.add(description_field);
+        return panel;
     }
 
     // pole opisu zadania
@@ -77,7 +88,16 @@ public class TaskEditorScene extends JPanel{
         return new JScrollPane(text);
     }
 
-    // pole z datą końcową projektu
+    // ------------- panel edycji daty końcowej zadania -------------
+    private JPanel deadlinePanel() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(1, 2));
+        panel.add(new JLabel("Data końcowa:"));
+        panel.add(deadline_spinner);
+        return panel;
+    }
+
+    // pole z datą końcową zadania
     private JSpinner createDeadlineField() {
         SpinnerModel spinnerModel = new SpinnerDateModel();
         JSpinner spinner = new JSpinner(spinnerModel);
@@ -91,7 +111,7 @@ public class TaskEditorScene extends JPanel{
         return spinner;
     }
 
-    // panel listy użytkowników odpowiedzialnych za zadanie
+    // ------------- panel listy użytkowników odpowiedzialnych za zadanie -------------
     private JPanel assigneesListPanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
@@ -158,6 +178,21 @@ public class TaskEditorScene extends JPanel{
                 }
             }
         };
+    }
+
+    //  ------------- panel przycisków  -------------
+    private JPanel buttonsPanel() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(1, 2));
+        // zapisywanie
+        JButton save_button = new JButton("Zapisz");
+        save_button.addMouseListener(saveButtonListener());
+        panel.add(save_button);
+        // anulowanie
+        JButton cancel_button = new JButton("Anuluj");
+        cancel_button.addMouseListener(cancelButtonListener());
+        panel.add(cancel_button);
+        return panel;
     }
 
     // zapis zmian
