@@ -1,14 +1,11 @@
-package Classes;// klasa reprezentująca zadanie w trakcie wykonywania
+package Classes;
 
-import Classes.User;
-
-import javax.swing.*;
 import java.time.LocalDate;
-import java.util.Arrays;
 
+// klasa reprezentująca zadanie w trakcie wykonywania
 public class Current extends Task {
     // poziomy postępu zadania
-    private static final String[] progress_levels = {
+    public static final String[] progress_levels = {
             "Rozpoczęto",
             "W trakcie",
             "Wysłano pierwszą wersję",
@@ -32,9 +29,20 @@ public class Current extends Task {
         cur_level = 0;
     }
 
+    // konstruktor tworzący trwające zadanie na podstawie zakończonego zadania
+    // (sytuacja, kiedy uznano, że zadanie jednka nie jest wykonane)
+    public Current(Done done_task) {
+        super(done_task);
+        start_date = LocalDate.now();
+        cur_level = 0;
+    }
+
     // dostęp do informacji o statusie postępu
-    public String getProgressLevel() {
+    public String getProgressState() {
         return progress_levels[cur_level];
+    }
+    public int getProgressLevel() {
+        return cur_level;
     }
     public void setProgressLevel(int level) {
         if (level < 5 && level >= 0) {

@@ -34,7 +34,7 @@ public abstract class TaskEditorScene extends JPanel{
     }
 
     // utworzenie wszystkich atrybutów klasy
-    private void initializeAttributes() {
+    protected void initializeAttributes() {
         // skopiowanie listy osób odpowiedzialnych za zadanie
         assignees_list_copy = new DefaultListModel<>();
         for (Object element : task.getAssignees().toArray()) {
@@ -55,16 +55,10 @@ public abstract class TaskEditorScene extends JPanel{
     protected abstract void createMainPanel();
 
     // dodanie elementów do panelu głównego
-    protected void addElements() {
-        add(namePanel());
-        add(descriptionPanel());
-        add(deadlinePanel());
-        add(assigneesListPanel());
-        add(buttonsPanel());
-    }
+    protected abstract void addElements();
 
     // ------------- panel edycji nazwy zadania -------------
-    private JPanel namePanel() {
+    protected JPanel namePanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 2));
         panel.add(new JLabel("Nazwa: "));
@@ -73,7 +67,7 @@ public abstract class TaskEditorScene extends JPanel{
     }
 
     // ------------- panel edycji opisu zadania -------------
-    private JPanel descriptionPanel() {
+    protected JPanel descriptionPanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 2));
         panel.add(new JLabel("Opis: "));
@@ -90,7 +84,7 @@ public abstract class TaskEditorScene extends JPanel{
     }
 
     // ------------- panel edycji daty końcowej zadania -------------
-    private JPanel deadlinePanel() {
+    protected JPanel deadlinePanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 2));
         panel.add(new JLabel("Data końcowa:"));
@@ -113,7 +107,7 @@ public abstract class TaskEditorScene extends JPanel{
     }
 
     // ------------- panel listy użytkowników odpowiedzialnych za zadanie -------------
-    private JPanel assigneesListPanel() {
+    protected JPanel assigneesListPanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
         panel.add(new JLabel("Osoby odpowiedzialne"), BorderLayout.NORTH);
@@ -150,11 +144,11 @@ public abstract class TaskEditorScene extends JPanel{
 
     // lista wszystkich uczestników projektu, z której możemy wybierać osobę, którą chcemy dodać do zadania
     private JComboBox<User> createParticipantsCombobox() {
-        JComboBox<User> users_combo_box
+        JComboBox<User> combobox
                 = new JComboBox<>(participants);
-        users_combo_box.insertItemAt(null, 0);
-        users_combo_box.setSelectedIndex(0);
-        return users_combo_box;
+        combobox.insertItemAt(null, 0);
+        combobox.setSelectedIndex(0);
+        return combobox;
     }
 
     // listener dodania wybranego uczestnika do listy osób odpowiedzialnych za zadanie
@@ -168,7 +162,6 @@ public abstract class TaskEditorScene extends JPanel{
                 }
                 else {
                     int selected_index = all_participants_combobox.getSelectedIndex();
-                    System.out.println(selected_index);
                     if (selected_index > 0) {
                         User selected_user = participants[selected_index - 1];
                         if (!assignees_list_copy.contains(selected_user)) {
@@ -182,7 +175,7 @@ public abstract class TaskEditorScene extends JPanel{
     }
 
     //  ------------- panel przycisków  -------------
-    private JPanel buttonsPanel() {
+    protected JPanel buttonsPanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 2));
         // zapisywanie
@@ -196,29 +189,32 @@ public abstract class TaskEditorScene extends JPanel{
         return panel;
     }
 
-    // zapis zmian
+    protected void saveChanges() {
+        // zapis nazwy zadania
+        task.setName(name_field.getText());
+        // zapis opisu zadania
+        JTextArea note_text = (JTextArea) description_field.getViewport().getView();
+        task.setDescription(note_text.getText());
+        // zapis daty ukończenia
+        task.setDeadline(((java.util.Date)deadline_spinner.getValue())
+                .toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate());
+        // zapisanie listy osób
+        task.setAssignees(assignees_list_copy);
+    }
+
+    // akcja zapisu zmian
     private MouseAdapter saveButtonListener() {
         return new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
                 if (evt.getClickCount() == 1) {
-                    // zapis nazwy zadania
-                    task.setName(name_field.getText());
-                    // zapis opisu zadania
-                    JTextArea note_text = (JTextArea) description_field.getViewport().getView();
-                    task.setDescription(note_text.getText());
-                    // zapis daty ukończenia
-                    task.setDeadline(((java.util.Date)deadline_spinner.getValue())
-                            .toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate());
-                    // zapisanie listy osób
-                    task.setAssignees(assignees_list_copy);
-                    // powrót do widoku
+                    saveChanges();
                     MainProgram.setWindow("task_preview_scene", task);
                 }
             }
         };
     }
 
-    // przycisk anulowania zmian
+    // akcja anulowania zmian
     private MouseAdapter cancelButtonListener() {
         return new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {

@@ -4,16 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6cc3313-cad9-4cc3-8b3f-4e1b13531a9b" name="Changes" comment="chcange field in Current class">
+    <list default="true" id="a6cc3313-cad9-4cc3-8b3f-4e1b13531a9b" name="Changes" comment="making progress fix">
       <change afterPath="$PROJECT_DIR$/Scenes/CurrentEditorScene.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Scenes/DoneEditorScene.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Scenes/PlannedEditorScene.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Classes/Current.java" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Current.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/Done.java" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Done.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Classes/Planned.java" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Planned.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Task.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main/Window.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Scenes/TaskEditorScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/TaskEditorScene.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Scenes/TaskPreviewScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/TaskPreviewScene.java" afterDir="false" />
     </list>
@@ -115,7 +113,7 @@
       <workItem from="1684229076971" duration="209000" />
       <workItem from="1684244761998" duration="10680000" />
       <workItem from="1684350137943" duration="12286000" />
-      <workItem from="1684399342303" duration="12825000" />
+      <workItem from="1684399342303" duration="17089000" />
     </task>
     <task id="LOCAL-00001" summary="first draft of project structure">
       <created>1683215433286</created>
@@ -229,7 +227,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684413463830</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="making progress fix">
+      <created>1684415196044</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1684415196044</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -259,7 +264,8 @@
     <MESSAGE value="awful but working task editor" />
     <MESSAGE value="better abstract task editor" />
     <MESSAGE value="chcange field in Current class" />
-    <option name="LAST_COMMIT_MESSAGE" value="chcange field in Current class" />
+    <MESSAGE value="making progress fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="making progress fix" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

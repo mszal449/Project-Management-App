@@ -1,11 +1,8 @@
-package Classes;// klasa reprezentująca zadanie, które jeszcze nie zostało rozpoczęte
+package Classes;
 
-import Classes.Current;
-import Classes.User;
-
-import javax.swing.*;
 import java.time.LocalDate;
 
+// klasa reprezentująca zadanie, które jeszcze nie zostało rozpoczęte
 public class Planned extends Task {
     private LocalDate start_date; // zaplanowana data rozpoczęcia
 
@@ -19,9 +16,13 @@ public class Planned extends Task {
     public void setStartdate(int day, int month, int year) {
         start_date = LocalDate.of(year, month, day);
     }
+    public void setStartdate(LocalDate date) {
+        start_date = date;
+    }
     public LocalDate getStartdate() {
         return start_date;
     }
+
 
     // metoda reprezentująca rozpoczęcie zadania
     public Current start() {

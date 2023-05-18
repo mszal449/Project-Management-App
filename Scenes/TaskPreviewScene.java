@@ -50,7 +50,7 @@ public class TaskPreviewScene extends JPanel {
             panel.add(new JLabel("planowane rozpoczęcie "
                     + ((Planned) task).getStartdate().format(dateTimeFormatter)));
         } else if (task instanceof Current) {
-            panel.add(new JLabel(((Current) task).getProgressLevel()));
+            panel.add(new JLabel(((Current) task).getProgressState()));
         } else {
             panel.add(new JLabel("zakończono "
                     + ((Done) task).getEndDate().format(dateTimeFormatter)));
@@ -75,17 +75,23 @@ public class TaskPreviewScene extends JPanel {
         JButton edit_button = new JButton("Edytuj");
         edit_button.addActionListener(openEditorListener());
         panel.add(edit_button);
+        // przycisk rozpoczęcia zadania
+        if (task instanceof Planned) {
+            JButton start_button = new JButton("Rozpocznij zadanie");
+            start_button.addActionListener(startTaskListener());
+            panel.add(start_button);
+        }
         // przycisk wykonania zadania
-        if (task instanceof Current) {
+        else if (task instanceof Current) {
             JButton done_button = new JButton("Oznacz jako wykonane");
             done_button.addActionListener(finishTaskListener());
             panel.add(done_button);
         }
-        // przycisk rozpoczęcia zadania
-        else if (task instanceof Planned) {
-            JButton start_button = new JButton("Rozpocznij zadanie");
-            start_button.addActionListener(startTaskListener());
-            panel.add(start_button);
+        // przycisk ustawienia zadania na aktualne
+        else if (task instanceof Done) {
+            JButton make_current_button = new JButton("Otwórz ponownie");
+            make_current_button.addActionListener(openTaskListener());
+            panel.add(make_current_button);
         }
         // przycisk powrotu
         JButton return_button = new JButton("Wróć");
@@ -106,6 +112,17 @@ public class TaskPreviewScene extends JPanel {
     }
 
     // listener wykonania zadania
+    private ActionListener openTaskListener() {
+        return new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Current cur_task = ((Done)task).makeCurrent();
+                MainProgram.setWindow("task_preview_scene", cur_task);
+            }
+        };
+    }
+
+    // listener wykonania zadania
     private ActionListener finishTaskListener() {
         return new ActionListener() {
             @Override
@@ -115,7 +132,6 @@ public class TaskPreviewScene extends JPanel {
             }
         };
     }
-
 
     // listener otwierający edytor zadania
     // TODO: uprawnienia - żeby tylko osoby przydzielone do zadania mogły je edytować?
