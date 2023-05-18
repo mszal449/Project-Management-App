@@ -1,7 +1,6 @@
 package Main;
 
-import Classes.Project;
-import Classes.Task;
+import Classes.*;
 import Scenes.*;
 
 import javax.swing.*;
@@ -61,7 +60,19 @@ public class Window extends JFrame{
             scene = new TaskPreviewScene((Task) args[0]);
         }
         else if (Objects.equals(scene_name, "task_edit_scene")) {
-            scene = new TaskEditorScene((Task) args[0]);
+            if (args[0] instanceof Planned) {
+                scene = new PlannedEditorScene((Planned) args[0]);
+            }
+            else if (args[0] instanceof Current) {
+                scene = new CurrentEditorScene((Current) args[0]);
+            }
+            else if (args[0] instanceof Done) {
+                scene = new DoneEditorScene((Done) args[0]);
+            }
+            else {
+                System.out.println("Nie znaleziono okna");
+                return;
+            }
         }
         else {
             System.out.println("Nie znaleziono okna");

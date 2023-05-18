@@ -24,9 +24,11 @@ public class Planned extends Task {
     }
 
     // metoda reprezentująca rozpoczęcie zadania
-    public void start() {
-        project.addTask(new Current(this));
+    public Current start() {
+        Current new_task = new Current(this);
+        project.addTask(new_task);
         project.deleteTask(this);
+        return new_task;
     }
 
     // metoda pomocniczna zwracająca napis rezprezentujący zadanie

@@ -51,6 +51,7 @@ public abstract class TaskEditorScene extends JPanel{
         assignees_jlist = new JList<>(assignees_list_copy);
     }
 
+    // tworzenie panelu głównego
     protected abstract void createMainPanel();
 
     // dodanie elementów do panelu głównego

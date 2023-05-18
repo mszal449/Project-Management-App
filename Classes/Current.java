@@ -41,22 +41,11 @@ public class Current extends Task {
             cur_level = level;
         }
     }
-
-    // metoda reprezentująca robienie postępu w zadaniu
-    // TODO: ona w sumie chyba do wywalenia jest
-    public void makeProgress() {
-        // jeżeli zadanie nie jest jeszcze na ostatnim poziomie
-        if (cur_level < progress_levels.length - 1 ) {
-            // przenosimy je na wyższy poziom
-            cur_level += 1;
-        }
-        // w przeciwnym wypadku
-        else {
-            // tworzymy nowy obiekt reprezentujący wykonane zadanie
-            project.addTask(new Done(this));
-            // i usuwamy stary
-            project.deleteTask(this);
-        }
+    public Done setDone() {
+        Done new_task = new Done(this);
+        project.addTask(new_task);
+        project.deleteTask(this);
+        return new_task;
     }
 
     // dostęp do daty rozpoczęcia zadania
