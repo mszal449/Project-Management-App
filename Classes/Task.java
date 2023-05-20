@@ -5,7 +5,7 @@ import java.io.*;
 import java.time.LocalDate;
 
 // klasa reprezentująca zadanie do wykonania w ramach projektu
-public abstract class  Task implements Serializable {
+public abstract class Task implements Serializable {
     Project project;                        // projekt, do którego należy zadanie
     String name;                            // nazwa zadania
     String description;                     // opis zadania
@@ -15,9 +15,9 @@ public abstract class  Task implements Serializable {
     private static final long serialVersionUID = 1L;
 
     // "zwykły" konstruktor
-    public Task(String name, DefaultListModel<User> assignees, int day, int month, int year) {
+    public Task(String name, int day, int month, int year) {
         this.name = name;
-        this.assignees = assignees;
+        this.assignees = new DefaultListModel<>();
         description = "";
         deadline = LocalDate.of(year, month, day);
     }
@@ -32,11 +32,15 @@ public abstract class  Task implements Serializable {
         task.project.addTask(this);
     }
 
+    // dostęp do projektu, do którego należy zadanie
+    public Project getProject() {
+        return project;
+    }
+
     // dostęp do nazwy zadania
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -60,11 +64,17 @@ public abstract class  Task implements Serializable {
         deadline = date;
     }
 
+    // dostęp do listy osób przypisanych do zadania
+    public DefaultListModel<User> getAssignees() {
+        return assignees;
+    }
+    public void setAssignees(DefaultListModel<User> assignees) {
+        this.assignees = assignees;
+    }
     // dodanie osoby do listy
     public void addAssignee(User assignee) {
         assignees.addElement(assignee);
     }
-
     // usunięcie osoby z listy
     public void deleteAssignee(User assignee) {
         assignees.removeElement(assignee);
@@ -79,11 +89,6 @@ public abstract class  Task implements Serializable {
     public void getInfo() {
         System.out.println(this);
         System.out.println(assignees);
-    }
-
-    // dostęp do listy osób przypisanych do zadania
-    public DefaultListModel<User> getAssignees() {
-        return assignees;
     }
 
 }

@@ -1,53 +1,64 @@
-package Classes;// klasa reprezentująca zadanie w trakcie wykonywania
+package Classes;
 
-import Classes.User;
-
-import javax.swing.*;
 import java.time.LocalDate;
-import java.util.Arrays;
 
+// klasa reprezentująca zadanie w trakcie wykonywania
 public class Current extends Task {
     // poziomy postępu zadania
-    // są ułożone kolejno, od najbardziej
-    static String[] progress_level = {
+    public static final String[] progress_levels = {
             "Rozpoczęto",
             "W trakcie",
             "Wysłano pierwszą wersję",
             "W trakcie poprawy",
             "Czeka na zatwierdzenie"};
 
-    LocalDate start_date; // data rozpoczęcia
-    String progress; // poziom postępu
+    private final LocalDate start_date; // data rozpoczęcia
+    private int cur_level; // aktualny poziom postępu
 
     // konstruktor tworzący trwające zadanie
-    public Current(String name, DefaultListModel<User> assignees, int day, int month, int year) {
-        super(name, assignees, day, month, year);
+    public Current(String name, int day, int month, int year) {
+        super(name, day, month, year);
         start_date = LocalDate.now();
-        progress = progress_level[0];
+        cur_level = 0;
     }
 
     // konstruktor tworzący trwające zadanie na podstawie zaplanowanego zadania
     public Current(Planned planned_task) {
         super(planned_task);
         start_date = LocalDate.now();
-        progress = progress_level[0];
+        cur_level = 0;
     }
 
-    // metoda reprezentująca robienie postępu w zadaniu
-    public void makeProgress() {
-        int index = Arrays.asList(progress_level).indexOf(progress);
-        // jeżeli zadanie nie jest jeszcze na ostatnim poziomie
-        if (index < progress_level.length - 1 ) {
-            // przenosimy je na wyższy poziom
-            progress = progress_level[index + 1];
+    // konstruktor tworzący trwające zadanie na podstawie zakończonego zadania
+    // (sytuacja, kiedy uznano, że zadanie jednka nie jest wykonane)
+    public Current(Done done_task) {
+        super(done_task);
+        start_date = LocalDate.now();
+        cur_level = 0;
+    }
+
+    // dostęp do informacji o statusie postępu
+    public String getProgressState() {
+        return progress_levels[cur_level];
+    }
+    public int getProgressLevel() {
+        return cur_level;
+    }
+    public void setProgressLevel(int level) {
+        if (level < 5 && level >= 0) {
+            cur_level = level;
         }
-        // w przeciwnym wypadku
-        else {
-            // tworzymy nowy obiekt reprezentujący wykonane zadanie
-            project.addTask(new Done(this));
-            // i usuwamy stary
-            project.deleteTask(this);
-        }
+    }
+    public Done setDone() {
+        Done new_task = new Done(this);
+        project.addTask(new_task);
+        project.deleteTask(this);
+        return new_task;
+    }
+
+    // dostęp do daty rozpoczęcia zadania
+    public LocalDate getStartdate() {
+        return start_date;
     }
 
     // metoda pomocniczna zwracająca napis rezprezentujący zadanie
@@ -58,6 +69,6 @@ public class Current extends Task {
     // metoda pomocnicza wypisująca informacje o zadaniu do konsoli
     public void getInfo() {
         super.getInfo();
-        System.out.println("status : " + progress);
+        System.out.println("status : " + progress_levels[cur_level]);
     }
 }

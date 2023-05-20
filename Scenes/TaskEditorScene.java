@@ -1,9 +1,12 @@
 package Scenes;
 import Classes.Task;
+import Classes.User;
 import Main.MainProgram;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.Instant;
@@ -12,44 +15,64 @@ import java.time.ZoneId;
 import java.util.Date;
 
 // okno edycji zadania
-public class TaskEditorScene extends JPanel{
+public abstract class TaskEditorScene extends JPanel{
     Task task;
+    DefaultListModel<User> assignees_list_copy; // kopia listy osób aktualnie przydzielonych do zadania
+    User[] participants; // lista wszystkich uczestników projektu
+
     JTextField name_field;
     JScrollPane description_field;
     JSpinner deadline_spinner;
-    JButton save_button;
-    JButton cancel_button;
+    JList<User> assignees_jlist;
+    JComboBox<User> all_participants_combobox;
 
     public TaskEditorScene(Task task) {
         this.task = task;
-        CreateTaskEditorScene();
-    }
-
-    private void CreateTaskEditorScene() {
-        new JPanel();
-        setLayout(new GridLayout(4, 2));
-        name_field = createNameField();
-        description_field = createDescriptionField();
-        deadline_spinner = createDeadlineField();
-        save_button = createSaveButton();
-        cancel_button = createCancelButton();
+        initializeAttributes();
+        createMainPanel();
         addElements();
     }
 
-    private void addElements() {
-        add(new JLabel("Nazwa: "));
-        add(name_field);
-        add(new JLabel("Opis:"));
-        add(description_field);
-        add(new JLabel("Data końcowa:"));
-        add(deadline_spinner);
-        add(save_button);
-        add(cancel_button);
+    // utworzenie wszystkich atrybutów klasy
+    protected void initializeAttributes() {
+        // skopiowanie listy osób odpowiedzialnych za zadanie
+        assignees_list_copy = new DefaultListModel<>();
+        for (Object element : task.getAssignees().toArray()) {
+            assignees_list_copy.addElement((User) element);
+        }
+        // lista wszystkich uczestników projektu
+        participants
+                = task.getProject().getParticipants().keySet().toArray(new User[0]);
+        // utworzenie pól edytowalnych
+        name_field = new JTextField(task.getName());
+        description_field = createDescriptionField();
+        deadline_spinner = createDeadlineField();
+        all_participants_combobox = createParticipantsCombobox();
+        assignees_jlist = new JList<>(assignees_list_copy);
     }
 
-    // pole z nazwą zadania
-    private JTextField createNameField() {
-        return new JTextField(task.getName());
+    // tworzenie panelu głównego
+    protected abstract void createMainPanel();
+
+    // dodanie elementów do panelu głównego
+    protected abstract void addElements();
+
+    // ------------- panel edycji nazwy zadania -------------
+    protected JPanel namePanel() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(1, 2));
+        panel.add(new JLabel("Nazwa: "));
+        panel.add(name_field);
+        return panel;
+    }
+
+    // ------------- panel edycji opisu zadania -------------
+    protected JPanel descriptionPanel() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(1, 2));
+        panel.add(new JLabel("Opis: "));
+        panel.add(description_field);
+        return panel;
     }
 
     // pole opisu zadania
@@ -60,7 +83,16 @@ public class TaskEditorScene extends JPanel{
         return new JScrollPane(text);
     }
 
-    // pole z datą końcową projektu
+    // ------------- panel edycji daty końcowej zadania -------------
+    protected JPanel deadlinePanel() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(1, 2));
+        panel.add(new JLabel("Data końcowa:"));
+        panel.add(deadline_spinner);
+        return panel;
+    }
+
+    // pole z datą końcową zadania
     private JSpinner createDeadlineField() {
         SpinnerModel spinnerModel = new SpinnerDateModel();
         JSpinner spinner = new JSpinner(spinnerModel);
@@ -74,39 +106,115 @@ public class TaskEditorScene extends JPanel{
         return spinner;
     }
 
-    // przycisk zapisu
-    private JButton createSaveButton() {
-        JButton button = new JButton("Zapisz");
-        button.addMouseListener(saveButtonListener());
-        return button;
+    // ------------- panel listy użytkowników odpowiedzialnych za zadanie -------------
+    protected JPanel assigneesListPanel() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+        panel.add(new JLabel("Osoby odpowiedzialne"), BorderLayout.NORTH);
+        panel.add(assignees_jlist, BorderLayout.CENTER);
+        panel.add(editAssigneesListOptions(), BorderLayout.SOUTH);
+        return panel;
     }
 
+    // opcje edycji listy osób odpowiedzialnych za zadanie
+    private JPanel editAssigneesListOptions() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+        panel.add(all_participants_combobox, BorderLayout.NORTH);
+        all_participants_combobox.setVisible(false);
+        JPanel buttons_panel = new JPanel();
+        buttons_panel.setLayout(new GridLayout(1, 2));
+        // pzycisk usuwania osoby z listy
+        JButton delete_assignee = new JButton("Usuń");
+        delete_assignee.addActionListener(e -> {
+            int selected_index = assignees_jlist.getSelectedIndex();
+            if (selected_index != -1) {
+                assignees_list_copy.remove(selected_index);
+            }
+        });
+        // pzycisk dodawania osoby do listy
+        JButton add_assignee = new JButton("Dodaj");
+        add_assignee.addActionListener(makeParticipantAssigneeListener());
+        // dodanie przycisków
+        buttons_panel.add(delete_assignee);
+        buttons_panel.add(add_assignee);
+        panel.add(buttons_panel, BorderLayout.CENTER);
+        return panel;
+    }
+
+    // lista wszystkich uczestników projektu, z której możemy wybierać osobę, którą chcemy dodać do zadania
+    private JComboBox<User> createParticipantsCombobox() {
+        JComboBox<User> combobox
+                = new JComboBox<>(participants);
+        combobox.insertItemAt(null, 0);
+        combobox.setSelectedIndex(0);
+        return combobox;
+    }
+
+    // listener dodania wybranego uczestnika do listy osób odpowiedzialnych za zadanie
+    private ActionListener makeParticipantAssigneeListener() {
+        return new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!all_participants_combobox.isVisible()) {
+                    all_participants_combobox.setSelectedIndex(0);
+                    all_participants_combobox.setVisible(true);
+                }
+                else {
+                    int selected_index = all_participants_combobox.getSelectedIndex();
+                    if (selected_index > 0) {
+                        User selected_user = participants[selected_index - 1];
+                        if (!assignees_list_copy.contains(selected_user)) {
+                            assignees_list_copy.addElement(participants[selected_index - 1]);
+                        }
+                    }
+                    all_participants_combobox.setVisible(false);
+                }
+            }
+        };
+    }
+
+    //  ------------- panel przycisków  -------------
+    protected JPanel buttonsPanel() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(1, 2));
+        // zapisywanie
+        JButton save_button = new JButton("Zapisz");
+        save_button.addMouseListener(saveButtonListener());
+        panel.add(save_button);
+        // anulowanie
+        JButton cancel_button = new JButton("Anuluj");
+        cancel_button.addMouseListener(cancelButtonListener());
+        panel.add(cancel_button);
+        return panel;
+    }
+
+    protected void saveChanges() {
+        // zapis nazwy zadania
+        task.setName(name_field.getText());
+        // zapis opisu zadania
+        JTextArea note_text = (JTextArea) description_field.getViewport().getView();
+        task.setDescription(note_text.getText());
+        // zapis daty ukończenia
+        task.setDeadline(((java.util.Date)deadline_spinner.getValue())
+                .toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate());
+        // zapisanie listy osób
+        task.setAssignees(assignees_list_copy);
+    }
+
+    // akcja zapisu zmian
     private MouseAdapter saveButtonListener() {
         return new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
                 if (evt.getClickCount() == 1) {
-                    // zapis nazwy zadania
-                    task.setName(name_field.getText());
-                    // zapis opisu zadania
-                    JTextArea note_text = (JTextArea) description_field.getViewport().getView();
-                    task.setDescription(note_text.getText());
-                    // zapis daty ukończenia
-                    task.setDeadline(((java.util.Date)deadline_spinner.getValue())
-                            .toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate());
-                    // powrót do widoku
+                    saveChanges();
                     MainProgram.setWindow("task_preview_scene", task);
                 }
             }
         };
     }
 
-    // przycisk powrotu do widoku zadania bez zapisania zmian
-    private JButton createCancelButton() {
-        JButton button = new JButton("Anuluj");
-        button.addMouseListener(cancelButtonListener());
-        return button;
-    }
-
+    // akcja anulowania zmian
     private MouseAdapter cancelButtonListener() {
         return new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
