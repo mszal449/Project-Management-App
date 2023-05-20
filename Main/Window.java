@@ -63,6 +63,10 @@ public class Window extends JFrame{
         else if (Objects.equals(scene_name, "task_edit_scene")) {
             scene = new TaskEditorScene((Task) args[0]);
         }
+        else if (Objects.equals(scene_name, "edit_project_scene")) {
+            scene = new EditProjectScene((Project) args[0]);
+        }
+
         else {
             System.out.println("Nie znaleziono okna");
             return;

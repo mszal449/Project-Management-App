@@ -47,6 +47,7 @@ public class Project implements Serializable, Cloneable {
         participants.get(user);
     }
 
+
     // dodawanie zadania do projektu
     public void addTask(Task task) {
         task.project = this;
@@ -95,8 +96,29 @@ public class Project implements Serializable, Cloneable {
         return participants;
     }
 
+    // klonowanie instancji
     @Override
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
+    }
+
+    // Zmiana nazwy projektu
+    public void setName(String new_name) {
+        name = new_name;
+    }
+
+    // zwrócenie nazwy projektu
+    public String getName() {
+        return name;
+    }
+
+    // Zmiana planowanej ukończenia daty projektu
+    public void setDeadline(LocalDate new_deadline) {
+        deadline = new_deadline;
+    }
+
+    // zwrócenie planowanej daty projektu
+    public LocalDate getDeadline() {
+        return deadline;
     }
 }

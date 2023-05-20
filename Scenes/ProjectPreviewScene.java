@@ -199,7 +199,7 @@ public class ProjectPreviewScene extends JPanel {
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Edit button");
+                MainProgram.setWindow("edit_project_scene", project);
             }
         };
     }

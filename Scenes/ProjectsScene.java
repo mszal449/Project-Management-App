@@ -208,8 +208,20 @@ public class ProjectsScene extends JPanel {
 //                    MainProgram.setChosenProject(selectedProject);
 //                    MainProgram.getChosenProject().getInfo();
                 }
-                // TODO: Otwieranie projektu po 2 kliknięciach
-
+                else if (evt.getClickCount() == 2) { // jeżeli kilknięto 1 raz...
+                    // pobranie numeru indeksu
+                    int index = Jusers_projects.locationToIndex(evt.getPoint());
+                    // wybranie wpisu o danym indeksie
+                    Project selectedProject = all_projects.get(index);
+                    MainProgram.setChosenProject(selectedProject);
+                    MainProgram.getChosenProject().getInfo();
+                    if (MainProgram.getChosenProject() == null) {
+                        System.out.println("Nie wybrano projektu.");
+                    }
+                    else {
+                        MainProgram.setWindow("project_preview_scene", selectedProject);
+                    }
+                }
             }
         };
     }
