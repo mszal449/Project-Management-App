@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6cc3313-cad9-4cc3-8b3f-4e1b13531a9b" name="Changes" comment="editors added">
+    <list default="true" id="a6cc3313-cad9-4cc3-8b3f-4e1b13531a9b" name="Changes" comment="task preview extended (description and deadline fields added)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scenes/ProjectPreviewScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/ProjectPreviewScene.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Scenes/TaskPreviewScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/TaskPreviewScene.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -107,7 +109,8 @@
       <workItem from="1684244761998" duration="10680000" />
       <workItem from="1684350137943" duration="12286000" />
       <workItem from="1684399342303" duration="17507000" />
-      <workItem from="1684427698719" duration="356000" />
+      <workItem from="1684427698719" duration="1138000" />
+      <workItem from="1684613744468" duration="2713000" />
     </task>
     <task id="LOCAL-00001" summary="first draft of project structure">
       <created>1683215433286</created>
@@ -235,7 +238,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684420806051</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="task preview extended (description and deadline fields added)">
+      <created>1684428358042</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1684428358042</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -267,7 +277,8 @@
     <MESSAGE value="chcange field in Current class" />
     <MESSAGE value="making progress fix" />
     <MESSAGE value="editors added" />
-    <option name="LAST_COMMIT_MESSAGE" value="editors added" />
+    <MESSAGE value="task preview extended (description and deadline fields added)" />
+    <option name="LAST_COMMIT_MESSAGE" value="task preview extended (description and deadline fields added)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

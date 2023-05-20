@@ -8,14 +8,22 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 
 // scena podglądu projektu
 public class TaskPreviewScene extends JPanel {
-    Task task;
+    Task task; // oglądane zadanie
 
     public TaskPreviewScene(Task task) {
         this.task = task;
         CreateTaskPreviewScene();
+    }
+
+    private boolean checkUserPermissions() {
+        Map<User, Boolean> project_permissions = task.getProject().getParticipants();
+        User logged_user = MainProgram.getLoggedUser();
+        return (project_permissions.get(logged_user)
+                || task.getAssignees().contains(logged_user));
     }
 
     private void CreateTaskPreviewScene() {
@@ -96,23 +104,32 @@ public class TaskPreviewScene extends JPanel {
         JButton edit_button = new JButton("Edytuj");
         edit_button.addActionListener(openEditorListener());
         panel.add(edit_button);
+        // przycisk zmiany statusu zadania
+        JButton action_button = new JButton();
         // przycisk rozpoczęcia zadania
         if (task instanceof Planned) {
-            JButton start_button = new JButton("Rozpocznij zadanie");
-            start_button.addActionListener(startTaskListener());
-            panel.add(start_button);
+            action_button.setText("Rozpocznij zadanie");
+            action_button.addActionListener(startTaskListener());
         }
         // przycisk wykonania zadania
         else if (task instanceof Current) {
-            JButton done_button = new JButton("Oznacz jako wykonane");
-            done_button.addActionListener(finishTaskListener());
-            panel.add(done_button);
+            action_button.setText("Oznacz jako wykonane");
+            action_button.addActionListener(startTaskListener());
         }
         // przycisk ustawienia zadania na aktualne
         else if (task instanceof Done) {
-            JButton make_current_button = new JButton("Otwórz ponownie");
-            make_current_button.addActionListener(openTaskListener());
-            panel.add(make_current_button);
+            action_button.setText("Otwórz ponownie");
+            action_button.addActionListener(startTaskListener());
+        }
+        panel.add(action_button);
+        // zablokowanie możliwości edytowania przez osoby bez uprawnień
+        if (!checkUserPermissions()) {
+            edit_button.setEnabled(false);
+            edit_button.setToolTipText
+                    ("Nie posiadasz uprawnień do edycji tego zadania");
+            action_button.setEnabled(false);
+            action_button.setToolTipText
+                    ("Nie posiadasz uprawnień do zmiany statusu tego zadania");
         }
         // przycisk powrotu
         JButton return_button = new JButton("Wróć");
