@@ -4,14 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6cc3313-cad9-4cc3-8b3f-4e1b13531a9b" name="Changes" comment="permissions to tasks added">
+    <list default="true" id="a6cc3313-cad9-4cc3-8b3f-4e1b13531a9b" name="Changes" comment="adding new task action added">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/Planned.java" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Planned.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Task.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main/Window.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scenes/PlannedEditorScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/PlannedEditorScene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scenes/ProjectPreviewScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/ProjectPreviewScene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scenes/TaskEditorScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/TaskEditorScene.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scenes/TaskPreviewScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/TaskPreviewScene.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +110,8 @@
       <workItem from="1684427698719" duration="1138000" />
       <workItem from="1684613744468" duration="4663000" />
       <workItem from="1684669694845" duration="372000" />
-      <workItem from="1684758572039" duration="1295000" />
+      <workItem from="1684758572039" duration="1471000" />
+      <workItem from="1684765408812" duration="350000" />
     </task>
     <task id="LOCAL-00001" summary="first draft of project structure">
       <created>1683215433286</created>
@@ -257,7 +253,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684616776084</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="adding new task action added">
+      <created>1684760031084</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1684760031084</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -291,7 +294,8 @@
     <MESSAGE value="editors added" />
     <MESSAGE value="task preview extended (description and deadline fields added)" />
     <MESSAGE value="permissions to tasks added" />
-    <option name="LAST_COMMIT_MESSAGE" value="permissions to tasks added" />
+    <MESSAGE value="adding new task action added" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding new task action added" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

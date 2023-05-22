@@ -114,12 +114,12 @@ public class TaskPreviewScene extends JPanel {
         // przycisk wykonania zadania
         else if (task instanceof Current) {
             action_button.setText("Oznacz jako wykonane");
-            action_button.addActionListener(startTaskListener());
+            action_button.addActionListener(finishTaskListener());
         }
         // przycisk ustawienia zadania na aktualne
         else if (task instanceof Done) {
             action_button.setText("Otwórz ponownie");
-            action_button.addActionListener(startTaskListener());
+            action_button.addActionListener(openTaskListener());
         }
         panel.add(action_button);
         // zablokowanie możliwości edytowania przez osoby bez uprawnień
