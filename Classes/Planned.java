@@ -12,6 +12,12 @@ public class Planned extends Task {
         start_date = LocalDate.of(s_year, s_month, s_day);
     }
 
+    // konstruktor używany do tworzenia nowego zadania z poziomu aplikacji
+    public Planned(Project project) {
+        super(project);
+        start_date = LocalDate.now();
+    }
+
     // dostęp do planowanej daty rozpoczęcia
     public void setStartdate(int day, int month, int year) {
         start_date = LocalDate.of(year, month, day);

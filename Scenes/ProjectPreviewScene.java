@@ -109,7 +109,7 @@ public class ProjectPreviewScene extends JPanel {
 
         panel.add(Jusers, BorderLayout.CENTER);
 
-        JPanel users_button_box = createTasksButtons();
+        JPanel users_button_box = createAsigneeTasksButtons();
         panel.add(users_button_box, BorderLayout.SOUTH);
 
         return panel;
@@ -152,10 +152,10 @@ public class ProjectPreviewScene extends JPanel {
         button_panel.setLayout(new GridLayout(1,2, 10, 10));
         button_panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        JButton edit_task_button = new JButton("Edytuj");
-        edit_task_button.setFont(BUTTON_FONT);
-        edit_task_button.addActionListener(editTaskButtonListener());
-        button_panel.add(edit_task_button);
+        JButton add_task_button = new JButton("Dodaj");
+        add_task_button.setFont(BUTTON_FONT);
+        add_task_button.addActionListener(editTaskButtonListener());
+        button_panel.add(add_task_button);
 
         JButton delete_task_button = new JButton("Usuń");
         delete_task_button.setFont(BUTTON_FONT);
@@ -229,6 +229,7 @@ public class ProjectPreviewScene extends JPanel {
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                MainProgram.setWindow("task_edit_scene", project);
                 System.out.println("Edit Task");
             }
         };

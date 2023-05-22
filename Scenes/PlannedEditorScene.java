@@ -1,6 +1,7 @@
 package Scenes;
 
 import Classes.Planned;
+import Classes.Project;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,6 +15,10 @@ public class PlannedEditorScene extends TaskEditorScene{
 
     public PlannedEditorScene(Planned task) {
         super(task);
+    }
+
+    public PlannedEditorScene(Project project) {
+        super(new Planned(project));
     }
 
     @Override

@@ -1,4 +1,6 @@
 package Scenes;
+import Classes.Planned;
+import Classes.Project;
 import Classes.Task;
 import Classes.User;
 import Main.MainProgram;
@@ -26,8 +28,17 @@ public abstract class TaskEditorScene extends JPanel{
     JList<User> assignees_jlist;
     JComboBox<User> all_participants_combobox;
 
+    // konstruktor używany podczas edytowania istniejącego zadania
     public TaskEditorScene(Task task) {
         this.task = task;
+        initializeAttributes();
+        createMainPanel();
+        addElements();
+    }
+
+    // konstruktor używany przy tworzeniu nowego zadania z poziomu aplikacji
+    public TaskEditorScene(Project project) {
+        this.task = new Planned(project);
         initializeAttributes();
         createMainPanel();
         addElements();

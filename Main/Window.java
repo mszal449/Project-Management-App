@@ -60,7 +60,10 @@ public class Window extends JFrame{
             scene = new TaskPreviewScene((Task) args[0]);
         }
         else if (Objects.equals(scene_name, "task_edit_scene")) {
-            if (args[0] instanceof Planned) {
+            if (args[0] instanceof Project) {
+                scene = new PlannedEditorScene((Project) args[0]);
+            }
+            else if (args[0] instanceof Planned) {
                 scene = new PlannedEditorScene((Planned) args[0]);
             }
             else if (args[0] instanceof Current) {

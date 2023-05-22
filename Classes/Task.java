@@ -1,5 +1,7 @@
 package Classes;
 
+import Main.MainProgram;
+
 import javax.swing.*;
 import java.io.*;
 import java.time.LocalDate;
@@ -13,6 +15,17 @@ public abstract class Task implements Serializable {
     LocalDate deadline;                     // planowana data ukończenia
     @Serial
     private static final long serialVersionUID = 1L;
+
+    // konstruktor używany do tworzenia nowego zadania z poziomu aplikacji
+    public Task(Project project) {
+        name = "Nowe zadanie";
+        description = "";
+        deadline = LocalDate.now().plusDays(14);
+        assignees = new DefaultListModel<>();
+        assignees.addElement(MainProgram.getLoggedUser());
+        this.project = project;
+        this.project.addTask(this);
+    }
 
     // "zwykły" konstruktor
     public Task(String name, int day, int month, int year) {
