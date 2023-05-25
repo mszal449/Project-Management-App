@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6cc3313-cad9-4cc3-8b3f-4e1b13531a9b" name="Changes" comment="adding new task action added">
+    <list default="true" id="a6cc3313-cad9-4cc3-8b3f-4e1b13531a9b" name="Changes" comment="task preview fix">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scenes/TaskPreviewScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/TaskPreviewScene.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +110,9 @@
       <workItem from="1684613744468" duration="4663000" />
       <workItem from="1684669694845" duration="372000" />
       <workItem from="1684758572039" duration="1471000" />
-      <workItem from="1684765408812" duration="350000" />
+      <workItem from="1684765408812" duration="720000" />
+      <workItem from="1684931846250" duration="131000" />
+      <workItem from="1685027238875" duration="604000" />
     </task>
     <task id="LOCAL-00001" summary="first draft of project structure">
       <created>1683215433286</created>
@@ -260,7 +261,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684760031084</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="task preview fix">
+      <created>1684765823661</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1684765823661</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -295,7 +303,8 @@
     <MESSAGE value="task preview extended (description and deadline fields added)" />
     <MESSAGE value="permissions to tasks added" />
     <MESSAGE value="adding new task action added" />
-    <option name="LAST_COMMIT_MESSAGE" value="adding new task action added" />
+    <MESSAGE value="task preview fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="task preview fix" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

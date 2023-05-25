@@ -204,9 +204,6 @@ public class ProjectsScene extends JPanel {
                     chosen_project = all_projects.get(index);
                     // ustawienie możliwości otwarcia projektu
                     open_project_button.setEnabled(true);
-
-//                    MainProgram.setChosenProject(selectedProject);
-//                    MainProgram.getChosenProject().getInfo();
                 }
                 else if (evt.getClickCount() == 2) { // jeżeli kilknięto 1 raz...
                     // pobranie numeru indeksu
@@ -249,7 +246,7 @@ public class ProjectsScene extends JPanel {
                     // wybranie wpisu o danym indeksie
                     Task selectedTask = all_tasks.get(index);
                     System.out.println("Wybrano zadanie " + selectedTask);
-                    // TODO: Otwieranie zadania po 2 kliknięciach
+                    MainProgram.setWindow("task_preview_scene", selectedTask);
                 }
                 // TODO: Wybór zadania po 1 kliknięciu
             }
