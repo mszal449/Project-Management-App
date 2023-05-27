@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+// Okno wyboru projektów i podglądu zadania
 public class ProjectsScene extends JPanel {
     JList<Project> Jusers_projects;     // Lista wszystkich projektów
     JList<Task> Jusers_tasks;           // Lista wszystkich zadań

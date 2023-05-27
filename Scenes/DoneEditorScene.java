@@ -15,6 +15,7 @@ public class DoneEditorScene extends TaskEditorScene{
     protected void createMainPanel() {
         new JPanel();
         setLayout(new GridLayout(6, 1));
+
     }
 
     @Override

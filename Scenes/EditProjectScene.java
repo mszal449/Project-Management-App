@@ -34,7 +34,6 @@ public class EditProjectScene extends JPanel {
     // konsturktor sceny
     public EditProjectScene(Project project)  {
         this.project = project;
-
         createScene();
     }
 
@@ -52,8 +51,6 @@ public class EditProjectScene extends JPanel {
         windowTitle.setFont(HEADER_FONT);
         add(windowTitle, BorderLayout.NORTH);
         add(createMainPanel(), BorderLayout.CENTER);
-
-
 
         setVisible(true);
     }
