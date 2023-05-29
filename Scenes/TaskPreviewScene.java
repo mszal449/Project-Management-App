@@ -16,11 +16,17 @@ import java.util.Map;
 public class TaskPreviewScene extends JPanel {
     Task task; // oglądane zadanie
 
-    // TODO: zrobić z tego globalne zmienne?
+
+    // ---------------    STYL    ---------------
+
     Border MAIN_BORDER = BorderFactory.createEmptyBorder(20,20,20,20);
     Border ELEMENT_SPACING_BORDER = new CompoundBorder(
             BorderFactory.createEmptyBorder(10,30,10,30),
             BorderFactory.createLineBorder(Color.GRAY, 1));
+
+    Font LABEL_FONT = new Font("Arial", Font.PLAIN, 20);
+    Font CONTENT_FONT = new Font("Arial", Font.PLAIN, 18);
+    int LABEL_ALIGNEMENT = SwingConstants.RIGHT;
 
     // ---------------    SCENA    ---------------
 
@@ -60,8 +66,13 @@ public class TaskPreviewScene extends JPanel {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 2));
         panel.setBorder(ELEMENT_SPACING_BORDER);
-        panel.add(new JLabel("Nazwa: "));
-        panel.add(new JLabel(task.getName()));
+
+        JLabel name_field_label = new JLabel("Nazwa: ", LABEL_ALIGNEMENT);
+        name_field_label.setFont(LABEL_FONT);
+        panel.add(name_field_label);
+        JLabel name_label = new JLabel(task.getName());
+        name_label.setFont(LABEL_FONT);
+        panel.add(name_label);
         return panel;
     }
 
@@ -71,8 +82,12 @@ public class TaskPreviewScene extends JPanel {
         panel.setLayout(new GridLayout(1, 2));
         panel.setBorder(ELEMENT_SPACING_BORDER);
 
-        panel.add(new JLabel("Opis: "));
+        JLabel description_text_label = new JLabel("Opis: ", LABEL_ALIGNEMENT);
+        description_text_label.setFont(LABEL_FONT);
+
+        panel.add(description_text_label);
         panel.add(new JLabel(task.getDescription()));
+
         return panel;
     }
 
@@ -81,9 +96,15 @@ public class TaskPreviewScene extends JPanel {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 2));
         panel.setBorder(ELEMENT_SPACING_BORDER);
-        panel.add(new JLabel("Data końcowa: "));
+
+        JLabel deadline_label = new JLabel("Data końcowa: ", LABEL_ALIGNEMENT);
+        deadline_label.setFont(LABEL_FONT);
+        panel.add(deadline_label);
+
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        panel.add(new JLabel(task.getDeadline().format(dateTimeFormatter)));
+        JLabel date_content = new JLabel(task.getDeadline().format(dateTimeFormatter));
+        date_content.setFont(LABEL_FONT);
+        panel.add(date_content);
         return panel;
     }
 
@@ -92,17 +113,24 @@ public class TaskPreviewScene extends JPanel {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 2));
         panel.setBorder(ELEMENT_SPACING_BORDER);
-        panel.add(new JLabel("Status: "));
+
+        JLabel status_label = new JLabel("Status: ", LABEL_ALIGNEMENT);
+        status_label.setFont(LABEL_FONT);
+        panel.add(status_label);
+
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         if (task instanceof Planned) {
-            panel.add(new JLabel("planowane rozpoczęcie "
-                    + ((Planned) task).getStartdate().format(dateTimeFormatter)));
+            JLabel date_label = new JLabel("planowane rozpoczęcie "
+                    + ((Planned) task).getStartdate().format(dateTimeFormatter));
+            date_label.setFont(LABEL_FONT);
+            panel.add(date_label);
         } else if (task instanceof Current) {
             panel.add(new JLabel(((Current) task).getProgressState()));
         } else {
             panel.add(new JLabel("zakończono "
                     + ((Done) task).getEndDate().format(dateTimeFormatter)));
         }
+
         return panel;
     }
 
@@ -111,8 +139,17 @@ public class TaskPreviewScene extends JPanel {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 2));
         panel.setBorder(ELEMENT_SPACING_BORDER);
-        panel.add(new JLabel("Uczestnicy: "));
-        panel.add(new JList<>(task.getAssignees()));
+
+        // utworzenie podpisu pola
+        JLabel participants_label = new JLabel("Uczestnicy: ", LABEL_ALIGNEMENT);
+        participants_label.setFont(LABEL_FONT);
+        panel.add(participants_label);
+
+        // dodanie listy uczestników
+        JList asignee_list= new JList<>(task.getAssignees());
+        asignee_list.setFont(LABEL_FONT);
+        panel.add(asignee_list);
+
         return panel;
     }
 
