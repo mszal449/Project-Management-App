@@ -6,6 +6,8 @@ import Classes.User;
 import Main.MainProgram;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,15 +20,28 @@ import java.util.Date;
 
 // okno edycji zadania
 public abstract class TaskEditorScene extends JPanel{
-    Task task;
-    DefaultListModel<User> assignees_list_copy; // kopia listy osób aktualnie przydzielonych do zadania
-    User[] participants; // lista wszystkich uczestników projektu
+    protected Task task;                                    // edytowane zadanie
+    protected DefaultListModel<User> assignees_list_copy;   // kopia listy osób aktualnie przydzielonych do zadania
+    protected User[] participants;                          // lista wszystkich uczestników projektu
 
-    JTextField name_field;
-    JScrollPane description_field;
-    JSpinner deadline_spinner;
-    JList<User> assignees_jlist;
-    JComboBox<User> all_participants_combobox;
+    protected JTextField        name_field;                 // pole tekstowe nazwy zadania
+    protected JScrollPane       description_field;          // pole tekstowe opisu zadania
+    protected JSpinner          deadline_spinner;           // pole wyboru daty
+    protected JList<User>       assignees_jlist;            // lista uczestników zadania
+    protected JComboBox<User>   all_participants_combobox;  // lista wszystkich użytkowników
+
+
+    // ---------------    STYL    ---------------
+
+    Border MAIN_BORDER = BorderFactory.createEmptyBorder(20,20,20,20);
+    Border ELEMENT_SPACING_BORDER = new CompoundBorder(
+            BorderFactory.createEmptyBorder(10,30,10,30),
+            BorderFactory.createLineBorder(Color.GRAY, 1));
+
+    Font LABEL_FONT = new Font("Arial", Font.PLAIN, 26);
+
+
+    // ---------------    SCENA    ---------------
 
     // konstruktor używany podczas edytowania istniejącego zadania
     public TaskEditorScene(Task task) {
@@ -60,7 +75,11 @@ public abstract class TaskEditorScene extends JPanel{
         deadline_spinner = createDeadlineField();
         all_participants_combobox = createParticipantsCombobox();
         assignees_jlist = new JList<>(assignees_list_copy);
+
     }
+
+
+    //  --------------- PANELE SCENY ----------------
 
     // tworzenie panelu głównego
     protected abstract void createMainPanel();
@@ -68,23 +87,87 @@ public abstract class TaskEditorScene extends JPanel{
     // dodanie elementów do panelu głównego
     protected abstract void addElements();
 
-    // ------------- panel edycji nazwy zadania -------------
+    // panel edycji nazwy zadania
     protected JPanel namePanel() {
+        // utworzenie nowego panelu
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 2));
-        panel.add(new JLabel("Nazwa: "));
+
+        // dodanie opisu pola
+        JLabel name_text = new JLabel("Nazwa: ", SwingConstants.RIGHT);
+        name_text.setFont(LABEL_FONT);
+        name_text.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+
+        // dodanie elementów do panelu
+        panel.add(name_text);
         panel.add(name_field);
+
         return panel;
     }
 
-    // ------------- panel edycji opisu zadania -------------
+    // panel edycji opisu zadania
     protected JPanel descriptionPanel() {
+        // utworzenie nowego panelu
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 2));
-        panel.add(new JLabel("Opis: "));
+
+        // utworzenie opisu pola
+        JLabel description_text = new JLabel("Opis: ", SwingConstants.RIGHT);
+        description_text.setFont(LABEL_FONT);
+
+        description_text.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+
+        // dodanie elementów do panelu
+        panel.add(description_text);
         panel.add(description_field);
+
         return panel;
     }
+
+    //  panel edycji daty końcowej zadania
+    protected JPanel deadlinePanel() {
+        // utworzenie nowego panelu
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(1, 2));
+
+        // utworzenie opisu pola
+        JLabel deadline_text = new JLabel("Data końcowa: ", SwingConstants.RIGHT);
+        deadline_text.setFont(LABEL_FONT);
+        deadline_text.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+
+        // dodanie elementów do panelu
+        panel.add(deadline_text);
+        panel.add(deadline_spinner);
+
+        return panel;
+    }
+
+    // panel listy użytkowników odpowiedzialnych za zadanie
+    protected JPanel assigneesListPanel() {
+        // utworzenie nowego panelu
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(1, 2, 20 ,20));
+
+        // dodanie opisu pola
+
+        JPanel name_and_buttons = new JPanel();
+        name_and_buttons.setLayout(new GridLayout(2, 1, 10, 10));
+        JLabel asignee_label = new JLabel("Osoby odpowiedzialne");
+        asignee_label.setFont(LABEL_FONT);
+        name_and_buttons.add(asignee_label);
+
+        name_and_buttons.add(editAssigneesListOptions());
+        panel.add(name_and_buttons);
+
+        // dodanie elementów do panelu
+        panel.add(assignees_jlist);
+
+
+        return panel;
+    }
+
+
+    //  --------------- ELEMENTY PANELI ----------------
 
     // pole opisu zadania
     private JScrollPane createDescriptionField() {
@@ -94,19 +177,13 @@ public abstract class TaskEditorScene extends JPanel{
         return new JScrollPane(text);
     }
 
-    // ------------- panel edycji daty końcowej zadania -------------
-    protected JPanel deadlinePanel() {
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(1, 2));
-        panel.add(new JLabel("Data końcowa:"));
-        panel.add(deadline_spinner);
-        return panel;
-    }
-
     // pole z datą końcową zadania
     private JSpinner createDeadlineField() {
+        // utworzenie elementu wyboru daty
         SpinnerModel spinnerModel = new SpinnerDateModel();
         JSpinner spinner = new JSpinner(spinnerModel);
+
+        // konfiguracja elementu
         JSpinner.DateEditor dateEditor =
                 new JSpinner.DateEditor(spinner, "dd/MM/yyyy");
         spinner.setEditor(dateEditor);
@@ -114,104 +191,105 @@ public abstract class TaskEditorScene extends JPanel{
         Instant instant = localDate.atStartOfDay()
                 .atZone(ZoneId.systemDefault()).toInstant();
         spinner.setValue(Date.from(instant));
+
+
         return spinner;
-    }
-
-    // ------------- panel listy użytkowników odpowiedzialnych za zadanie -------------
-    protected JPanel assigneesListPanel() {
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-        panel.add(new JLabel("Osoby odpowiedzialne"), BorderLayout.NORTH);
-        panel.add(assignees_jlist, BorderLayout.CENTER);
-        panel.add(editAssigneesListOptions(), BorderLayout.SOUTH);
-        return panel;
-    }
-
-    // opcje edycji listy osób odpowiedzialnych za zadanie
-    private JPanel editAssigneesListOptions() {
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-        panel.add(all_participants_combobox, BorderLayout.NORTH);
-        all_participants_combobox.setVisible(false);
-        JPanel buttons_panel = new JPanel();
-        buttons_panel.setLayout(new GridLayout(1, 2));
-        // pzycisk usuwania osoby z listy
-        JButton delete_assignee = new JButton("Usuń");
-        delete_assignee.addActionListener(e -> {
-            int selected_index = assignees_jlist.getSelectedIndex();
-            if (selected_index != -1) {
-                assignees_list_copy.remove(selected_index);
-            }
-        });
-        // pzycisk dodawania osoby do listy
-        JButton add_assignee = new JButton("Dodaj");
-        add_assignee.addActionListener(makeParticipantAssigneeListener());
-        // dodanie przycisków
-        buttons_panel.add(delete_assignee);
-        buttons_panel.add(add_assignee);
-        panel.add(buttons_panel, BorderLayout.CENTER);
-        return panel;
     }
 
     // lista wszystkich uczestników projektu, z której możemy wybierać osobę, którą chcemy dodać do zadania
     private JComboBox<User> createParticipantsCombobox() {
         JComboBox<User> combobox
                 = new JComboBox<>(participants);
+
         combobox.insertItemAt(null, 0);
         combobox.setSelectedIndex(0);
+
         return combobox;
     }
 
-    // listener dodania wybranego uczestnika do listy osób odpowiedzialnych za zadanie
-    private ActionListener makeParticipantAssigneeListener() {
-        return new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (!all_participants_combobox.isVisible()) {
-                    all_participants_combobox.setSelectedIndex(0);
-                    all_participants_combobox.setVisible(true);
-                }
-                else {
-                    int selected_index = all_participants_combobox.getSelectedIndex();
-                    if (selected_index > 0) {
-                        User selected_user = participants[selected_index - 1];
-                        if (!assignees_list_copy.contains(selected_user)) {
-                            assignees_list_copy.addElement(participants[selected_index - 1]);
-                        }
-                    }
-                    all_participants_combobox.setVisible(false);
-                }
-            }
-        };
-    }
 
-    //  ------------- panel przycisków  -------------
-    protected JPanel buttonsPanel() {
+    //  -------------- FUNCKJONALNOŚĆ SCENY ---------------
+
+    // opcje edycji listy osób odpowiedzialnych za zadanie
+    private JPanel editAssigneesListOptions() {
+        // utworzenie nowego panelu
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(1, 2));
-        // zapisywanie
-        JButton save_button = new JButton("Zapisz");
-        save_button.addMouseListener(saveButtonListener());
-        panel.add(save_button);
-        // anulowanie
-        JButton cancel_button = new JButton("Anuluj");
-        cancel_button.addMouseListener(cancelButtonListener());
-        panel.add(cancel_button);
+        panel.setLayout(new BorderLayout());
+
+        // dodanie listy wyboru użytkowników
+        panel.add(all_participants_combobox, BorderLayout.NORTH);
+        all_participants_combobox.setVisible(false);
+
+        // dodanie panelu z przyciskamio
+        JPanel buttons_panel = new JPanel();
+        buttons_panel.setLayout(new GridLayout(1, 2));
+
+        // przycisk usuwania osoby z listy
+        JButton delete_assignee = new JButton("Usuń");
+        delete_assignee.setFont(LABEL_FONT);
+        delete_assignee.addActionListener(e -> {
+            int selected_index = assignees_jlist.getSelectedIndex();
+            if (selected_index != -1) {
+                assignees_list_copy.remove(selected_index);
+            }
+        });
+
+        // przycisk dodawania osoby do listy
+        JButton add_assignee = new JButton("Dodaj");
+        add_assignee.setFont(LABEL_FONT);
+        add_assignee.addActionListener(makeParticipantAssigneeListener());
+
+        // dodanie przycisków do sceny
+        buttons_panel.add(delete_assignee);
+        buttons_panel.add(add_assignee);
+        panel.add(buttons_panel, BorderLayout.CENTER);
+
         return panel;
     }
 
+    // zapisanie zmian
     protected void saveChanges() {
         // zapis nazwy zadania
         task.setName(name_field.getText());
+
         // zapis opisu zadania
         JTextArea note_text = (JTextArea) description_field.getViewport().getView();
         task.setDescription(note_text.getText());
+
         // zapis daty ukończenia
         task.setDeadline(((java.util.Date)deadline_spinner.getValue())
                 .toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate());
+
         // zapisanie listy osób
         task.setAssignees(assignees_list_copy);
     }
+
+
+    //  --------------- PANELE PRZYCISKÓW ---------------
+
+    // panel przycisków okna
+    protected JPanel buttonsPanel() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(1, 2));
+        panel.setBorder(ELEMENT_SPACING_BORDER);
+
+        // zapisywanie
+        JButton save_button = new JButton("Zapisz");
+//        save_button.setBorder(ELEMENT_SPACING_BORDER);
+        save_button.addMouseListener(saveButtonListener());
+        panel.add(save_button);
+
+        // anulowanie
+        JButton cancel_button = new JButton("Anuluj");
+//        cancel_button.setBorder(ELEMENT_SPACING_BORDER);
+        cancel_button.addMouseListener(cancelButtonListener());
+        panel.add(cancel_button);
+
+        return panel;
+    }
+
+
+    //  --------------- ACTION LISTENER'Y  ---------------
 
     // akcja zapisu zmian
     private MouseAdapter saveButtonListener() {
@@ -235,4 +313,28 @@ public abstract class TaskEditorScene extends JPanel{
             }
         };
     }
+
+    // dodanie wybranego uczestnika do listy osób odpowiedzialnych za zadanie
+    private ActionListener makeParticipantAssigneeListener() {
+        return new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!all_participants_combobox.isVisible()) {
+                    all_participants_combobox.setSelectedIndex(0);
+                    all_participants_combobox.setVisible(true);
+                }
+                else {
+                    int selected_index = all_participants_combobox.getSelectedIndex();
+                    if (selected_index > 0) {
+                        User selected_user = participants[selected_index - 1];
+                        if (!assignees_list_copy.contains(selected_user)) {
+                            assignees_list_copy.addElement(participants[selected_index - 1]);
+                        }
+                    }
+                    all_participants_combobox.setVisible(false);
+                }
+            }
+        };
+    }
 }
+

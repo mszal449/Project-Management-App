@@ -4,6 +4,8 @@ import Classes.*;
 import Main.MainProgram;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,21 +16,23 @@ import java.util.Map;
 public class TaskPreviewScene extends JPanel {
     Task task; // oglądane zadanie
 
+    // TODO: zrobić z tego globalne zmienne?
+    Border MAIN_BORDER = BorderFactory.createEmptyBorder(20,20,20,20);
+    Border ELEMENT_SPACING_BORDER = new CompoundBorder(
+            BorderFactory.createEmptyBorder(10,30,10,30),
+            BorderFactory.createLineBorder(Color.GRAY, 1));
+
+    // ---------------    SCENA    ---------------
+
     public TaskPreviewScene(Task task) {
         this.task = task;
         CreateTaskPreviewScene();
     }
 
-    private boolean checkUserPermissions() {
-        Map<User, Boolean> project_permissions = task.getProject().getParticipants();
-        User logged_user = MainProgram.getLoggedUser();
-        return (project_permissions.get(logged_user)
-                || task.getAssignees().contains(logged_user));
-    }
-
     private void CreateTaskPreviewScene() {
         new JPanel();
-        setLayout(new GridLayout(6, 1));
+        setLayout(new GridLayout(6, 1, 20, 20));
+        setBorder(MAIN_BORDER);
         addElements();
     }
 
@@ -41,10 +45,21 @@ public class TaskPreviewScene extends JPanel {
         add(buttonsPanel());
     }
 
+    private boolean checkUserPermissions() {
+        Map<User, Boolean> project_permissions = task.getProject().getParticipants();
+        User logged_user = MainProgram.getLoggedUser();
+        return (project_permissions.get(logged_user)
+                || task.getAssignees().contains(logged_user));
+    }
+
+
+    //  --------------- PANELE SCENY ----------------
+
     // panel z nazwą zadania
     private JPanel namePanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 2));
+        panel.setBorder(ELEMENT_SPACING_BORDER);
         panel.add(new JLabel("Nazwa: "));
         panel.add(new JLabel(task.getName()));
         return panel;
@@ -54,6 +69,8 @@ public class TaskPreviewScene extends JPanel {
     private JPanel descriptionPanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 2));
+        panel.setBorder(ELEMENT_SPACING_BORDER);
+
         panel.add(new JLabel("Opis: "));
         panel.add(new JLabel(task.getDescription()));
         return panel;
@@ -63,6 +80,7 @@ public class TaskPreviewScene extends JPanel {
     private JPanel deadlinePanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 2));
+        panel.setBorder(ELEMENT_SPACING_BORDER);
         panel.add(new JLabel("Data końcowa: "));
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         panel.add(new JLabel(task.getDeadline().format(dateTimeFormatter)));
@@ -73,6 +91,7 @@ public class TaskPreviewScene extends JPanel {
     private JPanel statePanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 2));
+        panel.setBorder(ELEMENT_SPACING_BORDER);
         panel.add(new JLabel("Status: "));
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         if (task instanceof Planned) {
@@ -91,6 +110,7 @@ public class TaskPreviewScene extends JPanel {
     private JPanel assigneesPanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 2));
+        panel.setBorder(ELEMENT_SPACING_BORDER);
         panel.add(new JLabel("Uczestnicy: "));
         panel.add(new JList<>(task.getAssignees()));
         return panel;
@@ -100,10 +120,13 @@ public class TaskPreviewScene extends JPanel {
     private JPanel buttonsPanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 2));
+        panel.setBorder(ELEMENT_SPACING_BORDER);
+
         // przycisk wejścia do trybu edycji zadania
         JButton edit_button = new JButton("Edytuj");
         edit_button.addActionListener(openEditorListener());
         panel.add(edit_button);
+
         // przycisk zmiany statusu zadania
         JButton action_button = new JButton();
         // przycisk rozpoczęcia zadania
@@ -137,6 +160,9 @@ public class TaskPreviewScene extends JPanel {
         panel.add(return_button);
         return panel;
     }
+
+
+    //  --------------- ACTION LISTENER'Y  ---------------
 
     // listener rozpoczęcia zadania
     private ActionListener startTaskListener() {

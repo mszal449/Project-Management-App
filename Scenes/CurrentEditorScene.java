@@ -22,6 +22,7 @@ public class CurrentEditorScene extends TaskEditorScene{
     protected void createMainPanel() {
         new JPanel();
         setLayout(new GridLayout(6, 1));
+        setBorder(MAIN_BORDER);
     }
 
     @Override
@@ -38,7 +39,10 @@ public class CurrentEditorScene extends TaskEditorScene{
     protected JPanel chooseLevelPanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 2));
-        panel.add(new JLabel("Status:"));
+        JLabel status_label = new JLabel("Status:", SwingConstants.RIGHT);
+        status_label.setFont(LABEL_FONT);
+        status_label.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+        panel.add(status_label);
         panel.add(progress_level_combobox);
         return panel;
     }

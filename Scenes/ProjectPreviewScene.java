@@ -7,24 +7,22 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+// okno podglądu zadania
 public class ProjectPreviewScene extends JPanel {
-    private Project project;                // Skopiowanie oryginalnej instancji projektu
-    private Project original_project;       // Oryginalna instancja projektu (potrzebne do zapisania zmian)
+    private Project project;                // skopiowanie oryginalnej instancji projektu
+    private Project original_project;       // oryginalna instancja projektu (potrzebne do zapisania zmian)
 
-    private JList Jusers;                   // Lista użytkowników
-    private JList Jtasks;                   // Lista zadań
+    private JList Jusers;                   // lista użytkowników
+    private JList Jtasks;                   // lista zadań
 
-
-    static int MAIN_PADDING_H = 20;         // Odległość zawartości od granicy okna
-    static int MAIN_PADDING_V = 20;
-
-
-    // ---------------   CZCIONKI   ---------------
+    // ---------------   STYL   ---------------
 
     static Font HEADER_FONT = new Font("Arial", Font.PLAIN, 26);
     static Font LIST_ELEMENT_FONT = new Font("Arial", Font.PLAIN, 20);
     static Font BUTTON_FONT = new Font("Arial", Font.PLAIN, 16);
 
+    static int MAIN_PADDING_H = 20;         // odległość zawartości od granicy okna
+    static int MAIN_PADDING_V = 20;
 
     // ---------------    SCENA    ---------------
 
@@ -118,7 +116,6 @@ public class ProjectPreviewScene extends JPanel {
 
     //  --------------- PANELE PRZYCISKÓW ---------------
 
-
     // Przyciski panelu z informacjami o projekcie
     private JPanel createProjectInfoButtons() {
         JPanel button_panel = new JPanel();
@@ -192,7 +189,7 @@ public class ProjectPreviewScene extends JPanel {
     }
 
 
-    //  --------------- ACTION LISTENERS  ---------------
+    //  --------------- ACTION LISTENER'Y  ---------------
 
     // Przycisk do edycji projektu
     private ActionListener editProjectButtonListener() {

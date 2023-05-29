@@ -4,6 +4,8 @@ import Classes.Planned;
 import Classes.Project;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
 import java.awt.*;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -12,6 +14,15 @@ import java.util.Date;
 
 public class PlannedEditorScene extends TaskEditorScene{
     JSpinner start_date_spinner;
+
+
+    // ---------------    STYL    ---------------
+    Border MAIN_BORDER = BorderFactory.createEmptyBorder(20,20,20,20);
+    Border ELEMENT_SPACING_BORDER = new CompoundBorder(
+            BorderFactory.createEmptyBorder(10,30,10,30),
+            BorderFactory.createLineBorder(Color.GRAY, 1));
+
+    // ---------------    SCENA    ---------------
 
     public PlannedEditorScene(Planned task) {
         super(task);
@@ -27,10 +38,14 @@ public class PlannedEditorScene extends TaskEditorScene{
         start_date_spinner = createStartDateField();
     }
 
+
+    //  --------------- PANELE SCENY ----------------
+
     @Override
     protected void createMainPanel() {
         new JPanel();
-        setLayout(new GridLayout(6, 1));
+        setLayout(new GridLayout(6, 1, 20, 20));
+        setBorder(MAIN_BORDER);
     }
 
     @Override
@@ -43,14 +58,19 @@ public class PlannedEditorScene extends TaskEditorScene{
         add(buttonsPanel());
     }
 
-    // ------------- panel edycji daty początkowej zadania -------------
+    // panel edycji daty początkowej zadania
     private JPanel startDatePanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 2));
-        panel.add(new JLabel("Planowana data rozpoczęcia:"));
+        JLabel name_text = new JLabel("Planowana data rozpoczęcia: ", SwingConstants.RIGHT);
+        name_text.setFont(LABEL_FONT);
+        name_text.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+        panel.add(name_text);
         panel.add(start_date_spinner);
         return panel;
     }
+
+    //  --------------- FUNKCJONALNOŚC SCENY ----------------
 
     // pole z datą
     private JSpinner createStartDateField() {
@@ -66,7 +86,7 @@ public class PlannedEditorScene extends TaskEditorScene{
         return spinner;
     }
 
-    // ------------- zapisywanie -------------
+    // zapisanie zmian
     @Override
     protected void saveChanges() {
         super.saveChanges();
