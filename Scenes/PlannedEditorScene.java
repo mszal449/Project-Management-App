@@ -45,7 +45,7 @@ public class PlannedEditorScene extends TaskEditorScene{
     protected void createMainPanel() {
         new JPanel();
         setLayout(new GridLayout(6, 1, 20, 20));
-        setBorder(MAIN_BORDER);
+        setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
     }
 
     @Override
@@ -63,7 +63,7 @@ public class PlannedEditorScene extends TaskEditorScene{
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 2));
         JLabel name_text = new JLabel("Planowana data rozpoczęcia: ", SwingConstants.RIGHT);
-        name_text.setFont(LABEL_FONT);
+        name_text.setFont(FONT);
         name_text.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
         panel.add(name_text);
         panel.add(start_date_spinner);

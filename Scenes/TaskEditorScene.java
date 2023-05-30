@@ -38,8 +38,8 @@ public abstract class TaskEditorScene extends JPanel{
             BorderFactory.createEmptyBorder(10,30,10,30),
             BorderFactory.createLineBorder(Color.GRAY, 1));
 
-    Font LABEL_FONT = new Font("Arial", Font.PLAIN, 26);
-
+    Font FONT = new Font("Arial", Font.PLAIN, 20);
+    Font CONTENT_FONT = new Font("Arial", Font.PLAIN, 18);
 
     // ---------------    SCENA    ---------------
 
@@ -71,10 +71,18 @@ public abstract class TaskEditorScene extends JPanel{
                 = task.getProject().getParticipants().keySet().toArray(new User[0]);
         // utworzenie pól edytowalnych
         name_field = new JTextField(task.getName());
+        name_field.setFont(CONTENT_FONT);
+
         description_field = createDescriptionField();
+
         deadline_spinner = createDeadlineField();
+
         all_participants_combobox = createParticipantsCombobox();
+        all_participants_combobox.setFont(CONTENT_FONT);
+
         assignees_jlist = new JList<>(assignees_list_copy);
+        assignees_jlist.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+        assignees_jlist.setFont(CONTENT_FONT);
 
     }
 
@@ -95,7 +103,7 @@ public abstract class TaskEditorScene extends JPanel{
 
         // dodanie opisu pola
         JLabel name_text = new JLabel("Nazwa: ", SwingConstants.RIGHT);
-        name_text.setFont(LABEL_FONT);
+        name_text.setFont(FONT);
         name_text.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 
         // dodanie elementów do panelu
@@ -112,13 +120,13 @@ public abstract class TaskEditorScene extends JPanel{
         panel.setLayout(new GridLayout(1, 2));
 
         // utworzenie opisu pola
-        JLabel description_text = new JLabel("Opis: ", SwingConstants.RIGHT);
-        description_text.setFont(LABEL_FONT);
+        JLabel description_text_label = new JLabel("Opis: ", SwingConstants.RIGHT);
+        description_text_label.setFont(FONT);
+        description_text_label.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 
-        description_text.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 
         // dodanie elementów do panelu
-        panel.add(description_text);
+        panel.add(description_text_label);
         panel.add(description_field);
 
         return panel;
@@ -132,7 +140,7 @@ public abstract class TaskEditorScene extends JPanel{
 
         // utworzenie opisu pola
         JLabel deadline_text = new JLabel("Data końcowa: ", SwingConstants.RIGHT);
-        deadline_text.setFont(LABEL_FONT);
+        deadline_text.setFont(FONT);
         deadline_text.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 
         // dodanie elementów do panelu
@@ -146,22 +154,23 @@ public abstract class TaskEditorScene extends JPanel{
     protected JPanel assigneesListPanel() {
         // utworzenie nowego panelu
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(1, 2, 20 ,20));
+        panel.setLayout(new GridLayout(1, 2));
 
-        // dodanie opisu pola
-
+        // dodanie opisu pola i przycisków
         JPanel name_and_buttons = new JPanel();
         name_and_buttons.setLayout(new GridLayout(2, 1, 10, 10));
-        JLabel asignee_label = new JLabel("Osoby odpowiedzialne");
-        asignee_label.setFont(LABEL_FONT);
-        name_and_buttons.add(asignee_label);
 
+        // utworzenie podpisu pola
+        JLabel asignee_label = new JLabel("Osoby odpowiedzialne: ", SwingConstants.RIGHT);
+        asignee_label.setFont(FONT);
+
+        name_and_buttons.add(asignee_label);
+        name_and_buttons.setBorder(BorderFactory.createEmptyBorder(0,0, 0, 20));
         name_and_buttons.add(editAssigneesListOptions());
         panel.add(name_and_buttons);
 
         // dodanie elementów do panelu
         panel.add(assignees_jlist);
-
 
         return panel;
     }
@@ -174,6 +183,7 @@ public abstract class TaskEditorScene extends JPanel{
         JTextArea text = new JTextArea( task.getDescription(), 2,  50);
         text.setLineWrap(true);
         text.setWrapStyleWord(true);
+        text.setFont(CONTENT_FONT);
         return new JScrollPane(text);
     }
 
@@ -226,7 +236,7 @@ public abstract class TaskEditorScene extends JPanel{
 
         // przycisk usuwania osoby z listy
         JButton delete_assignee = new JButton("Usuń");
-        delete_assignee.setFont(LABEL_FONT);
+        delete_assignee.setFont(FONT);
         delete_assignee.addActionListener(e -> {
             int selected_index = assignees_jlist.getSelectedIndex();
             if (selected_index != -1) {
@@ -236,7 +246,7 @@ public abstract class TaskEditorScene extends JPanel{
 
         // przycisk dodawania osoby do listy
         JButton add_assignee = new JButton("Dodaj");
-        add_assignee.setFont(LABEL_FONT);
+        add_assignee.setFont(FONT);
         add_assignee.addActionListener(makeParticipantAssigneeListener());
 
         // dodanie przycisków do sceny
@@ -275,13 +285,13 @@ public abstract class TaskEditorScene extends JPanel{
 
         // zapisywanie
         JButton save_button = new JButton("Zapisz");
-//        save_button.setBorder(ELEMENT_SPACING_BORDER);
+        save_button.setFont(FONT);
         save_button.addMouseListener(saveButtonListener());
         panel.add(save_button);
 
         // anulowanie
         JButton cancel_button = new JButton("Anuluj");
-//        cancel_button.setBorder(ELEMENT_SPACING_BORDER);
+        cancel_button.setFont(FONT);
         cancel_button.addMouseListener(cancelButtonListener());
         panel.add(cancel_button);
 
