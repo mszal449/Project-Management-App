@@ -2,17 +2,21 @@ package Scenes;
 
 import Classes.Planned;
 import Classes.Project;
+import Main.MainProgram;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 
 public class PlannedEditorScene extends TaskEditorScene{
+    boolean is_new; // czy tworzymy nowe zadanie?
     JSpinner start_date_spinner;
 
 
@@ -26,10 +30,12 @@ public class PlannedEditorScene extends TaskEditorScene{
 
     public PlannedEditorScene(Planned task) {
         super(task);
+        is_new = false;
     }
 
     public PlannedEditorScene(Project project) {
         super(new Planned(project));
+        is_new = true;
     }
 
     @Override
@@ -93,6 +99,24 @@ public class PlannedEditorScene extends TaskEditorScene{
         // zapis planowanej daty rozpoczęcia zadania
         ((Planned) task).setStartdate(((java.util.Date)start_date_spinner.getValue())
                 .toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate());
+    }
+
+    @Override
+    protected MouseAdapter cancelButtonListener() {
+        return new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                if (evt.getClickCount() == 1) {
+                    if (!is_new) {
+                        MainProgram.setWindow("task_preview_scene", task);
+                    }
+                    else {
+                        Project project = task.getProject();
+                        project.deleteTask(task);
+                        MainProgram.setWindow("project_preview_scene", project);
+                    }
+                }
+            }
+        };
     }
 
 }

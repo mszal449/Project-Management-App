@@ -60,6 +60,8 @@ public class Window extends JFrame{
             scene = new TaskPreviewScene((Task) args[0]);
         }
         else if (Objects.equals(scene_name, "task_edit_scene")) {
+            // jeżeli jako argument został podany projekt zamiast zadania
+            // to znaczy, że musimy utworzyć nowe zadanie w danym projekcie
             if (args[0] instanceof Project) {
                 scene = new PlannedEditorScene((Project) args[0]);
             }

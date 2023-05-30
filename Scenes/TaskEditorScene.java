@@ -314,7 +314,7 @@ public abstract class TaskEditorScene extends JPanel{
     }
 
     // akcja anulowania zmian
-    private MouseAdapter cancelButtonListener() {
+    protected MouseAdapter cancelButtonListener() {
         return new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
                 if (evt.getClickCount() == 1) {
