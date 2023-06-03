@@ -4,17 +4,15 @@ import javax.swing.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicLongArray;
+import java.util.*;
 
 // klasa reprezentująca "cały" projekt z jego wszystkimi zadaniami i uczestnikami
 public class Project implements Serializable, Cloneable {
-    String name;                            // nazwa projektu
-    LocalDate deadline;                     // termin ukończenia projektu
-    Boolean is_done;                        // czy projekt jest ukończony?
-    DefaultListModel<Task> tasks;           // lista zadań
-    Map<User, Boolean> participants; // lista uczestników projektu wraz z uprawnieniami
+    private String name;                            // nazwa projektu
+    private LocalDate deadline;                     // termin ukończenia projektu
+    private Boolean is_done;                        // czy projekt jest ukończony?
+    private  DefaultListModel<Task> tasks;           // lista zadań
+    private Map<User, Boolean> participants; // lista uczestników projektu wraz z uprawnieniami
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -43,8 +41,8 @@ public class Project implements Serializable, Cloneable {
     }
 
     // odczytanie uprawnień użytkownika
-    public void getPrivileges(User user) {
-        participants.get(user);
+    public boolean getPrivileges(User user) {
+        return participants.get(user);
     }
 
 
@@ -98,8 +96,20 @@ public class Project implements Serializable, Cloneable {
 
     // klonowanie instancji
     @Override
-    public Object clone() throws CloneNotSupportedException {
-        return super.clone();
+    public Project clone() throws CloneNotSupportedException {
+        Project cloned_project = (Project) super.clone();
+        cloned_project.tasks = new DefaultListModel<>();
+        for (int i = 0; i < tasks.getSize(); i++) {
+            Task task = tasks.getElementAt(i);
+            cloned_project.tasks.addElement(task.clone());
+        }
+        cloned_project.participants = new HashMap<>();
+        for (Map.Entry<User, Boolean> entry : participants.entrySet()) {
+            User user = entry.getKey();
+            Boolean privileges = entry.getValue();
+            cloned_project.participants.put(user.clone(), privileges);
+        }
+        return cloned_project;
     }
 
     // Zmiana nazwy projektu
@@ -120,5 +130,13 @@ public class Project implements Serializable, Cloneable {
     // zwrócenie planowanej daty projektu
     public LocalDate getDeadline() {
         return deadline;
+    }
+
+    public void setTasks(DefaultListModel<Task> tasks_list_copy) {
+        tasks = tasks_list_copy;
+    }
+
+    public void setPrivileges(Map<User, Boolean> participantsDictCopy) {
+        participants = participantsDictCopy;
     }
 }

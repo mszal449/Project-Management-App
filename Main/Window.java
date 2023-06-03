@@ -50,22 +50,13 @@ public class Window extends JFrame{
             scene = new ProjectsScene();
         }
         else if (Objects.equals(scene_name, "project_preview_scene")) {
-            try {
-                scene = new ProjectPreviewScene((Project) args[0]);
-            } catch (CloneNotSupportedException e) {
-                throw new RuntimeException(e);
-            }
+            scene = new ProjectPreviewScene((Project) args[0]);
         }
         else if (Objects.equals(scene_name, "task_preview_scene")) {
             scene = new TaskPreviewScene((Task) args[0]);
         }
         else if (Objects.equals(scene_name, "task_edit_scene")) {
-            // jeżeli jako argument został podany projekt zamiast zadania
-            // to znaczy, że musimy utworzyć nowe zadanie w danym projekcie
-            if (args[0] instanceof Project) {
-                scene = new PlannedEditorScene((Project) args[0]);
-            }
-            else if (args[0] instanceof Planned) {
+            if (args[0] instanceof Planned) {
                 scene = new PlannedEditorScene((Planned) args[0]);
             }
             else if (args[0] instanceof Current) {

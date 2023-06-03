@@ -55,6 +55,8 @@ public class Main {
         System.out.println();
         task1.start();
         project.getInfo();
+//        project.deleteParticipant(assignee1);
+//        project.getInfo();
         project.setPrivileges(assignee1, true);
         project.getInfo();
 
@@ -71,7 +73,7 @@ public class Main {
         User[] assignees_list_copy = new User[5];
         task1.getAssignees().copyInto(assignees_list_copy);
 
-        // Uruchomienie programu
+//         Uruchomienie programu
         MainProgram program = MainProgram.getInstance(u, p);
     }
 }

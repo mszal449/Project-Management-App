@@ -7,7 +7,7 @@ import java.io.*;
 import java.time.LocalDate;
 
 // klasa reprezentująca zadanie do wykonania w ramach projektu
-public abstract class Task implements Serializable {
+public abstract class Task implements Serializable, Cloneable {
     Project project;                        // projekt, do którego należy zadanie
     String name;                            // nazwa zadania
     String description;                     // opis zadania
@@ -24,7 +24,6 @@ public abstract class Task implements Serializable {
         assignees = new DefaultListModel<>();
         assignees.addElement(MainProgram.getLoggedUser());
         this.project = project;
-        this.project.addTask(this);
     }
 
     // "zwykły" konstruktor
@@ -104,4 +103,16 @@ public abstract class Task implements Serializable {
         System.out.println(assignees);
     }
 
+    // implementacja klonowania
+    @Override
+    public Task clone() throws CloneNotSupportedException {
+        Task clonedTask = (Task) super.clone();
+        // Perform deep copy for mutable member variables if necessary
+        clonedTask.assignees = new DefaultListModel<>();
+        for (int i = 0; i < assignees.getSize(); i++) {
+            User assignee = assignees.getElementAt(i);
+            clonedTask.assignees.addElement(assignee.clone()); // Assuming User class also implements Cloneable
+        }
+        return clonedTask;
+    }
 }

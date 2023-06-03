@@ -43,17 +43,9 @@ public abstract class TaskEditorScene extends JPanel{
 
     // ---------------    SCENA    ---------------
 
-    // konstruktor używany podczas edytowania istniejącego zadania
+    // konstruktor
     public TaskEditorScene(Task task) {
         this.task = task;
-        initializeAttributes();
-        createMainPanel();
-        addElements();
-    }
-
-    // konstruktor używany przy tworzeniu nowego zadania z poziomu aplikacji
-    public TaskEditorScene(Project project) {
-        this.task = new Planned(project);
         initializeAttributes();
         createMainPanel();
         addElements();
@@ -247,7 +239,7 @@ public abstract class TaskEditorScene extends JPanel{
         // przycisk dodawania osoby do listy
         JButton add_assignee = new JButton("Dodaj");
         add_assignee.setFont(FONT);
-        add_assignee.addActionListener(makeParticipantAssigneeListener());
+        add_assignee.addActionListener(assignParticipantListener());
 
         // dodanie przycisków do sceny
         buttons_panel.add(delete_assignee);
@@ -270,7 +262,7 @@ public abstract class TaskEditorScene extends JPanel{
         task.setDeadline(((java.util.Date)deadline_spinner.getValue())
                 .toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate());
 
-        // zapisanie listy osób
+        // zapis listy osób
         task.setAssignees(assignees_list_copy);
     }
 
@@ -325,7 +317,7 @@ public abstract class TaskEditorScene extends JPanel{
     }
 
     // dodanie wybranego uczestnika do listy osób odpowiedzialnych za zadanie
-    private ActionListener makeParticipantAssigneeListener() {
+    private ActionListener assignParticipantListener() {
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

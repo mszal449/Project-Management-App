@@ -128,7 +128,7 @@ public class ProjectsScene extends JPanel {
         Label list_header_label= new Label("Zadania:");
         Font font = new Font("Arial", Font.PLAIN, LIST_HEADER_FONT_SIZE);
         list_header_label.setFont(font);
-        panel.add( list_header_label, BorderLayout.NORTH);
+        panel.add(list_header_label, BorderLayout.NORTH);
 
         // Dodanie listy do okna
         panel.add(Jusers_tasks, BorderLayout.CENTER);

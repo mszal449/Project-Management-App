@@ -5,7 +5,7 @@ import javax.swing.*;
 import java.util.Objects;
 
 // klasa reprezentująca użytkownika aplikacji
-public class User {
+public class User implements Cloneable{
     String name; // nazwa użytkownika
     String email; // email
     String password; // hasło
@@ -60,6 +60,11 @@ public class User {
             }
         }
         return null;
+    }
+
+    @Override
+    public User clone() throws CloneNotSupportedException {
+        return (User) super.clone();
     }
 
 }
