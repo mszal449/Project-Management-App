@@ -9,31 +9,43 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.Serial;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 // okno podglądu zadania
 public class ProjectPreviewScene extends JPanel {
-    private Project project;                // projekt, który edytujemy
-    private Map<User, Boolean> participants_dict_copy; // kopia listy uczestników
-    private DefaultListModel<Task> tasks_list_copy; // kopia listy uczestników
+    private final Project project;                              // projekt, który edytujemy
+    private final Map<User, Boolean> participants_dict_copy;    // kopia listy uczestników
+    private final DefaultListModel<Task> tasks_list_copy;       // kopia listy uczestników
 
-    private final JList<Object> Jparticipants;          // lista uczestników projektu
-    private final JList<Task> Jtasks;                   // lista zadań
-    private final JComboBox<User> all_users_combobox;   // lista wszystkich użytkowników aplikacji
-    private final User[] users_array;                   // lista wszystkich użytkowników aplikacji
-    private final boolean is_admin;                     // czy zalogowany użytkownik jest administratorem projektu?
+    private final JList<Object> Jparticipants;                  // lista uczestników projektu
+    private final JList<Task> Jtasks;                           // lista zadań
+    private final JComboBox<User> all_users_combobox;           // lista wszystkich użytkowników aplikacji
+    private final User[] users_array;                           // lista wszystkich użytkowników aplikacji
+    private final boolean is_admin;                             // czy zalogowany użytkownik jest administratorem projektu?
+    private boolean is_editor_open;
+
+    private JPanel project_info_section;
+    private JTextField name_text_field;
+    private JCheckBox status_checkbox;
+    protected JSpinner deadline_spinner;                        // pole wyboru daty
+
 
     // ---------------   STYL   ---------------
 
-    static Font HEADER_FONT = new Font("Arial", Font.PLAIN, 26);
-    static Font LIST_ELEMENT_FONT = new Font("Arial", Font.PLAIN, 20);
+    static Font HEADER_FONT = new Font("Arial", Font.PLAIN, 28);
+    static Font CONTENT_FONT = new Font("Arial", Font.PLAIN, 20);
+    static Font LABEL_FONT = new Font("Arial", Font.PLAIN, 24);
     static Font BUTTON_FONT = new Font("Arial", Font.PLAIN, 16);
 
     static int MAIN_PADDING_H = 20;         // odległość zawartości od granicy okna
     static int MAIN_PADDING_V = 20;
 
-    // ---------------    SCENA    ---------------
+    // ---------------   SCENA   ---------------
 
     // Konstruktor sceny
     public ProjectPreviewScene(Project project) {
@@ -67,6 +79,8 @@ public class ProjectPreviewScene extends JPanel {
         // wczytanie uprawnień zalogowanego użytkownika
         is_admin = project.getPrivileges(MainProgram.getLoggedUser());
 
+        is_editor_open = false;
+
         // utworzenie sceny
         createScene();
     }
@@ -77,7 +91,8 @@ public class ProjectPreviewScene extends JPanel {
         setLayout(new GridLayout(1,3, 20, 20));
         setBorder(BorderFactory.createEmptyBorder(MAIN_PADDING_H, MAIN_PADDING_V, MAIN_PADDING_H, MAIN_PADDING_V));
 
-        add(createInfoPanel());
+        project_info_section = createProjectInfoSection();
+        add(project_info_section);
         add(createTaskPanel());
         add(createAssigneePanel());
 
@@ -88,23 +103,150 @@ public class ProjectPreviewScene extends JPanel {
     //  --------------- PANELE SCENY ----------------
 
     // Panel informacjami o projekcie
-    private JPanel createInfoPanel() {
+    private JPanel createProjectInfoSection() {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
         panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 
-        Label project_name_label = new Label("Nazwa projektu");
+        Label project_name_label = new Label("Informacje o projekcie");
         project_name_label.setFont(HEADER_FONT);
         panel.add(project_name_label, BorderLayout.NORTH);
 
-        JTextArea project_info_text = new JTextArea();
-        project_info_text.setFont(LIST_ELEMENT_FONT);
-        panel.add(project_info_text, BorderLayout.CENTER);
+        JPanel info_panel_content = createInfoPanel();
+        info_panel_content.setBackground(Color.WHITE);
+        panel.add(info_panel_content, BorderLayout.CENTER);
 
         JPanel project_button_box = createProjectInfoButtons();
         panel.add(project_button_box, BorderLayout.SOUTH);
 
         return panel;
+    }
+
+    // panel z informacjami o projekcie
+    private JPanel createInfoPanel() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(3,1));
+
+        // nazwa projektu
+        JPanel name_panel = new JPanel();
+        name_panel.setBackground(Color.WHITE);
+        name_panel.setLayout(new BorderLayout());
+
+        JLabel name_label = new JLabel("Nazwa:");
+        name_label.setFont(LABEL_FONT);
+
+        JLabel name_content = new JLabel(project.getName());
+        name_content.setFont(LABEL_FONT);
+
+        name_panel.add(name_label, BorderLayout.NORTH);
+        name_panel.add(name_content, BorderLayout.CENTER);
+
+
+        // data końcowa projektu
+        JPanel date_panel = new JPanel();
+        date_panel.setBackground(Color.WHITE);
+        date_panel.setLayout(new BorderLayout());
+
+        JLabel date_label = new JLabel("Data końcowa:");
+        date_label.setFont(LABEL_FONT);
+
+        JLabel date_content = new JLabel(String.valueOf(project.getDeadline()));
+        date_content.setFont(LABEL_FONT);
+
+        date_panel.add(date_label, BorderLayout.NORTH);
+        date_panel.add(date_content, BorderLayout.CENTER);
+
+
+        // status projektu
+        JPanel status_panel = new JPanel();
+        status_panel.setBackground(Color.WHITE);
+        status_panel.setLayout(new BorderLayout());
+
+        JLabel status_label = new JLabel("Status projektu:");
+        status_label.setFont(LABEL_FONT);
+
+        JLabel status_content = new JLabel();
+        status_content.setFont(LABEL_FONT);
+        if (project.getStatus()) {
+            status_content.setText("Ukończono");
+        } else {
+            status_content.setText("W trakcie realizacji");
+        }
+
+        status_panel.add(status_label, BorderLayout.NORTH);
+        status_panel.add(status_content, BorderLayout.CENTER);
+
+        panel.add(name_panel);
+        panel.add(date_panel);
+        panel.add(status_panel);
+
+        return panel;
+    }
+
+    // edytor infomacji o projekcie
+    // Fixme pls
+    private JPanel createEditorPanel() {
+        JPanel main_panel = new JPanel();
+        main_panel.setLayout(new BorderLayout());
+
+        Label project_name_label = new Label("Edycja projektu");
+        project_name_label.setFont(HEADER_FONT);
+        main_panel.add(project_name_label, BorderLayout.NORTH);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(3,1));
+
+        // nazwa projektu
+        JPanel name_panel = new JPanel();
+        name_panel.setBackground(Color.WHITE);
+        name_panel.setLayout(new BorderLayout());
+
+        JLabel name_label = new JLabel("Nazwa:");
+        name_label.setFont(LABEL_FONT);
+
+        name_text_field = new JTextField(project.getName());
+        name_text_field.setFont(LABEL_FONT);
+
+        name_panel.add(name_label, BorderLayout.NORTH);
+        name_panel.add(name_text_field, BorderLayout.CENTER);
+
+
+        // data końcowa projektu
+        JPanel date_panel = new JPanel();
+        date_panel.setBackground(Color.WHITE);
+        date_panel.setLayout(new BorderLayout());
+
+        JLabel date_label = new JLabel("Data końcowa:");
+        date_label.setFont(LABEL_FONT);
+
+        deadline_spinner = createDeadlineField();
+
+        date_panel.add(date_label, BorderLayout.NORTH);
+        date_panel.add(deadline_spinner, BorderLayout.CENTER);
+
+
+        // status projektu
+        JPanel status_panel = new JPanel();
+        status_panel.setBackground(Color.WHITE);
+        status_panel.setLayout(new BorderLayout());
+
+        JLabel status_label = new JLabel("Status projektu:");
+        status_label.setFont(LABEL_FONT);
+
+        status_checkbox = new JCheckBox("Ukończono");
+        status_checkbox.setFont(LABEL_FONT);
+        status_checkbox.setBackground(Color.WHITE);
+
+        status_panel.add(status_label, BorderLayout.NORTH);
+        status_panel.add(status_checkbox, BorderLayout.CENTER);
+
+        panel.add(name_panel);
+        panel.add(date_panel);
+        panel.add(status_panel);
+
+        main_panel.add(panel, BorderLayout.CENTER);
+        main_panel.add(createProjectEditorButtons(), BorderLayout.SOUTH);
+        return main_panel;
     }
 
     // Panel z zadaniami
@@ -197,6 +339,26 @@ public class ProjectPreviewScene extends JPanel {
         return button_panel;
     }
 
+    private JPanel createProjectEditorButtons() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(1,2, 20, 20));
+        panel.setBorder(BorderFactory.createEmptyBorder(MAIN_PADDING_H, MAIN_PADDING_V, MAIN_PADDING_H, MAIN_PADDING_V));
+
+        JButton save_button = new JButton("Zapisz");
+        save_button.setFont(BUTTON_FONT);
+        save_button.addActionListener(saveButtonListener());
+
+
+        JButton cancel_button = new JButton("Anuluj");
+        cancel_button.setFont(BUTTON_FONT);
+        cancel_button.addActionListener(cancelProjectInformationListener());
+
+        panel.add(save_button);
+        panel.add(cancel_button);
+
+        return panel;
+    }
+
     // Przyciski panelu z zadaniami
     private JPanel createTasksButtons() {
         JPanel button_panel = new JPanel();
@@ -256,15 +418,50 @@ public class ProjectPreviewScene extends JPanel {
     }
 
 
+    //  --------------- FUNKCJONALNOŚĆ  ---------------
+
+    private void editProject() {
+        is_editor_open = true;
+
+        JPanel updatedPanel = createEditorPanel();
+        project_info_section.removeAll();
+        project_info_section.add(updatedPanel);
+
+        project_info_section.revalidate(); // Ponowne walidowanie zawartości
+        project_info_section.repaint();
+    }
+
+    // pole z datą końcową zadania
+    private JSpinner createDeadlineField() {
+        // utworzenie elementu wyboru daty
+        SpinnerModel spinnerModel = new SpinnerDateModel();
+        JSpinner spinner = new JSpinner(spinnerModel);
+        spinner.setFont(LABEL_FONT);
+
+        // konfiguracja elementu
+        JSpinner.DateEditor dateEditor =
+                new JSpinner.DateEditor(spinner, "dd/MM/yyyy");
+        spinner.setEditor(dateEditor);
+        LocalDate localDate = project.getDeadline();
+        Instant instant = localDate.atStartOfDay()
+                .atZone(ZoneId.systemDefault()).toInstant();
+        spinner.setValue(Date.from(instant));
+
+
+        return spinner;
+    }
+
+
     //  --------------- ACTION LISTENERY  ---------------
 
     // Przycisk do edycji projektu
     private ActionListener editProjectButtonListener() {
-        return new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                MainProgram.setWindow("edit_project_scene", project);
-            }
+        return e -> editProject();
+    }
+
+    private ActionListener cancelProjectInformationListener() {
+        return e -> {
+            MainProgram.setWindow("project_preview_scene", project);
         };
     }
 
@@ -272,48 +469,46 @@ public class ProjectPreviewScene extends JPanel {
     private void saveProject() {
         project.setTasks(tasks_list_copy);
         project.setPrivileges(participants_dict_copy);
+
+        // FIXME: ten if usuwa projekt? ._.xd
+        if(is_editor_open) {
+            project.setName(name_text_field.getName());
+            project.setDeadline(((java.util.Date)deadline_spinner.getValue())
+                    .toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate());
+            project.setStatus(status_checkbox.isSelected());
+        }
     }
+
     private ActionListener saveButtonListener() {
         return e -> {
             saveProject();
-            System.out.println("Save button");
+            MainProgram.setWindow("project_preview_scene", project);
         };
     }
 
     // Przycisk powrotu do wyboru projektu
     private ActionListener returnButtonListener() {
-        return new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                MainProgram.setWindow("projects_scene");
-            }
-        };
+        return e -> MainProgram.setWindow("projects_scene");
     }
 
     // ------------------------------ EDYCJA LISTY ZADAŃ ------------------------------
     // Przycisk edytowania zadania
     private ActionListener addTaskButtonListener() {
-        return new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Planned new_task = new Planned(project);
-                tasks_list_copy.addElement(new_task);
-                System.out.println("Edit Task");
-            }
+        return e -> {
+            Planned new_task = new Planned(project);
+            tasks_list_copy.addElement(new_task);
+            System.out.println("Edit Task");
         };
     }
 
     // Przycisk usuwania zadania
     private ActionListener deleteTaskButtonListener() {
-        return new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int selected_index = Jtasks.getSelectedIndex();
-                if (selected_index != -1) {
-                    tasks_list_copy.remove(selected_index);
-                }
-                System.out.println("Delete Task: " + selected_index);
+        return e -> {
+            int selected_index = Jtasks.getSelectedIndex();
+            if (selected_index != -1) {
+                tasks_list_copy.remove(selected_index);
             }
+            System.out.println("Delete Task: " + selected_index);
         };
     }
 

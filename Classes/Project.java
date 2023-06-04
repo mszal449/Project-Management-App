@@ -70,6 +70,7 @@ public class Project implements Serializable, Cloneable {
     }
 
     // metoda pomocnicza napis z informacjami o projekcie
+    // FIXME: usunąć
     public void getInfo() {
         System.out.println(name);
         System.out.println(deadline);
@@ -127,6 +128,14 @@ public class Project implements Serializable, Cloneable {
         deadline = new_deadline;
     }
 
+    public Boolean getStatus()  {
+        return is_done;
+    }
+
+    public void setStatus(boolean val) {
+        is_done = val;
+    }
+
     // zwrócenie planowanej daty projektu
     public LocalDate getDeadline() {
         return deadline;
@@ -139,4 +148,5 @@ public class Project implements Serializable, Cloneable {
     public void setPrivileges(Map<User, Boolean> participantsDictCopy) {
         participants = participantsDictCopy;
     }
+
 }

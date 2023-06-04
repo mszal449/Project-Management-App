@@ -70,10 +70,6 @@ public class Window extends JFrame{
                 return;
             }
         }
-        else if (Objects.equals(scene_name, "edit_project_scene")) {
-            scene = new EditProjectScene((Project) args[0]);
-        }
-
         else {
             System.out.println("Nie znaleziono okna");
             return;
