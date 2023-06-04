@@ -122,7 +122,7 @@ public class ProjectPreviewScene extends JPanel {
         return panel;
     }
 
-    // panel z informacjami o projekcie
+    // wnętrze panelu
     private JPanel createInfoPanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(3,1));
@@ -184,7 +184,6 @@ public class ProjectPreviewScene extends JPanel {
     }
 
     // edytor infomacji o projekcie
-    // Fixme pls
     private JPanel createEditorPanel() {
         JPanel main_panel = new JPanel();
         main_panel.setLayout(new BorderLayout());
@@ -469,10 +468,8 @@ public class ProjectPreviewScene extends JPanel {
     private void saveProject() {
         project.setTasks(tasks_list_copy);
         project.setPrivileges(participants_dict_copy);
-
-        // FIXME: ten if usuwa projekt? ._.xd
         if(is_editor_open) {
-            project.setName(name_text_field.getName());
+            project.setName(name_text_field.getText());
             project.setDeadline(((java.util.Date)deadline_spinner.getValue())
                     .toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate());
             project.setStatus(status_checkbox.isSelected());
