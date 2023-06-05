@@ -14,7 +14,7 @@ public class Main {
         User assignee2 = new User("Kasia", "kasia@mail.com", "haslo2");
         User assignee3 = new User("Asia", "asia@mail.com", "haslo3");
         User assignee4 = new User("Lusia", "lusia@mail.com", "haslo4");
-        User assignee5 = new User("test", "test", "");
+        User assignee5 = new User("test", "test", "aa");
         project.addParticipant(assignee1);
         project.addParticipant(assignee2);
         project.addParticipant(assignee3);

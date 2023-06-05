@@ -20,6 +20,11 @@ public class User implements Cloneable{
         return name;
     }
 
+    // dostęp do adresu e-mail użytkownika
+    public String getEmail() {
+        return email;
+    }
+
     // statyczna metoda do logowania
     public static boolean logIn(String email, String password) {
         User user = findUser(email);
@@ -37,21 +42,14 @@ public class User implements Cloneable{
         }
     }
 
-    public static boolean signUp(String name, String email, String password) {
-        if (findUser(email) != null) {
-            System.out.println("Użytkownik o podanym adresie już istnieje - zaloguj się");
-            return false;
-        }
-        else {
-            User user = new User(name, email, password);
-            MainProgram.addUser(user);
-            MainProgram.setLoggedUser(user);
-            return true;
-        }
+    public static void signUp(String name, String email, String password) {
+        User user = new User(name, email, password);
+        MainProgram.addUser(user);
+        MainProgram.setLoggedUser(user);
     }
 
     // metoda pomocnicza - znajdowanie użytkowanika o danej nazwie na liscie użytkowników
-    private static User findUser(String email) {
+    public static User findUser(String email) {
         DefaultListModel<User> users = MainProgram.getUsers();
         for (int i = 0; i < users.getSize(); i++) {
             User user = users.getElementAt(i);
