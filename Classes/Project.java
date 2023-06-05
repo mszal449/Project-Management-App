@@ -17,12 +17,18 @@ public class Project implements Serializable, Cloneable {
     private static final long serialVersionUID = 1L;
 
     // konstruktor
-    public Project(String name, int day, int month, int year) {
+    public Project(String name, LocalDate date) {
         this.name = name;
         tasks = new DefaultListModel<>();
         participants = new HashMap<>();
         is_done = false;
-        deadline = LocalDate.of(year, month, day);
+        deadline = date;
+    }
+
+    // konstruktor używany przy tworzeniu nowego projektu
+    public Project(User loggedUser) {
+        this("Nowy projekt", LocalDate.now().plusMonths(1));
+        this.participants.put(loggedUser, true);
     }
 
     // dodawanie uczestnika do projektu

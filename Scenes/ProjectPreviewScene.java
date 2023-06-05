@@ -12,6 +12,7 @@ import java.io.Serial;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -49,6 +50,7 @@ public class ProjectPreviewScene extends JPanel {
 
     // Konstruktor sceny
     public ProjectPreviewScene(Project project) {
+        User[] users_array1;
         this.project = project;
 
         // utworzenie kopii listy zadań i listy użytkowników
@@ -489,12 +491,12 @@ public class ProjectPreviewScene extends JPanel {
     }
 
     // ------------------------------ EDYCJA LISTY ZADAŃ ------------------------------
-    // Przycisk edytowania zadania
+    // Przycisk dodawania zadania
     private ActionListener addTaskButtonListener() {
         return e -> {
             Planned new_task = new Planned(project);
             tasks_list_copy.addElement(new_task);
-            System.out.println("Edit Task");
+            System.out.println("add task");
         };
     }
 
@@ -609,7 +611,7 @@ public class ProjectPreviewScene extends JPanel {
         };
     }
 
-    // wyświetlanie listy użytkowników
+    // wyświetlanie listy uczestników projektu
     private class UserListCellRenderer extends DefaultListCellRenderer {
         @Serial
         private static final long serialVersionUID = 1L;

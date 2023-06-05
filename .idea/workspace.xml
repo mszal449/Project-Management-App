@@ -4,16 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6cc3313-cad9-4cc3-8b3f-4e1b13531a9b" name="Changes" comment="fix on adding new task to project">
+    <list default="true" id="a6cc3313-cad9-4cc3-8b3f-4e1b13531a9b" name="Changes" comment="fix on project info edit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Classes/Project.java" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Project.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Task.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main/Window.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Scenes/ProjectPreviewScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/ProjectPreviewScene.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Scenes/ProjectsScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/ProjectsScene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scenes/TaskEditorScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/TaskEditorScene.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,7 +123,9 @@
       <workItem from="1685641222270" duration="1955000" />
       <workItem from="1685654177195" duration="817000" />
       <workItem from="1685697391316" duration="1674000" />
-      <workItem from="1685813709183" duration="4198000" />
+      <workItem from="1685813709183" duration="4647000" />
+      <workItem from="1685899813629" duration="2017000" />
+      <workItem from="1685948793783" duration="2850000" />
     </task>
     <task id="LOCAL-00001" summary="first draft of project structure">
       <created>1683215433286</created>
@@ -304,7 +302,21 @@
       <option name="project" value="LOCAL" />
       <updated>1685475936251</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="finally editing project lists added">
+      <created>1685818707336</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1685818707336</updated>
+    </task>
+    <task id="LOCAL-00027" summary="fix on project info edit">
+      <created>1685909433342</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1685909433342</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -342,7 +354,9 @@
     <MESSAGE value="task preview fix" />
     <MESSAGE value="add listener to tasks list in ProjectsScenet" />
     <MESSAGE value="fix on adding new task to project" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix on adding new task to project" />
+    <MESSAGE value="finally editing project lists added" />
+    <MESSAGE value="fix on project info edit" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix on project info edit" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

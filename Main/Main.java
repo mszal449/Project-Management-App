@@ -3,11 +3,12 @@ package Main;
 import Classes.*;
 
 import javax.swing.*;
+import java.time.LocalDate;
 
 public class Main {
     public static void main(String[] args) {
-        Project project = new Project("Projekt z po", 20, 6, 2023);
-        Project project2 = new Project("Projekt pusty", 13, 5, 2024);
+        Project project = new Project("Projekt z po", LocalDate.of(2023, 6, 20));
+        Project project2 = new Project("Projekt pusty", LocalDate.of(2024, 5, 3));
 
         User assignee1 = new User("Basia", "basia@mail.com", "haslo1");
         User assignee2 = new User("Kasia", "kasia@mail.com", "haslo2");
