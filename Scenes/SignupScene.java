@@ -63,15 +63,18 @@ public class SignupScene extends JPanel {
             String name = name_text.getText();
             String email = email_text.getText();
             String password = new String(password_text.getPassword());
-            // sprawdzanie poprawności danych
+            // sprawdzanie, czy pola nie są puste
             if (Objects.equals(name, "")
-                    || Objects.equals(email, "")
-                    || Objects.equals(password, "")) {
+                    || Objects.equals(email, "")) {
                 showEmptyFieldsDialog();
-                return;
+            }
+            // sprawdzanie, czy hasło nie jest za krótkie
+            else if (password.length() < 6) {
+                showPasswordTooShortDialog();
+                password_text.setText("");
             }
             // sprawdzanie, czy adres e-mail jest unikatowy
-            if (findUser(email) != null) {
+            else if (findUser(email) != null) {
                     int result = showLogInDialog();
                     // przejście do ekranu logowania
                     if (result == JOptionPane.YES_OPTION) {
@@ -80,21 +83,32 @@ public class SignupScene extends JPanel {
                     } else if (result == JOptionPane.NO_OPTION) {
                         email_text.setText("");
                     }
-                    return;
             }
-            User.signUp(name, email, password);
-            MainProgram.setWindow("projects_scene");
+            else {
+                User.signUp(name, email, password);
+                MainProgram.setWindow("projects_scene");
+            }
         });
 
         // Action Listener przycisku powrotu do ekranu logowania
         back_to_login_button.addActionListener(e -> MainProgram.setWindow("login_scene"));
     }
 
+    // --------------- OKNA DIALOGOWE ---------------
     private int showEmptyFieldsDialog() {
         return JOptionPane.showConfirmDialog(
                 null,
                 "Pola nie mogą być puste",
                 "Pola puste",
+                JOptionPane.DEFAULT_OPTION
+        );
+    }
+
+    private int showPasswordTooShortDialog() {
+        return JOptionPane.showConfirmDialog(
+                null,
+                "Hasło musi mieć przynajmniej 6 znaków",
+                "Hasło zbyt krótkie",
                 JOptionPane.DEFAULT_OPTION
         );
     }
