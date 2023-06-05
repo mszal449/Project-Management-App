@@ -573,24 +573,21 @@ public class ProjectPreviewScene extends JPanel {
 
     // Przycisk dodania użytkownika do listy uczestników projektu
     private ActionListener addUserListener() {
-        return new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (!all_users_combobox.isVisible()) {
-                    all_users_combobox.setSelectedIndex(0);
-                    all_users_combobox.setVisible(true);
-                } else {
-                    int selected_index = all_users_combobox.getSelectedIndex();
-                    if (selected_index > 0) {
-                        User selected_user = users_array[selected_index - 1];
-                        if (!participants_dict_copy.containsKey(selected_user)) {
-                            participants_dict_copy.put(selected_user, false);
-                            System.out.println("Add participant: " + selected_user);
-                        }
+        return e -> {
+            if (!all_users_combobox.isVisible()) {
+                all_users_combobox.setSelectedIndex(0);
+                all_users_combobox.setVisible(true);
+            } else {
+                int selected_index = all_users_combobox.getSelectedIndex();
+                if (selected_index > 0) {
+                    User selected_user = users_array[selected_index - 1];
+                    if (!participants_dict_copy.containsKey(selected_user)) {
+                        participants_dict_copy.put(selected_user, false);
+                        System.out.println("Add participant: " + selected_user);
                     }
-                    Jparticipants.setListData(participants_dict_copy.keySet().toArray());
-                    all_users_combobox.setVisible(false);
                 }
+                Jparticipants.setListData(participants_dict_copy.keySet().toArray());
+                all_users_combobox.setVisible(false);
             }
         };
     }

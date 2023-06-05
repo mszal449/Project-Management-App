@@ -7,9 +7,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
+
+import static Classes.User.findUser;
 
 // TODO:
-//  Przycisk rejestracji
 //  Layout
 
 
@@ -57,26 +59,71 @@ public class SignupScene extends JPanel {
         add(back_to_login_button);
 
         // Action Listener przycisku rejestracji
-        signup_button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String name = name_text.getText();
-                String email = email_text.getText();
-                String password = new String(password_text.getPassword());
-                if (User.signUp(name, email, password)) {
-                    MainProgram.setWindow("projects_scene");
-                }
+        signup_button.addActionListener(e -> {
+            String name = name_text.getText();
+            String email = email_text.getText();
+            String password = new String(password_text.getPassword());
+            // sprawdzanie, czy pola nie są puste
+            if (Objects.equals(name, "")
+                    || Objects.equals(email, "")) {
+                showEmptyFieldsDialog();
+            }
+            // sprawdzanie, czy hasło nie jest za krótkie
+            else if (password.length() < 6) {
+                showShortPasswordDialog();
+                password_text.setText("");
+            }
+            // sprawdzanie, czy adres e-mail jest unikatowy
+            else if (findUser(email) != null) {
+                    int result = showLogInDialog();
+                    // przejście do ekranu logowania
+                    if (result == JOptionPane.YES_OPTION) {
+                        MainProgram.setWindow("login_scene");
+                    // wyczyszczenie pola z adresem e-mail
+                    } else if (result == JOptionPane.NO_OPTION) {
+                        email_text.setText("");
+                    }
+            }
+            else {
+                User.signUp(name, email, password);
+                MainProgram.setWindow("projects_scene");
             }
         });
 
         // Action Listener przycisku powrotu do ekranu logowania
-        back_to_login_button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                MainProgram.setWindow("login_scene");
-            }
-        });
-
+        back_to_login_button.addActionListener(e -> MainProgram.setWindow("login_scene"));
     }
 
+    // ---------------- OKNA DIALOGOWE ----------------
+    private int showEmptyFieldsDialog() {
+        return JOptionPane.showConfirmDialog(
+                null,
+                "Pola nie mogą być puste",
+                "Pola puste",
+                JOptionPane.DEFAULT_OPTION
+        );
+    }
+
+    private int showShortPasswordDialog() {
+        return JOptionPane.showConfirmDialog(
+                null,
+                "Hasło musi zawierać przynajmniej 6 znaków",
+                "Za krótkie hasło",
+                JOptionPane.DEFAULT_OPTION
+        );
+    }
+
+    // okno dialogowe wyświetlające się, gdy dany adres e-mail nie jest unikatowy
+    private int showLogInDialog() {
+        return JOptionPane.showOptionDialog(
+                null,
+                "Konto o podanym adresie e-mail już istnieje",
+                "Logowanie",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                new Object[]{"Zaloguj się", "Podaj inny adres"},
+                "Zaloguj się"
+        );
+    }
 }
