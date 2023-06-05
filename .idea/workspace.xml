@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6cc3313-cad9-4cc3-8b3f-4e1b13531a9b" name="Changes" comment="checking data validation in signup window">
+    <list default="true" id="a6cc3313-cad9-4cc3-8b3f-4e1b13531a9b" name="Changes" comment="adding new project">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scenes/ProjectPreviewScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/ProjectPreviewScene.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Scenes/SignupScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/SignupScene.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -122,7 +124,7 @@
       <workItem from="1685697391316" duration="1674000" />
       <workItem from="1685813709183" duration="4647000" />
       <workItem from="1685899813629" duration="2017000" />
-      <workItem from="1685948793783" duration="5798000" />
+      <workItem from="1685948793783" duration="4991000" />
     </task>
     <task id="LOCAL-00001" summary="first draft of project structure">
       <created>1683215433286</created>
@@ -320,14 +322,7 @@
       <option name="project" value="LOCAL" />
       <updated>1685952029386</updated>
     </task>
-    <task id="LOCAL-00029" summary="checking data validation in signup window">
-      <created>1685954227562</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1685954227562</updated>
-    </task>
-    <option name="localTasksCounter" value="30" />
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -368,8 +363,7 @@
     <MESSAGE value="finally editing project lists added" />
     <MESSAGE value="fix on project info edit" />
     <MESSAGE value="adding new project" />
-    <MESSAGE value="checking data validation in signup window" />
-    <option name="LAST_COMMIT_MESSAGE" value="checking data validation in signup window" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding new project" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
