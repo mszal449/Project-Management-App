@@ -6,17 +6,22 @@ import javax.swing.*;
 import java.io.*;
 import java.time.LocalDate;
 
-// klasa reprezentująca zadanie do wykonania w ramach projektu
-public abstract class Task implements Serializable, Cloneable {
-    Project project;                        // projekt, do którego należy zadanie
-    String name;                            // nazwa zadania
-    String description;                     // opis zadania
-    DefaultListModel<User> assignees;       // osoby odpowiedzialne
-    LocalDate deadline;                     // planowana data ukończenia
+/** Klasa reprezentująca zadanie do wykonania w ramach projektu */
+public abstract class Task implements Serializable {
+    /** projekt, do którego należy zadanie */
+    Project project;
+    /** nazwa zadania */
+    String name;
+    /** opis zadania */
+    String description;
+    /** osoby odpowiedzialne */
+    DefaultListModel<User> assignees;
+    /** planowana data ukończenia */
+    LocalDate deadline;
     @Serial
     private static final long serialVersionUID = 1L;
 
-    // konstruktor używany do tworzenia nowego zadania z poziomu aplikacji
+    // konstruktor używany do tworzenia nowego zadania z poziomu aplikacji */
     public Task(Project project) {
         name = "Nowe zadanie";
         description = "";
@@ -26,7 +31,7 @@ public abstract class Task implements Serializable, Cloneable {
         this.project = project;
     }
 
-    // "zwykły" konstruktor
+    // "zwykły" konstruktor */
     public Task(String name, int day, int month, int year) {
         this.name = name;
         this.assignees = new DefaultListModel<>();
@@ -34,7 +39,7 @@ public abstract class Task implements Serializable, Cloneable {
         deadline = LocalDate.of(year, month, day);
     }
 
-    // konstruktor "częściowo kopiujący" używany przy zmianie statusu zadania
+    // konstruktor "częściowo kopiujący" używany przy zmianie statusu zadania */
     public Task(Task task) {
         this.project = task.project;
         this.name = task.name;
@@ -44,12 +49,12 @@ public abstract class Task implements Serializable, Cloneable {
         task.project.addTask(this);
     }
 
-    // dostęp do projektu, do którego należy zadanie
+    // dostęp do projektu, do którego należy zadanie */
     public Project getProject() {
         return project;
     }
 
-    // dostęp do nazwy zadania
+    // dostęp do nazwy zadania */
     public String getName() {
         return name;
     }
@@ -57,7 +62,7 @@ public abstract class Task implements Serializable, Cloneable {
         this.name = name;
     }
 
-    // dostęp opisu zadania
+    // dostęp do opisu zadania */
     public String getDescription() {
         return description;
     }
@@ -65,7 +70,7 @@ public abstract class Task implements Serializable, Cloneable {
         this.description = description;
     }
 
-    // zmiana daty końcowej
+    // dostęp do daty końcowej */
     public LocalDate getDeadline() {
         return deadline;
     }
@@ -76,43 +81,31 @@ public abstract class Task implements Serializable, Cloneable {
         deadline = date;
     }
 
-    // dostęp do listy osób przypisanych do zadania
+    // dostęp do listy osób przypisanych do zadania */
     public DefaultListModel<User> getAssignees() {
         return assignees;
     }
     public void setAssignees(DefaultListModel<User> assignees) {
         this.assignees = assignees;
     }
-    // dodanie osoby do listy
+    // dodanie osoby do listy */
     public void addAssignee(User assignee) {
         assignees.addElement(assignee);
     }
-    // usunięcie osoby z listy
+    // usunięcie osoby z listy */
     public void deleteAssignee(User assignee) {
         assignees.removeElement(assignee);
     }
 
-    // metoda pomocniczna zwracająca napis rezprezentujący zadanie
+    // napis rezprezentujący zadanie */
     public String toString() {
         return name + " " + deadline;
     }
 
-    // metoda pomocnicza wypisująca informacje o zadaniu do konsoli
+    // metoda pomocnicza wypisująca informacje o zadaniu do konsoli */
     public void getInfo() {
         System.out.println(this);
         System.out.println(assignees);
     }
 
-    // implementacja klonowania
-    @Override
-    public Task clone() throws CloneNotSupportedException {
-        Task clonedTask = (Task) super.clone();
-        // Perform deep copy for mutable member variables if necessary
-        clonedTask.assignees = new DefaultListModel<>();
-        for (int i = 0; i < assignees.getSize(); i++) {
-            User assignee = assignees.getElementAt(i);
-            clonedTask.assignees.addElement(assignee.clone()); // Assuming User class also implements Cloneable
-        }
-        return clonedTask;
-    }
 }

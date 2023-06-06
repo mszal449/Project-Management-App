@@ -5,32 +5,33 @@ import Main.MainProgram;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
 
 import static Classes.User.findUser;
 
-// TODO:
-//  Layout
-
-// scena logowania
+/** Scena rejestrowania konta */
 public class SignupScene extends JPanel {
-    JTextField name_text;           // pole tekstowe na nazwę użytkownika
-    JTextField email_text;          // pole tekstowe na adres email
-    JPasswordField password_text;   // pole tekstowe na hasło
-    JButton signup_button;          // przycisk rejestracji nowego użytkownika
-    JButton back_to_login_button;   // przycisk powrotu do ekranu logowania
+    /** pole tekstowe na nazwę użytkownika */
+    JTextField name_text;
+    /** pole tekstowe na adres email */
+    JTextField email_text;
+    /** pole tekstowe na hasło */
+    JPasswordField password_text;
+    /** przycisk rejestracji nowego użytkownika */
+    JButton signup_button;
+    /** przycisk powrotu do ekranu logowania */
+    JButton back_to_login_button;
 
 
     // ---------------    SCENA    ---------------
 
-    // konstruktor sceny
+    /** konstruktor sceny */
     public SignupScene() {
         CreateSignupScene();
     }
 
-    // utworzenie zawartości sceny
+    /** utworzenie zawartości sceny */
     private void CreateSignupScene() {
         new JPanel();
         setLayout(new GridLayout(5, 1, 20, 20));
@@ -41,7 +42,7 @@ public class SignupScene extends JPanel {
 
     // ---------------    ELEMENTY SCENY    ---------------
 
-    // elementy systemu logowania
+    /** elementy systemu logowania */
     private void addElements() {
         // pole tekstowe na nazwę użytkownika
         name_text = new JTextField(40);
@@ -75,9 +76,16 @@ public class SignupScene extends JPanel {
         add(signup_button);
         add(back_to_login_button);
 
-        // FIXME: przenieść poza metodę?
-        // Action Listener przycisku rejestracji
-        signup_button.addActionListener(e -> {
+        // akcja rejestracji
+        signup_button.addActionListener(signupActionListener());
+        // akcja powrotu do logowania
+        back_to_login_button.addActionListener(backToLoginActionListener());
+    }
+
+    // --------------- OBSŁUGA ZDARZEŃ ---------------
+    /** akcja rejestracji */
+    private ActionListener signupActionListener() {
+        return e -> {
             String name = name_text.getText();
             String email = email_text.getText();
             String password = new String(password_text.getPassword());
@@ -105,21 +113,16 @@ public class SignupScene extends JPanel {
                 User.signUp(name, email, password);
                 MainProgram.setWindow("projects_scene");
             }
-        });
-        // Action Listener przycisku powrotu do ekranu logowania
-        back_to_login_button.addActionListener(e -> MainProgram.setWindow("login_scene"));
-    }
-
-    private ActionListener backToLoginActionListener() {
-        return new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                MainProgram.setWindow("login_scene");
-            }
         };
     }
 
+    /** powrót do sceny logowania */
+    private ActionListener backToLoginActionListener() {
+        return e -> MainProgram.setWindow("login_scene");
+    }
+
     // --------------- OKNA DIALOGOWE ---------------
+    /** okno dialogowe informujące o pustych polach */
     private int showEmptyFieldsDialog() {
         return JOptionPane.showConfirmDialog(
                 null,
@@ -129,6 +132,7 @@ public class SignupScene extends JPanel {
         );
     }
 
+    /** okno dialogowe informujące o zbyt krótkim haśle */
     private int showPasswordTooShortDialog() {
         return JOptionPane.showConfirmDialog(
                 null,
@@ -138,7 +142,7 @@ public class SignupScene extends JPanel {
         );
     }
 
-    // okno dialogowe wyświetlające się, gdy dany adres e-mail nie jest unikatowy
+    /** okno dialogowe wyświetlające się, gdy dany adres e-mail nie jest unikatowy */
     private int showLogInDialog() {
         return JOptionPane.showOptionDialog(
                 null,

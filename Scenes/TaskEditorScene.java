@@ -1,15 +1,10 @@
 package Scenes;
-import Classes.Planned;
-import Classes.Project;
 import Classes.Task;
 import Classes.User;
 import Main.MainProgram;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -18,22 +13,31 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 
-// okno edycji zadania
+/** Okno edycji zadania */
 public abstract class TaskEditorScene extends JPanel{
-    protected Task task;                                    // edytowane zadanie
-    protected DefaultListModel<User> assignees_list_copy;   // kopia listy osób aktualnie przydzielonych do zadania
-    protected User[] participants;                          // lista wszystkich uczestników projektu
+    /** Edytowane zadanie */
+    protected Task task;
+    /** Kopia listy osób aktualnie przydzielonych do zadania */
+    protected DefaultListModel<User> assignees_list_copy;
+    /** Lista wszystkich uczestników projektu */
+    protected User[] participants;
 
-    protected JTextField        name_field;                 // pole tekstowe nazwy zadania
-    protected JScrollPane       description_field;          // pole tekstowe opisu zadania
-    protected JSpinner          deadline_spinner;           // pole wyboru daty
-    protected JList<User>       assignees_jlist;            // lista uczestników zadania
-    protected JComboBox<User>   all_participants_combobox;  // lista wszystkich użytkowników
+    /** Pole tekstowe nazwy zadania */
+    protected JTextField name_field;
+    /** Pole tekstowe opisu zadania */
+    protected JScrollPane description_field;
+    /** Pole wyboru daty */
+    protected JSpinner deadline_spinner;
+    /** Lista uczestników zadania */
+    protected JList<User> assignees_jlist;
+    /** Lista wszystkich użytkowników */
+    protected JComboBox<User> all_participants_combobox;
+
 
 
     // ---------------    SCENA    ---------------
 
-    // konstruktor
+    /** Konstruktor */
     public TaskEditorScene(Task task) {
         this.task = task;
         initializeAttributes();
@@ -41,7 +45,7 @@ public abstract class TaskEditorScene extends JPanel{
         addElements();
     }
 
-    // utworzenie wszystkich atrybutów klasy
+    /** Utworzenie wszystkich atrybutów klasy */
     protected void initializeAttributes() {
         // skopiowanie listy osób odpowiedzialnych za zadanie
         assignees_list_copy = new DefaultListModel<>();
@@ -71,13 +75,13 @@ public abstract class TaskEditorScene extends JPanel{
 
     //  --------------- PANELE SCENY ----------------
 
-    // tworzenie panelu głównego
+    /** Tworzenie panelu głównego */
     protected abstract void createMainPanel();
 
-    // dodanie elementów do panelu głównego
+    /** Dodanie elementów do panelu głównego */
     protected abstract void addElements();
 
-    // panel edycji nazwy zadania
+    /** Panel edycji nazwy zadania */
     protected JPanel namePanel() {
         // utworzenie nowego panelu
         JPanel panel = new JPanel();
@@ -95,7 +99,7 @@ public abstract class TaskEditorScene extends JPanel{
         return panel;
     }
 
-    // panel edycji opisu zadania
+    /** Panel edycji opisu zadania */
     protected JPanel descriptionPanel() {
         // utworzenie nowego panelu
         JPanel panel = new JPanel();
@@ -114,7 +118,7 @@ public abstract class TaskEditorScene extends JPanel{
         return panel;
     }
 
-    //  panel edycji daty końcowej zadania
+    /** Panel zmiany daty końcowej */
     protected JPanel deadlinePanel() {
         // utworzenie nowego panelu
         JPanel panel = new JPanel();
@@ -132,7 +136,7 @@ public abstract class TaskEditorScene extends JPanel{
         return panel;
     }
 
-    // panel listy użytkowników odpowiedzialnych za zadanie
+    /** Panel edycji uczestników */
     protected JPanel assigneesListPanel() {
         // utworzenie nowego panelu
         JPanel panel = new JPanel();
@@ -160,7 +164,7 @@ public abstract class TaskEditorScene extends JPanel{
 
     //  --------------- ELEMENTY PANELI ----------------
 
-    // pole opisu zadania
+    /** Pole opisu zadania */
     private JScrollPane createDescriptionField() {
         JTextArea text = new JTextArea(task.getDescription(), 2,  50);
         text.setLineWrap(true);
@@ -169,7 +173,7 @@ public abstract class TaskEditorScene extends JPanel{
         return new JScrollPane(text);
     }
 
-    // pole z wyborem daty końcowej zadania
+    /** Pole z wyborem daty końcowej zadania */
     private JSpinner createDeadlineField() {
         // utworzenie elementu wyboru daty
         SpinnerModel spinnerModel = new SpinnerDateModel();
@@ -188,7 +192,7 @@ public abstract class TaskEditorScene extends JPanel{
         return spinner;
     }
 
-    // lista wyboru uczestników z projektu, których chcemy dodać do zadania
+    /** lista wyboru uczestników z projektu, których chcemy dodać do zadania */
     private JComboBox<User> createParticipantsCombobox() {
         JComboBox<User> combobox
                 = new JComboBox<>(participants);
@@ -199,7 +203,7 @@ public abstract class TaskEditorScene extends JPanel{
         return combobox;
     }
 
-    // opcje edycji listy osób odpowiedzialnych za zadanie
+    /** opcje edycji listy osób odpowiedzialnych za zadanie */
     private JPanel editAssigneesListOptions() {
         // utworzenie nowego panelu
         JPanel panel = new JPanel();
@@ -240,7 +244,7 @@ public abstract class TaskEditorScene extends JPanel{
 
     //  -------------- FUNCKJONALNOŚĆ SCENY ---------------
 
-    // zapisanie zmian
+    /** zapisanie zmian */
     protected void saveChanges() {
         // zapis nazwy zadania
         task.setName(name_field.getText());
@@ -260,7 +264,7 @@ public abstract class TaskEditorScene extends JPanel{
 
     //  --------------- PANELE PRZYCISKÓW ---------------
 
-    // panel przycisków okna
+    /** panel przycisków okna */
     protected JPanel buttonsPanel() {
         // utworzenie nowego panelu
         JPanel panel = new JPanel();
@@ -285,7 +289,7 @@ public abstract class TaskEditorScene extends JPanel{
 
     //  --------------- NASŁUCHIWACZE WYDARZEŃ  ---------------
 
-    // akcja zapisu zmian
+    /** akcja zapisu zmian */
     private MouseAdapter saveButtonListener() {
         return new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
@@ -297,7 +301,7 @@ public abstract class TaskEditorScene extends JPanel{
         };
     }
 
-    // akcja anulowania zmian
+    /** akcja anulowania zmian */
     protected MouseAdapter cancelButtonListener() {
         return new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
@@ -308,7 +312,7 @@ public abstract class TaskEditorScene extends JPanel{
         };
     }
 
-    // dodanie wybranego uczestnika do listy osób odpowiedzialnych za zadanie
+    /** dodanie wybranego uczestnika do listy osób odpowiedzialnych za zadanie */
     private ActionListener assignParticipantListener() {
         return e -> {
             if (!all_participants_combobox.isVisible()) {

@@ -2,31 +2,31 @@ package Scenes;
 import Classes.Project;
 import Classes.Task;
 import Classes.User;
-import Main.Main;
 import Main.MainProgram;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
-import javax.swing.text.Element;
-import javax.swing.text.Style;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-// scena wyboru projektów i podglądu zadań użytkownika
+/** Scena wyboru projektów i podglądu zadań użytkownika */
 public class ProjectsScene extends JPanel {
-    JList<Project> users_projects;      // lista wszystkich projektów
-    JList<Task> users_tasks;            // lista wszystkich zadań
-    Project chosen_project;             // wybrany projekt
-    JButton open_project_button;        // przycisk otwarcia projektu
+    /** lista wszystkich projektów */
+    JList<Project> users_projects;
+    /** lista wszystkich zadań */
+    JList<Task> users_tasks;
+    /** wybrany projekt */
+    Project chosen_project;
+    /** przycisk otwarcia projektu */
+    JButton open_project_button;
 
 
     // ---------------    SCENA    ---------------
 
-    // konstruktor sceny
+    /** konstruktor sceny */
     public ProjectsScene() {
         // wczytanie projektów użytkownika
         users_projects = new JList<>(MainProgram.getProjects(MainProgram.getLoggedUser()));
@@ -37,7 +37,7 @@ public class ProjectsScene extends JPanel {
         CreateScene();
     }
 
-    // utworzenie panelu sceny
+    /** utworzenie panelu sceny */
     private void CreateScene() {
         // nowy panel
         new JPanel();
@@ -48,7 +48,7 @@ public class ProjectsScene extends JPanel {
         addElements();
     }
 
-    // dodanie elementów do sceny
+    /** dodanie elementów do sceny */
     private void addElements() {
         // dodanie napisu z nazwą użytkownika
         User logged_user = MainProgram.getLoggedUser();
@@ -73,7 +73,7 @@ public class ProjectsScene extends JPanel {
 
     //  --------------- PANELE SCENY ----------------
 
-    // utworzenie panelu z listą projektów
+    /** utworzenie panelu z listą projektów */
     private JPanel createProjectsPanel() {
         // utworzenie panelu
         JPanel panel = new JPanel();
@@ -101,7 +101,7 @@ public class ProjectsScene extends JPanel {
     }
 
 
-    // utworzenie panelu z listą zadań
+    /** utworzenie panelu z listą zadań */
     private JPanel createTasksPanel() {
         // utworzenie panelu
         JPanel panel = new JPanel();
@@ -128,7 +128,7 @@ public class ProjectsScene extends JPanel {
 
     //  --------------- PANELE PRZYCISKÓW ---------------
 
-    // utworzenie przycisków listy zadań
+    /** utworzenie przycisków listy zadań */
     private JPanel createTasksButtonPanel() {
         // Utworzenie panelu
         JPanel panel = new JPanel();
@@ -150,7 +150,7 @@ public class ProjectsScene extends JPanel {
         return panel;
     }
 
-    // utworzenie przycisków listy projektów
+    /** utworzenie przycisków listy projektów */
     private JPanel createProjectsButtonPanel() {
         // utworzenie panelu
         JPanel panel = new JPanel();
@@ -178,7 +178,7 @@ public class ProjectsScene extends JPanel {
 
     //  --------------- ACTION LISTENERS  ---------------
 
-    // Wybór projektu z listy
+    /** Wybór projektu z listy */
     private MouseAdapter ProjectsListListener() {
         // Nadanie dostępu do instancji wszystich projektów
         DefaultListModel<Project> all_projects = MainProgram.getProjects();
@@ -199,9 +199,7 @@ public class ProjectsScene extends JPanel {
                     int index = users_projects.locationToIndex(evt.getPoint());
                     // wybranie wpisu o danym indeksie
                     Project selectedProject = all_projects.get(index);
-                    MainProgram.setChosenProject(selectedProject);
-                    MainProgram.getChosenProject().getInfo();
-                    if (MainProgram.getChosenProject() == null) {
+                    if (selectedProject == null) {
                         System.out.println("Nie wybrano projektu.");
                     }
                     else {
@@ -215,7 +213,7 @@ public class ProjectsScene extends JPanel {
 
     //  --------------- NASŁUCHIWACZE ZDARZEŃ ---------------
 
-    // Przycisk otwierania projektu
+    /** Przycisk otwierania projektu */
     private ActionListener OpenProjectListener() {
         return new ActionListener() {
             @Override
@@ -225,7 +223,7 @@ public class ProjectsScene extends JPanel {
         };
     }
 
-    // dodawanie nowego projektu
+    /** dodawanie nowego projektu */
     private ActionListener addProjectButtonListener() {
         return e -> {
             Project new_project = new Project(MainProgram.getLoggedUser());
@@ -235,7 +233,7 @@ public class ProjectsScene extends JPanel {
         };
     }
 
-    // Wybór zadania z listy
+    /** Wybór zadania z listy */
     private MouseAdapter TasksListListener() {
         // Nadanie dostępu do instancji wszystich zadań
         DefaultListModel<Task> all_tasks = MainProgram.getTasks();
@@ -250,26 +248,19 @@ public class ProjectsScene extends JPanel {
                     System.out.println("Wybrano zadanie " + selected_task);
                     MainProgram.setWindow("task_preview_scene", selected_task);
                 }
-
-                // TODO: Wybór zadania po 1 kliknięciu
-                // po co w sumie?
             }
         };
     }
 
-    // Przycisk otwierania zadania
+    /** Przycisk otwierania zadania */
     private ActionListener openTaskButtonListener() {
         // Nadanie dostępu do instancji wszystich zadań
         DefaultListModel<Task> all_tasks = MainProgram.getTasks();
-
-        return new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // wybranie wpisu o danym indeksie
-                Task selected_task = all_tasks.getElementAt(users_tasks.getSelectedIndex());
-                System.out.println("Wybrano zadanie " + selected_task);
-                MainProgram.setWindow("task_preview_scene", selected_task);
-            }
+        return e -> {
+            // wybranie wpisu o danym indeksie
+            Task selected_task = all_tasks.getElementAt(users_tasks.getSelectedIndex());
+            System.out.println("Wybrano zadanie " + selected_task);
+            MainProgram.setWindow("task_preview_scene", selected_task);
         };
     }
 }

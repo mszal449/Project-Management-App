@@ -4,22 +4,26 @@ import Main.MainProgram;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
 
-// scena logowania
+/** Scena logowania */
 public class LoginScene extends JPanel {
-
+    /** miejsce na nazwę użytkownika */
+    JTextField login_text;
+    /** miejsce na hasło */
+    JPasswordField password_text;
     // ---------------    SCENA    ---------------
 
-    // konstruktor sceny
+    /** konstruktor */
     public LoginScene() {
+        login_text = new JTextField(40);
+        password_text = new JPasswordField(40);
         CreateLoginScene();
     }
 
-    // utworzenie sceny
+    /** utworzenie sceny */
     private void CreateLoginScene() {
         new JPanel();
         setLayout(new GridLayout(4, 1, 20, 20));
@@ -30,16 +34,15 @@ public class LoginScene extends JPanel {
 
     // ---------------    ELEMENTY SCENY    ---------------
 
-    // dodanie elementów logowania do sceny
+    /** dodanie elementów logowania do sceny */
     private void addElements() {
         // pole tekstowe na identyfikator użytkownika
-        JTextField login_text = new JTextField(40);
         login_text.setHorizontalAlignment(JTextField.CENTER);
         login_text.setFont(Styles.LOGIN_FONT);
         login_text.setBorder(Styles.ELEMENT_BORDER);
 
         // pole tekstowe na hasło użytkownika
-        JPasswordField password_text = new JPasswordField(40);
+        password_text = new JPasswordField(40);
         password_text.setHorizontalAlignment(JPasswordField.CENTER);
         password_text.setFont(Styles.LOGIN_FONT);
         password_text.setBorder(Styles.ELEMENT_BORDER);
@@ -65,26 +68,21 @@ public class LoginScene extends JPanel {
         add(login_button);
         add(signup_button);
 
-        // action listener przycisków
-        login_button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String login = login_text.getText();
-                String password = new String(password_text.getPassword());
-                if (User.logIn(login, password)) {
-                    // TODO: zapewne lepsze wyświetlanie scen z tym hide and show
-                    MainProgram.setWindow("projects_scene");                }
-            }
-        });
-
-        signup_button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                MainProgram.setWindow("signup_scene");
-            }
-        });
+        // akcje przycisków
+        login_button.addActionListener(loginActionListener());
+        signup_button.addActionListener(e -> MainProgram.setWindow("signup_scene"));
     }
 
-    // TODO: zmiana tej nazwy na jakiegoś nasłuchiwacza?
-    // ---------------    ACTION LISTENER'Y    ---------------
+    // ---------------    NASŁUCHIWANIE ZDARZEŃ    ---------------
+    /** akcja logowania */
+    private ActionListener loginActionListener() {
+        return e -> {
+            String login = login_text.getText();
+            System.out.println(login);
+            String password = new String(password_text.getPassword());
+            System.out.println(password);
+            if (User.logIn(login, password)) {
+                MainProgram.setWindow("projects_scene");}
+        };
+    }
 }

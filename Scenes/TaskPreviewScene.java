@@ -2,27 +2,29 @@ package Scenes;
 
 import Classes.*;
 import Main.MainProgram;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
-// scena podglądu projektu
+/** scena podglądu projektu */
 public class TaskPreviewScene extends JPanel {
-    Task task;  // wybrane zadanie
+    /** wybrane zadanie */
+    Task task;
     final int LABEL_ALIGNEMENT = SwingConstants.RIGHT;
 
 
-    // ---------------    SCENA    ---------------
+    /** ---------------    SCENA    ---------------
 
-    // konstruktor sceny
+    /** konstruktor sceny */
     public TaskPreviewScene(Task task) {
         this.task = task;
         CreateTaskPreviewScene();
     }
 
-    // utworzenie sceny
+    /** utworzenie sceny */
     private void CreateTaskPreviewScene() {
         new JPanel();
         setLayout(new GridLayout(6, 1, 20, 20));
@@ -30,7 +32,7 @@ public class TaskPreviewScene extends JPanel {
         addElements();
     }
 
-    // dodanie elementów do sceny
+    /** dodanie elementów do sceny */
     private void addElements() {
         add(namePanel());
         add(descriptionPanel());
@@ -40,7 +42,7 @@ public class TaskPreviewScene extends JPanel {
         add(buttonsPanel());
     }
 
-    // sprawdzenie uprawnień użytkownika
+    /** sprawdzenie uprawnień użytkownika */
     private boolean checkUserPermissions() {
         Map<User, Boolean> project_permissions = task.getProject().getParticipants();
         User logged_user = MainProgram.getLoggedUser();
@@ -49,9 +51,9 @@ public class TaskPreviewScene extends JPanel {
     }
 
 
-    //  --------------- PANELE SCENY ----------------
+    /**  --------------- PANELE SCENY ----------------
 
-    // nazwa zadania
+    /** nazwa zadania */
     private JPanel namePanel() {
         // utworzenie nowego panelu
         JPanel panel = new JPanel();
@@ -71,7 +73,7 @@ public class TaskPreviewScene extends JPanel {
         return panel;
     }
 
-    // opis zadania
+    /** opis zadania */
     private JPanel descriptionPanel() {
         // utworzenie nowego panelu
         JPanel panel = new JPanel();
@@ -97,7 +99,7 @@ public class TaskPreviewScene extends JPanel {
         return panel;
     }
 
-    // data końcowa
+    /** data końcowa */
     private JPanel deadlinePanel() {
         // utworzenie nowego panelu
         JPanel panel = new JPanel();
@@ -119,7 +121,7 @@ public class TaskPreviewScene extends JPanel {
         return panel;
     }
 
-    // status zadania
+    /** status zadania */
     private JPanel statePanel() {
         // utworzenie nowego panelu
         JPanel panel = new JPanel();
@@ -156,7 +158,7 @@ public class TaskPreviewScene extends JPanel {
         return panel;
     }
 
-    // lista osób odpowiedzialnych za realizację zadania
+    /** lista osób odpowiedzialnych za realizację zadania */
     private JPanel assigneesPanel() {
         // utworzenie nowego panelu
         JPanel panel = new JPanel();
@@ -176,7 +178,7 @@ public class TaskPreviewScene extends JPanel {
         return panel;
     }
 
-    // panel z przyciskami
+    /** panel z przyciskami */
     private JPanel buttonsPanel() {
         // utworzenie nowego panelu
         JPanel panel = new JPanel();
@@ -229,7 +231,7 @@ public class TaskPreviewScene extends JPanel {
 
     //  --------------- NASŁUCHIWACZE ZDARZEŃ  ---------------
 
-    // rozpoczęcie zadania
+    /** rozpoczęcie zadania */
     private ActionListener startTaskListener() {
         return e -> {
             Current cur_task = ((Planned)task).start();
@@ -237,7 +239,7 @@ public class TaskPreviewScene extends JPanel {
         };
     }
 
-    // ponowne otwarcie zadania
+    /** ponowne otwarcie zadania */
     private ActionListener openTaskListener() {
         return e -> {
             Current cur_task = ((Done)task).makeCurrent();
@@ -245,7 +247,7 @@ public class TaskPreviewScene extends JPanel {
         };
     }
 
-    // wykonanie zadania
+    /** wykonanie zadania */
     private ActionListener finishTaskListener() {
         return e -> {
             Done done_task = ((Current)task).setDone();
@@ -253,13 +255,12 @@ public class TaskPreviewScene extends JPanel {
         };
     }
 
-    // przycisk otwierający edytor zadania
-    // TODO: uprawnienia - żeby tylko osoby przydzielone do zadania mogły je edytować?
+    /** przycisk otwierający edytor zadania */
     private ActionListener openEditorListener() {
         return e -> MainProgram.setWindow("task_edit_scene", task);
     }
 
-    // przycisk powrotu
+    /** przycisk powrotu */
     private ActionListener returnButtonListener() {
         return e -> MainProgram.setWindow("project_preview_scene", task.getProject());
     }

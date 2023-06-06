@@ -2,10 +2,9 @@ package Scenes;
 
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
-import java.awt.Color;
-import java.awt.Font;
+import java.awt.*;
 
+ /** klasa zawierająca ogólne zasady dotyczące stylu scen */
 public class Styles {
     // Borders
     public static final Border MAIN_BORDER = BorderFactory.createEmptyBorder(20, 20, 20, 20);

@@ -6,16 +6,22 @@ import Classes.User;
 
 import javax.swing.*;
 
-// Główna klasa programu
-// zastosowany wzorzec projektowy: https://pl.wikipedia.org/wiki/Singleton_(wzorzec_projektowy)
-public class MainProgram {
-    private static MainProgram app_instance;    // (jedyna) instancja klasy Main.MainProgram
-    Window window;                              // Okno programu
-    User logged_user;                           // aktualnie zalogowany użytkownik
-    Project chosen_project;                     // Aktualny projekt
-    DefaultListModel<User> users;               // lista wszystkich użytkowników
-    DefaultListModel<Project> projects;         // lista wszystkich projektów
 
+// zastosowany wzorzec projektowy: https://pl.wikipedia.org/wiki/Singleton_(wzorzec_projektowy)
+/** Główna klasa programu */
+public class MainProgram {
+    /** (jedyna) instancja klasy Main.MainProgram */
+    private static MainProgram app_instance;
+    /** Okno programu */
+    Window window;
+    /** aktualnie zalogowany użytkownik */
+    User logged_user;
+    /** lista wszystkich użytkowników */
+    DefaultListModel<User> users;
+    /** lista wszystkich projektów */
+    DefaultListModel<Project> projects;
+
+    /** konstruktor */
     private MainProgram(DefaultListModel<User> users, DefaultListModel<Project> projects) {
         // Wczytanie danych
         this.users = users;
@@ -24,7 +30,7 @@ public class MainProgram {
         window = new Window();
     }
 
-    // dostęp lub utworzenie app_instance
+    /** dostęp lub utworzenie app_instance */
     public static MainProgram getInstance(DefaultListModel<User> users, DefaultListModel<Project> projects) {
         if (app_instance == null) {
             app_instance = new MainProgram(users, projects);
@@ -32,7 +38,7 @@ public class MainProgram {
         return app_instance;
     }
 
-    // dostęp do zawartości okna
+    /** dostęp do zawartości okna */
     public static Window getWindow() {
         return app_instance.window;
     }
@@ -40,7 +46,7 @@ public class MainProgram {
         app_instance.window.setScene(scene_name, args);
     }
 
-    // dostęp do listy użytkowników aplikacji
+    /** dostęp do listy użytkowników aplikacji */
     public static DefaultListModel<User> getUsers() {
         return app_instance.users;
     }
@@ -51,41 +57,30 @@ public class MainProgram {
         app_instance.users.removeElement(user);
     }
 
-
-    // dodanie projektu
+    /** dodanie projektu */
     public static void addProject(Project project) {
         app_instance.projects.addElement(project);
     }
 
-    // usunięcie projektu
+    /** usunięcie projektu */
     public static void deleteProject(Project project) {
         app_instance.projects.removeElement(project);
     }
 
-    // dostęp do informacji o aktualnie zalogowanym użytkowniku
+    /** dostęp do informacji o aktualnie zalogowanym użytkowniku */
     public static User getLoggedUser() {
         return app_instance.logged_user;
     }
-
     public static void setLoggedUser(User user) {
         app_instance.logged_user = user;
     }
 
-    public static Project getChosenProject() {
-        return app_instance.chosen_project;
-    }
-
-    public static void setChosenProject(Project project) {
-        app_instance.chosen_project = project;
-    }
-
-
-    // dostęp do listy projektów
+    /** dostęp do listy projektów */
     public static DefaultListModel<Project> getProjects() {
         return app_instance.projects;
     }
 
-    // dostęp do listy projektów użytkownika
+    /** dostęp do listy projektów użytkownika */
     public static DefaultListModel<Project> getProjects(User user) {
         DefaultListModel<Project> users_projects = new DefaultListModel<>();
         DefaultListModel<Project> all_projects = getProjects();
@@ -100,7 +95,7 @@ public class MainProgram {
         return users_projects;
     }
 
-    // dostęp do listy zadań wszystkich projektów
+    /** dostęp do listy zadań wszystkich projektów */
     public static DefaultListModel<Task> getTasks() {
         DefaultListModel<Task> tasks = new DefaultListModel<>();
         DefaultListModel<Project> projects = getProjects();
@@ -115,7 +110,7 @@ public class MainProgram {
         return tasks;
     }
 
-    // dostęp do listy zadań użytkownika
+    /** dostęp do listy zadań użytkownika */
     public static DefaultListModel<Task> getTasks(User user) {
         // Lista znalezionych zadań użytkownika
         DefaultListModel<Task> users_tasks = new DefaultListModel<>();
@@ -130,6 +125,4 @@ public class MainProgram {
 
         return users_tasks;
     }
-
-
 }

@@ -2,9 +2,9 @@ package Classes;
 
 import java.time.LocalDate;
 
-// klasa reprezentująca zadanie w trakcie wykonywania
+/** Klasa reprezentująca zadanie w trakcie wykonywania */
 public class Current extends Task {
-    // poziomy postępu zadania
+    /** poziomy postępu zadania */
     public static final String[] progress_levels = {
             "Rozpoczęto",
             "W trakcie",
@@ -12,32 +12,32 @@ public class Current extends Task {
             "W trakcie poprawy",
             "Czeka na zatwierdzenie"};
 
-    private final LocalDate start_date; // data rozpoczęcia
-    private int cur_level; // aktualny poziom postępu
+    private final LocalDate start_date; /** data rozpoczęcia */
+    private int cur_level; /** aktualny poziom postępu */
 
-    // konstruktor tworzący trwające zadanie
+    /** konstruktor tworzący trwające zadanie */
     public Current(String name, int day, int month, int year) {
         super(name, day, month, year);
         start_date = LocalDate.now();
         cur_level = 0;
     }
 
-    // konstruktor tworzący trwające zadanie na podstawie zaplanowanego zadania
+    /** konstruktor tworzący trwające zadanie na podstawie zaplanowanego zadania */
     public Current(Planned planned_task) {
         super(planned_task);
         start_date = LocalDate.now();
         cur_level = 0;
     }
 
-    // konstruktor tworzący trwające zadanie na podstawie zakończonego zadania
-    // (sytuacja, kiedy uznano, że zadanie jednka nie jest wykonane)
+    /** konstruktor tworzący trwające zadanie na podstawie zakończonego zadania
+    * (sytuacja, kiedy uznano, że zadanie jednka nie jest wykonane) */
     public Current(Done done_task) {
         super(done_task);
         start_date = LocalDate.now();
         cur_level = 0;
     }
 
-    // dostęp do informacji o statusie postępu
+    /** dostęp do informacji o statusie postępu */
     public String getProgressState() {
         return progress_levels[cur_level];
     }
@@ -56,17 +56,17 @@ public class Current extends Task {
         return new_task;
     }
 
-    // dostęp do daty rozpoczęcia zadania
+    /** dostęp do daty rozpoczęcia zadania */
     public LocalDate getStartdate() {
         return start_date;
     }
 
-    // metoda pomocniczna zwracająca napis rezprezentujący zadanie
+    /** metoda pomocniczna zwracająca napis rezprezentujący zadanie */
     public String toString() {
         return super.toString() + " : aktualne";
     }
 
-    // metoda pomocnicza wypisująca informacje o zadaniu do konsoli
+    /** metoda pomocnicza wypisująca informacje o zadaniu do konsoli */
     public void getInfo() {
         super.getInfo();
         System.out.println("status : " + progress_levels[cur_level]);

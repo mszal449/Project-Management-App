@@ -15,8 +15,11 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 
+/** Edytor zadania, które jest w fazie planów */
 public class PlannedEditorScene extends TaskEditorScene{
-    boolean is_new; // czy tworzymy nowe zadanie?
+    /** czy tworzymy nowe zadanie? */
+    boolean is_new;
+    /** pole wyboru nowej daty rozpoczęcia */
     JSpinner start_date_spinner;
 
 
@@ -28,16 +31,13 @@ public class PlannedEditorScene extends TaskEditorScene{
 
     // ---------------    SCENA    ---------------
 
+    /** konstruktor */
     public PlannedEditorScene(Planned task) {
         super(task);
         is_new = false;
     }
 
-    public PlannedEditorScene(Project project) {
-        super(new Planned(project));
-        is_new = true;
-    }
-
+    /** utworzenie atrybutów */
     @Override
     protected void initializeAttributes() {
         super.initializeAttributes();
@@ -47,6 +47,7 @@ public class PlannedEditorScene extends TaskEditorScene{
 
     //  --------------- PANELE SCENY ----------------
 
+    /** utworzenie głównego panelu */
     @Override
     protected void createMainPanel() {
         new JPanel();
@@ -54,6 +55,7 @@ public class PlannedEditorScene extends TaskEditorScene{
         setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
     }
 
+    /** dodanie elementów do sceny */
     @Override
     protected void addElements() {
         add(namePanel());
@@ -64,7 +66,7 @@ public class PlannedEditorScene extends TaskEditorScene{
         add(buttonsPanel());
     }
 
-    // panel edycji daty początkowej zadania
+    /** panel edycji daty początkowej zadania */
     private JPanel startDatePanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 2));
@@ -78,7 +80,7 @@ public class PlannedEditorScene extends TaskEditorScene{
 
     //  --------------- FUNKCJONALNOŚC SCENY ----------------
 
-    // element wyboru daty
+    /**  element wyboru daty */
     private JSpinner createStartDateField() {
         SpinnerModel spinnerModel = new SpinnerDateModel();
         JSpinner spinner = new JSpinner(spinnerModel);
@@ -94,7 +96,7 @@ public class PlannedEditorScene extends TaskEditorScene{
         return spinner;
     }
 
-    // zapisanie zmian
+    /**  zapisanie zmian */
     @Override
     protected void saveChanges() {
         super.saveChanges();
@@ -103,6 +105,7 @@ public class PlannedEditorScene extends TaskEditorScene{
                 .toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate());
     }
 
+    /** anulowanie zmian */
     @Override
     protected MouseAdapter cancelButtonListener() {
         return new MouseAdapter() {

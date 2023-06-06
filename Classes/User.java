@@ -4,28 +4,33 @@ import Main.MainProgram;
 import javax.swing.*;
 import java.util.Objects;
 
-// klasa reprezentująca użytkownika aplikacji
-public class User implements Cloneable{
-    String name; // nazwa użytkownika
-    String email; // email
-    String password; // hasło
+/** Klasa reprezentująca użytkownika aplikacji */
+public class User {
+    /** nazwa użytkownika */
+    String name;
+    /** email */
+    String email;
+    /** hasło */
+    String password;
 
+    /** konstruktor */
     public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
     }
 
+    /** zamiana na napis */
     public String toString() {
         return name;
     }
 
-    // dostęp do adresu e-mail użytkownika
+    /** dostęp do adresu e-mail użytkownika */
     public String getEmail() {
         return email;
     }
 
-    // statyczna metoda do logowania
+    /** statyczna metoda do logowania */
     public static boolean logIn(String email, String password) {
         User user = findUser(email);
         if (user == null) {
@@ -42,13 +47,14 @@ public class User implements Cloneable{
         }
     }
 
+    /** konstruktor */
     public static void signUp(String name, String email, String password) {
         User user = new User(name, email, password);
         MainProgram.addUser(user);
         MainProgram.setLoggedUser(user);
     }
 
-    // metoda pomocnicza - znajdowanie użytkowanika o danej nazwie na liscie użytkowników
+    /** metoda pomocnicza - znajdowanie użytkowanika o danej nazwie na liscie użytkowników */
     public static User findUser(String email) {
         DefaultListModel<User> users = MainProgram.getUsers();
         for (int i = 0; i < users.getSize(); i++) {
@@ -58,11 +64,6 @@ public class User implements Cloneable{
             }
         }
         return null;
-    }
-
-    @Override
-    public User clone() throws CloneNotSupportedException {
-        return (User) super.clone();
     }
 
 }

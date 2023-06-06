@@ -3,28 +3,29 @@ package Scenes;
 import Classes.Current;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
 import java.awt.*;
 
+/** Edytor aktualnego zadania */
 public class CurrentEditorScene extends TaskEditorScene{
+    /** wybór etapu postępu */
     private JComboBox<String> progress_level_combobox;
 
 
     // ---------------    SCENA    ---------------
 
+    /** konstruktor */
     public CurrentEditorScene(Current task) {
         super(task);
     }
 
-    // konstruktor zadania
+    /** utworzenie atrybutów */
     @Override
     protected void initializeAttributes() {
         super.initializeAttributes();
         progress_level_combobox = createLevelCombobox();
     }
 
-    // utworzenie sceny
+    /** utworzenie głównego panelu */
     @Override
     protected void createMainPanel() {
         new JPanel();
@@ -32,7 +33,7 @@ public class CurrentEditorScene extends TaskEditorScene{
         setBorder(Styles.MAIN_BORDER);
     }
 
-    // dodanie elementów do sceny
+    /** dodanie elementów do sceny */
     @Override
     protected void addElements() {
         add(namePanel());
@@ -46,7 +47,7 @@ public class CurrentEditorScene extends TaskEditorScene{
 
     // ---------------   PANELE SCENY  ---------------
 
-    // panel wyboru statusu zadania
+    /** panel wyboru statusu zadania */
     protected JPanel chooseLevelPanel() {
         // utworzenie nowego panelu
         JPanel panel = new JPanel();
@@ -62,7 +63,7 @@ public class CurrentEditorScene extends TaskEditorScene{
         return panel;
     }
 
-    // utworzenie pola wyboru poziomu ukończenia zadania
+    /** utworzenie pola wyboru poziomu ukończenia zadania */
     private JComboBox<String> createLevelCombobox() {
         JComboBox<String> combobox = new JComboBox<>(Current.progress_levels);
         combobox.setBackground(Color.WHITE);
@@ -74,7 +75,7 @@ public class CurrentEditorScene extends TaskEditorScene{
 
     // ---------------   FUNKCJONALNOŚĆ SCENY  ---------------
 
-    // zapisywanie zmian
+    /**  zapisanie zmian */
     @Override
     protected void saveChanges() {
         super.saveChanges();

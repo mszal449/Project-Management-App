@@ -1,4 +1,5 @@
 package Scenes;
+
 import Classes.Planned;
 import Classes.Project;
 import Classes.Task;
@@ -7,38 +8,53 @@ import Main.MainProgram;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.Serial;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-// okno podglądu zadania
+/** Scena podglądu zadania */
 public class ProjectPreviewScene extends JPanel {
-    private final Project project;                            // projekt, który edytujemy
-    private final Map<User, Boolean> participants_dict_copy;  // kopia listy uczestników
-    private final DefaultListModel<Task> tasks_list_copy;     // kopia listy uczestników
+    /** projekt, który edytujemy */
+    private final Project project;
+    /** kopia listy uczestników */
+    private final Map<User, Boolean> participants_dict_copy;
+    /** kopia listy uczestników */
+    private final DefaultListModel<Task> tasks_list_copy;
 
-    private final JList<Object> Jparticipants;                // lista uczestników projektu
-    private final JList<Task> Jtasks;                         // lista zadań
-    private final JComboBox<User> all_users_combobox;         // lista wszystkich użytkowników aplikacji
-    private final User[] users_array;                         // lista wszystkich użytkowników aplikacji
-    private final boolean is_admin;                           // czy zalogowany użytkownik jest administratorem projektu?
-    private boolean is_editor_open = false;                   // czy edytor danych o projekcie jest otwarty
+    /** lista uczestników projektu */
+    private final JList<Object> Jparticipants;
+    /** lista zadań */
+    private final JList<Task> Jtasks;
+    /** lista wszystkich użytkowników aplikacji */
+    private final JComboBox<User> all_users_combobox;
+    /** lista wszystkich użytkowników aplikacji */
+    private final User[] users_array;
+    /** czy zalogowany użytkownik jest administratorem projektu? */
+    private final boolean is_admin;
+    /** czy edytor danych o projekcie jest otwarty */
+    private boolean is_editor_open = false;
 
-    private JPanel project_info_section;                      // sekcja sceny z informacjami i edytorem danych projektu
-    private JTextField name_text_field;                       // pole wyboru nazwy projektu
-    private JCheckBox status_checkbox;                        // pole wyboru statusu projektu
-    protected JSpinner deadline_spinner;                      // pole wyboru daty
+    /** sekcja sceny z informacjami i edytorem danych projektu */
+    private JPanel project_info_section;
+    /** pole wyboru nazwy projektu */
+    private JTextField name_text_field;
+    /** pole wyboru statusu projektu */
+    private JCheckBox status_checkbox;
+    /** pole wyboru daty */
+    protected JSpinner deadline_spinner;
     
 
     // ---------------   SCENA   ---------------
 
-    // konstruktor sceny
+    /** konstruktor sceny */
     public ProjectPreviewScene(Project project) {
         User[] users_array1;
         this.project = project;
@@ -77,7 +93,7 @@ public class ProjectPreviewScene extends JPanel {
         createScene();
     }
 
-    // dodanie zawartości sceny
+    /** dodanie zawartości sceny */
     private void createScene() {
         //utworzenie nowego paneli
         new JPanel();
@@ -95,7 +111,7 @@ public class ProjectPreviewScene extends JPanel {
 
     //  --------------- PANELE SCENY ----------------
 
-    // sekcja okna z informacjami o projekcie
+    /** sekcja okna z informacjami o projekcie */
     private JPanel createProjectInfoSection() {
         // utworzenie nowego paneli
         JPanel panel = new JPanel();
@@ -119,7 +135,7 @@ public class ProjectPreviewScene extends JPanel {
         return panel;
     }
 
-    // zawartość panelu z informacjami o projekcie
+    /** zawartość panelu z informacjami o projekcie */
     private JPanel createInfoPanel() {
         // utworzenie nowego paneli
         JPanel panel = new JPanel();
@@ -178,7 +194,7 @@ public class ProjectPreviewScene extends JPanel {
         return panel;
     }
 
-    // edytor infomacji o projekcie
+    /** edytor infomacji o projekcie */
     private JPanel createEditorPanel() {
         // utworzenie nowego paneli
         JPanel main_panel = new JPanel();
@@ -248,7 +264,7 @@ public class ProjectPreviewScene extends JPanel {
         return main_panel;
     }
 
-    // sekcja z zadaniami
+    /** sekcja z zadaniami */
     private JPanel createTaskPanel() {
         // utworzenie nowego paneli
         JPanel panel = new JPanel();
@@ -271,7 +287,7 @@ public class ProjectPreviewScene extends JPanel {
         return panel;
     }
 
-    // sekcja z członkami projektu
+    /** sekcja z członkami projektu */
     private JPanel createAssigneePanel() {
         // utworzenie nowego paneli
         JPanel panel = new JPanel();
@@ -289,8 +305,8 @@ public class ProjectPreviewScene extends JPanel {
 
         return panel;
     }
-    
-    // przyciski i wybór użytkownika z listy
+
+    /** przyciski i wybór użytkownika z listy */
     private JPanel editingParticipantsListPanel() {
         // utworzenie nowego paneli
         JPanel buttons_and_list = new JPanel();
@@ -307,7 +323,7 @@ public class ProjectPreviewScene extends JPanel {
         return buttons_and_list;
     }
 
-    // lista wszystkich użytkowników aplikacji
+    /** lista wszystkich użytkowników aplikacji */
     private JComboBox<User> createUsersCombobox() {
         JComboBox<User> comboBox = new JComboBox<>(users_array);
         comboBox.insertItemAt(null, 0);
@@ -318,7 +334,7 @@ public class ProjectPreviewScene extends JPanel {
 
     //  --------------- PANELE PRZYCISKÓW ---------------
 
-    // przyciski panelu z informacjami o projekcie
+    /** przyciski panelu z informacjami o projekcie */
     private JPanel createProjectInfoButtons() {
         // utworzenie nowego panelu
         JPanel button_panel = new JPanel();
@@ -355,7 +371,7 @@ public class ProjectPreviewScene extends JPanel {
         return button_panel;
     }
 
-    // przyciski edytora informacji o projekcie
+    /** przyciski edytora informacji o projekcie */
     private JPanel createProjectEditorButtons() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1,2, 20, 20));
@@ -379,7 +395,7 @@ public class ProjectPreviewScene extends JPanel {
         return panel;
     }
 
-    // przyciski sekcji z zadaniami
+    /** przyciski sekcji z zadaniami */
     private JPanel createTasksButtons() {
         JPanel button_panel = new JPanel();
 
@@ -408,7 +424,7 @@ public class ProjectPreviewScene extends JPanel {
         return button_panel;
     }
 
-    // przyciski sekcji z członkami projektu
+    /** przyciski sekcji z członkami projektu */
     private JPanel createAssigneeButtons() {
         JPanel button_panel = new JPanel();
 
@@ -446,7 +462,7 @@ public class ProjectPreviewScene extends JPanel {
 
     //  --------------- FUNKCJONALNOŚĆ  ---------------
 
-    // wyświetlenie edytora informacji o projekcie
+    /** wyświetlenie edytora informacji o projekcie */
     private void editProject() {
         is_editor_open = true;
 
@@ -459,7 +475,7 @@ public class ProjectPreviewScene extends JPanel {
         project_info_section.repaint();
     }
 
-    // element wyboru daty końcowej zadania
+    /** element wyboru daty końcowej zadania */
     private JSpinner createDeadlineField() {
         // utworzenie elementu wyboru daty
         SpinnerModel spinnerModel = new SpinnerDateModel();
@@ -479,7 +495,7 @@ public class ProjectPreviewScene extends JPanel {
         return spinner;
     }
 
-    // zapisania zmian w projekcie
+    /** zapisania zmian w projekcie */
     private void saveProject() {
         project.setTasks(tasks_list_copy);
         project.setPrivileges(participants_dict_copy);
@@ -497,19 +513,19 @@ public class ProjectPreviewScene extends JPanel {
 
     // EDYCJA INFORMACJI O PROJEKCIE
 
-    // przycisk do edycji projektu
+    /** przycisk do edycji projektu */
     private ActionListener editProjectButtonListener() {
         return e -> editProject();
     }
 
-    // przycisk przerwania edycji informacji o projekcie
+    /** przycisk przerwania edycji informacji o projekcie */
     private ActionListener cancelProjectInformationListener() {
         return e -> {
             MainProgram.setWindow("project_preview_scene", project);
         };
     }
 
-    // przycisk zapisania zmian informacji o projekcie (wyjście z edytora projektu)
+    /** przycisk zapisania zmian informacji o projekcie (wyjście z edytora projektu) */
     private ActionListener saveButtonListener() {
         return e -> {
             saveProject();
@@ -520,7 +536,7 @@ public class ProjectPreviewScene extends JPanel {
 
     //  EDYCJA LISTY ZADAŃ
 
-    // Przycisk edytowania zadania
+    /** Przycisk edytowania zadania */
     private ActionListener addTaskButtonListener() {
         return e -> {
             Planned new_task = new Planned(project);
@@ -529,7 +545,7 @@ public class ProjectPreviewScene extends JPanel {
         };
     }
 
-    // Przycisk usuwania zadania
+    /** Przycisk usuwania zadania */
     private ActionListener deleteTaskButtonListener() {
         return e -> {
             int selected_index = Jtasks.getSelectedIndex();
@@ -540,7 +556,7 @@ public class ProjectPreviewScene extends JPanel {
         };
     }
 
-    // wejście do podglądu zadania po podwójnym kliknięciu
+    /** wejście do podglądu zadania po podwójnym kliknięciu */
     private MouseAdapter chooseTaskListener() {
         return new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
@@ -566,7 +582,7 @@ public class ProjectPreviewScene extends JPanel {
         };
     }
 
-    // okno dialogowe z pytaniem o zapisanie projektu
+    /** okno dialogowe z pytaniem o zapisanie projektu */
     private int showSaveProjectDialog() {
         return JOptionPane.showOptionDialog(
                 null,
@@ -581,7 +597,7 @@ public class ProjectPreviewScene extends JPanel {
     }
 
     // ------------------------------ EDYCJA LISTY UCZESTNIKÓW ------------------------------
-    // Przycisk edytowania uprawnień
+    /** Przycisk edytowania uprawnień */
     private ActionListener permissionsButtonListener() {
         return new ActionListener() {
             @Override
@@ -602,7 +618,7 @@ public class ProjectPreviewScene extends JPanel {
         };
     }
 
-    // Przycisk dodania użytkownika do listy uczestników projektu
+    /** Przycisk dodania użytkownika do listy uczestników projektu */
     private ActionListener addUserListener() {
         return e -> {
             if (!all_users_combobox.isVisible()) {
@@ -623,7 +639,7 @@ public class ProjectPreviewScene extends JPanel {
         };
     }
 
-    // Przycisk usuwania użytkownika z listy uczestników projektu
+    /** Przycisk usuwania użytkownika z listy uczestników projektu */
     private ActionListener deleteUserButtonListener() {
         return new ActionListener() {
             @Override
@@ -639,7 +655,7 @@ public class ProjectPreviewScene extends JPanel {
         };
     }
 
-    // wyświetlanie listy uczestników projektu
+    /** wyświetlanie listy uczestników projektu */
     private class UserListCellRenderer extends DefaultListCellRenderer {
         @Serial
         private static final long serialVersionUID = 1L;
@@ -664,7 +680,7 @@ public class ProjectPreviewScene extends JPanel {
 
     // ZMIANA SCENY
 
-    // przycisk powrotu do wyboru projektu/zadania
+    /** przycisk powrotu do wyboru projektu/zadania */
     private ActionListener returnButtonListener() {
         return e -> MainProgram.setWindow("projects_scene");
     }

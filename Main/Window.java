@@ -4,40 +4,35 @@ import Classes.*;
 import Scenes.*;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.Objects;
 
+/** Klasa reprezentująca okno programu*/
 public class Window extends JFrame{
 
-
-
-    // Konstruktor okna
+    /** Konstruktor okna */
     public Window() {
         // Utworzenie okna
         CreateWindow();
-
         // Dodanie scen do okna i przekazanie im danych
         setScene("login_scene");
-
         // Wyświetlenie okna
         setVisible(true);
     }
 
-    // Utworzenie okna programu
+    /** Utworzenie okna programu */
     private void CreateWindow() {
         // Utworzenie nowego okna
         new JFrame();
-
         // Konfiguracja parametrów okna
         setTitle("Projekt");
-        setSize(1400, 900);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
-    // Wyświetlenie jednej ze scen i ukrycie reszty
+    /** Wyświetlenie jednej ze scen i ukrycie reszty */
     public void setScene(String scene_name, Object ... args) {
-        // Ukrycie scen
+        //Ukrycie scen
         getContentPane().removeAll();
         JPanel scene;
         // Pokazanie wybranej sceny

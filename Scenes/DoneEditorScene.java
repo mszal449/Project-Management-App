@@ -5,14 +5,15 @@ import Classes.Done;
 import javax.swing.*;
 import java.awt.*;
 
+/** Edytor zakończonego zadania*/
 public class DoneEditorScene extends TaskEditorScene{
 
-    // konstruktor sceny
+    /** konstruktor */
     public DoneEditorScene(Done task) {
         super(task);
     }
 
-    //
+    /** utworzenie głównego panelu */
     @Override
     protected void createMainPanel() {
         new JPanel();
@@ -20,6 +21,7 @@ public class DoneEditorScene extends TaskEditorScene{
         setBorder(Styles.MAIN_BORDER);
     }
 
+    /** dodanie elementów do sceny */
     @Override
     protected void addElements() {
         add(namePanel());

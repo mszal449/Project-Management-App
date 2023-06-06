@@ -6,17 +6,22 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
 
-// klasa reprezentująca "cały" projekt z jego wszystkimi zadaniami i uczestnikami
-public class Project implements Serializable, Cloneable {
-    private String name;                            // nazwa projektu
-    private LocalDate deadline;                     // termin ukończenia projektu
-    private Boolean is_done;                        // czy projekt jest ukończony?
-    private  DefaultListModel<Task> tasks;           // lista zadań
-    private Map<User, Boolean> participants; // lista uczestników projektu wraz z uprawnieniami
+/** Klasa reprezentująca "cały" projekt z jego wszystkimi zadaniami i uczestnikami */
+public class Project implements Serializable {
+    /** nazwa projektu */
+    private String name;
+    /** termin ukończenia projektu */
+    private LocalDate deadline;
+    /** czy projekt jest ukończony? */
+    private Boolean is_done;
+    /** lista zadań */
+    private  DefaultListModel<Task> tasks;
+    /** lista uczestników projektu wraz z uprawnieniami */
+    private Map<User, Boolean> participants;
     @Serial
     private static final long serialVersionUID = 1L;
 
-    // konstruktor
+    /** konstruktor */
     public Project(String name, LocalDate date) {
         this.name = name;
         tasks = new DefaultListModel<>();
@@ -25,34 +30,34 @@ public class Project implements Serializable, Cloneable {
         deadline = date;
     }
 
-    // konstruktor używany przy tworzeniu nowego projektu
+    /** konstruktor używany przy tworzeniu nowego projektu */
     public Project(User loggedUser) {
         this("Nowy projekt", LocalDate.now().plusMonths(1));
         this.participants.put(loggedUser, true);
     }
 
-    // dodawanie uczestnika do projektu
+    /** dodawanie uczestnika do projektu */
     public void addParticipant(User user) {
         participants.putIfAbsent(user, false);
     }
 
-    // usuwanie uczestnika z projektu
+    /** usuwanie uczestnika z projektu */
     public void deleteParticipant(User user) {
         participants.remove(user);
     }
 
-    // zmiana uprawnień użytkownika
+    /** zmiana uprawnień użytkownika */
     public void setPrivileges(User user, Boolean privileges) {
         participants.put(user, privileges);
     }
 
-    // odczytanie uprawnień użytkownika
+    /** odczytanie uprawnień użytkownika */
     public boolean getPrivileges(User user) {
         return participants.get(user);
     }
 
 
-    // dodawanie zadania do projektu
+    /** dodawanie zadania do projektu */
     public void addTask(Task task) {
         task.project = this;
         if (!tasks.contains(task)) {
@@ -60,23 +65,23 @@ public class Project implements Serializable, Cloneable {
         }
     }
 
-    // usuwanie zadania z projektu
+    /** usuwanie zadania z projektu */
     public void deleteTask(Task task) {
         tasks.removeElement(task);
     }
 
-    // zmiana daty końcowej
+    /** zmiana daty końcowej */
     public void setDeadline(int day, int month, int year) {
         deadline = LocalDate.of(year, month, day);
     }
 
-    // oznczanie projektu jako ukończonego
+    /** oznczanie projektu jako ukończonego */
     public void setDone() {
         is_done = true;
     }
 
-    // metoda pomocnicza napis z informacjami o projekcie
     // FIXME: usunąć
+    /** metoda pomocnicza napis z informacjami o projekcie */
     public void getInfo() {
         System.out.println(name);
         System.out.println(deadline);
@@ -99,24 +104,6 @@ public class Project implements Serializable, Cloneable {
     // dostęp do listy użytkowników w projekcie
     public Map<User, Boolean> getParticipants() {
         return participants;
-    }
-
-    // klonowanie instancji
-    @Override
-    public Project clone() throws CloneNotSupportedException {
-        Project cloned_project = (Project) super.clone();
-        cloned_project.tasks = new DefaultListModel<>();
-        for (int i = 0; i < tasks.getSize(); i++) {
-            Task task = tasks.getElementAt(i);
-            cloned_project.tasks.addElement(task.clone());
-        }
-        cloned_project.participants = new HashMap<>();
-        for (Map.Entry<User, Boolean> entry : participants.entrySet()) {
-            User user = entry.getKey();
-            Boolean privileges = entry.getValue();
-            cloned_project.participants.put(user.clone(), privileges);
-        }
-        return cloned_project;
     }
 
     // Zmiana nazwy projektu
