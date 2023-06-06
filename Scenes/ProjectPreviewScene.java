@@ -12,6 +12,7 @@ import java.io.Serial;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,6 +40,7 @@ public class ProjectPreviewScene extends JPanel {
 
     // konstruktor sceny
     public ProjectPreviewScene(Project project) {
+        User[] users_array1;
         this.project = project;
 
         // utworzenie kopii listy zadań i listy użytkowników
@@ -473,6 +475,7 @@ public class ProjectPreviewScene extends JPanel {
                 .atZone(ZoneId.systemDefault()).toInstant();
         spinner.setValue(Date.from(instant));
 
+
         return spinner;
     }
 
@@ -488,43 +491,7 @@ public class ProjectPreviewScene extends JPanel {
         }
     }
 
-    // wyświetlanie listy użytkowników
-    private class UserListCellRenderer extends DefaultListCellRenderer {
-        @Serial
-        private static final long serialVersionUID = 1L;
-
-        @Override
-        public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-            JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-            User user = (User) value;
-            Boolean is_admin = participants_dict_copy.get(user);
-
-            if (is_admin != null) {
-                if (is_admin) {
-                    label.setText(user + " (administrator)");
-                } else {
-                    label.setText(user + " (uczestnik)");
-                }
-            }
-
-            return label;
-        }
-    }
-
-    // okno dialogowe z pytaniem o zapisanie projektu
-    private int showSaveProjectDialog() {
-        return JOptionPane.showOptionDialog(
-                null,
-                "Czy chcesz zapisać projekt przed przejściem do podglądu zadania?",
-                "Zapisz",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                new Object[]{"Zapisz", "Nie"},
-                "Zapisz"
-        );
-    }
-
+    
 
     //  --------------- NASŁUCHIWACZE ZDARZEŃ  ---------------
 
@@ -558,7 +525,7 @@ public class ProjectPreviewScene extends JPanel {
         return e -> {
             Planned new_task = new Planned(project);
             tasks_list_copy.addElement(new_task);
-            System.out.println("Edit Task");
+            System.out.println("add task");
         };
     }
 
@@ -599,9 +566,21 @@ public class ProjectPreviewScene extends JPanel {
         };
     }
 
+    // okno dialogowe z pytaniem o zapisanie projektu
+    private int showSaveProjectDialog() {
+        return JOptionPane.showOptionDialog(
+                null,
+                "Czy chcesz zapisać projekt przed przejściem do podglądu zadania?",
+                "Zapisz",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                new Object[]{"Zapisz", "Nie"},
+                "Zapisz"
+        );
+    }
 
-    //  EDYCJA LISTY UCZESTNIKÓW
-
+    // ------------------------------ EDYCJA LISTY UCZESTNIKÓW ------------------------------
     // Przycisk edytowania uprawnień
     private ActionListener permissionsButtonListener() {
         return new ActionListener() {
@@ -625,24 +604,21 @@ public class ProjectPreviewScene extends JPanel {
 
     // Przycisk dodania użytkownika do listy uczestników projektu
     private ActionListener addUserListener() {
-        return new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (!all_users_combobox.isVisible()) {
-                    all_users_combobox.setSelectedIndex(0);
-                    all_users_combobox.setVisible(true);
-                } else {
-                    int selected_index = all_users_combobox.getSelectedIndex();
-                    if (selected_index > 0) {
-                        User selected_user = users_array[selected_index - 1];
-                        if (!participants_dict_copy.containsKey(selected_user)) {
-                            participants_dict_copy.put(selected_user, false);
-                            System.out.println("Add participant: " + selected_user);
-                        }
+        return e -> {
+            if (!all_users_combobox.isVisible()) {
+                all_users_combobox.setSelectedIndex(0);
+                all_users_combobox.setVisible(true);
+            } else {
+                int selected_index = all_users_combobox.getSelectedIndex();
+                if (selected_index > 0) {
+                    User selected_user = users_array[selected_index - 1];
+                    if (!participants_dict_copy.containsKey(selected_user)) {
+                        participants_dict_copy.put(selected_user, false);
+                        System.out.println("Add participant: " + selected_user);
                     }
-                    Jparticipants.setListData(participants_dict_copy.keySet().toArray());
-                    all_users_combobox.setVisible(false);
                 }
+                Jparticipants.setListData(participants_dict_copy.keySet().toArray());
+                all_users_combobox.setVisible(false);
             }
         };
     }
@@ -663,6 +639,28 @@ public class ProjectPreviewScene extends JPanel {
         };
     }
 
+    // wyświetlanie listy uczestników projektu
+    private class UserListCellRenderer extends DefaultListCellRenderer {
+        @Serial
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            User user = (User) value;
+            Boolean is_admin = participants_dict_copy.get(user);
+
+            if (is_admin != null) {
+                if (is_admin) {
+                    label.setText(user + " (administrator)");
+                } else {
+                    label.setText(user + " (uczestnik)");
+                }
+            }
+
+            return label;
+        }
+    }
 
     // ZMIANA SCENY
 
@@ -671,3 +669,4 @@ public class ProjectPreviewScene extends JPanel {
         return e -> MainProgram.setWindow("projects_scene");
     }
 }
+

@@ -2,6 +2,7 @@ package Scenes;
 import Classes.Project;
 import Classes.Task;
 import Classes.User;
+import Main.Main;
 import Main.MainProgram;
 
 import javax.swing.*;
@@ -162,7 +163,7 @@ public class ProjectsScene extends JPanel {
 
         // przycisk utworzenia nowego projektu
         JButton new_project_button = new JButton("Nowy projekt");
-        // TODO: Listener przycisku
+        new_project_button.addActionListener(addProjectButtonListener());
 
         open_project_button.setFont(Styles.BUTTON_FONT);
         new_project_button.setFont(Styles.BUTTON_FONT);
@@ -224,6 +225,16 @@ public class ProjectsScene extends JPanel {
         };
     }
 
+    // dodawanie nowego projektu
+    private ActionListener addProjectButtonListener() {
+        return e -> {
+            Project new_project = new Project(MainProgram.getLoggedUser());
+            MainProgram.getProjects().addElement(new_project);
+            MainProgram.setWindow("project_preview_scene", new_project);
+            System.out.println("new project added");
+        };
+    }
+
     // Wybór zadania z listy
     private MouseAdapter TasksListListener() {
         // Nadanie dostępu do instancji wszystich zadań
@@ -240,6 +251,8 @@ public class ProjectsScene extends JPanel {
                     MainProgram.setWindow("task_preview_scene", selected_task);
                 }
 
+                // TODO: Wybór zadania po 1 kliknięciu
+                // po co w sumie?
             }
         };
     }

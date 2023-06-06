@@ -4,16 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6cc3313-cad9-4cc3-8b3f-4e1b13531a9b" name="Changes" comment="fix on adding new task to project">
+    <list default="true" id="a6cc3313-cad9-4cc3-8b3f-4e1b13531a9b" name="Changes" comment="adding new project">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/Project.java" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Project.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Task.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main/Window.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scenes/ProjectPreviewScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/ProjectPreviewScene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scenes/ProjectsScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/ProjectsScene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scenes/TaskEditorScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/TaskEditorScene.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scenes/SignupScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/SignupScene.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,33 +37,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;openjdk-20&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-j-8.0.33.jar&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Downloaded.Files.Path.Enabled": "false",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "Merging main",
+    "jdk.selected.JAVA_MODULE": "openjdk-20",
+    "last_opened_file_path": "C:/Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-j-8.0.33.jar",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\lilka\IdeaProjects\Project-Management-App\lib" />
@@ -127,7 +120,9 @@
       <workItem from="1685641222270" duration="1955000" />
       <workItem from="1685654177195" duration="817000" />
       <workItem from="1685697391316" duration="1674000" />
-      <workItem from="1685813709183" duration="4198000" />
+      <workItem from="1685813709183" duration="4647000" />
+      <workItem from="1685899813629" duration="2017000" />
+      <workItem from="1685948793783" duration="4991000" />
     </task>
     <task id="LOCAL-00001" summary="first draft of project structure">
       <created>1683215433286</created>
@@ -304,7 +299,28 @@
       <option name="project" value="LOCAL" />
       <updated>1685475936251</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="finally editing project lists added">
+      <created>1685818707336</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1685818707336</updated>
+    </task>
+    <task id="LOCAL-00027" summary="fix on project info edit">
+      <created>1685909433342</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1685909433342</updated>
+    </task>
+    <task id="LOCAL-00028" summary="adding new project">
+      <created>1685952029386</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1685952029386</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -342,7 +358,10 @@
     <MESSAGE value="task preview fix" />
     <MESSAGE value="add listener to tasks list in ProjectsScenet" />
     <MESSAGE value="fix on adding new task to project" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix on adding new task to project" />
+    <MESSAGE value="finally editing project lists added" />
+    <MESSAGE value="fix on project info edit" />
+    <MESSAGE value="adding new project" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding new project" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
