@@ -18,36 +18,26 @@ import java.util.Map;
 
 // okno podglądu zadania
 public class ProjectPreviewScene extends JPanel {
-    private final Project project;                              // projekt, który edytujemy
-    private final Map<User, Boolean> participants_dict_copy;    // kopia listy uczestników
-    private final DefaultListModel<Task> tasks_list_copy;       // kopia listy uczestników
+    private final Project project;                            // projekt, który edytujemy
+    private final Map<User, Boolean> participants_dict_copy;  // kopia listy uczestników
+    private final DefaultListModel<Task> tasks_list_copy;     // kopia listy uczestników
 
-    private final JList<Object> Jparticipants;                  // lista uczestników projektu
-    private final JList<Task> Jtasks;                           // lista zadań
-    private final JComboBox<User> all_users_combobox;           // lista wszystkich użytkowników aplikacji
-    private final User[] users_array;                           // lista wszystkich użytkowników aplikacji
-    private final boolean is_admin;                             // czy zalogowany użytkownik jest administratorem projektu?
-    private boolean is_editor_open;
+    private final JList<Object> Jparticipants;                // lista uczestników projektu
+    private final JList<Task> Jtasks;                         // lista zadań
+    private final JComboBox<User> all_users_combobox;         // lista wszystkich użytkowników aplikacji
+    private final User[] users_array;                         // lista wszystkich użytkowników aplikacji
+    private final boolean is_admin;                           // czy zalogowany użytkownik jest administratorem projektu?
+    private boolean is_editor_open = false;                   // czy edytor danych o projekcie jest otwarty
 
-    private JPanel project_info_section;
-    private JTextField name_text_field;
-    private JCheckBox status_checkbox;
-    protected JSpinner deadline_spinner;                        // pole wyboru daty
-
-
-    // ---------------   STYL   ---------------
-
-    static Font HEADER_FONT = new Font("Arial", Font.PLAIN, 28);
-    static Font CONTENT_FONT = new Font("Arial", Font.PLAIN, 20);
-    static Font LABEL_FONT = new Font("Arial", Font.PLAIN, 24);
-    static Font BUTTON_FONT = new Font("Arial", Font.PLAIN, 16);
-
-    static int MAIN_PADDING_H = 20;         // odległość zawartości od granicy okna
-    static int MAIN_PADDING_V = 20;
+    private JPanel project_info_section;                      // sekcja sceny z informacjami i edytorem danych projektu
+    private JTextField name_text_field;                       // pole wyboru nazwy projektu
+    private JCheckBox status_checkbox;                        // pole wyboru statusu projektu
+    protected JSpinner deadline_spinner;                      // pole wyboru daty
+    
 
     // ---------------   SCENA   ---------------
 
-    // Konstruktor sceny
+    // konstruktor sceny
     public ProjectPreviewScene(Project project) {
         this.project = project;
 
@@ -63,11 +53,13 @@ public class ProjectPreviewScene extends JPanel {
             participants_dict_copy.put(user, privileges);
         }
 
-        // Wczytanie listy zadań projektu
+        // wczytanie listy zadań projektu
         Jtasks = new JList<>(tasks_list_copy);
+        Jtasks.setFont(Styles.LIST_ELEMENT_FONT);
 
-        // Wczytanie listy członków projektu
+        // wczytanie listy członków projektu
         Jparticipants = new JList<>(participants_dict_copy.keySet().toArray());
+        Jparticipants.setFont(Styles.LIST_ELEMENT_FONT);
         Jparticipants.setCellRenderer(new UserListCellRenderer());
 
         // utworzenie listy wszystkich użytkowników aplikacji
@@ -79,20 +71,19 @@ public class ProjectPreviewScene extends JPanel {
         // wczytanie uprawnień zalogowanego użytkownika
         is_admin = project.getPrivileges(MainProgram.getLoggedUser());
 
-        is_editor_open = false;
-
         // utworzenie sceny
         createScene();
     }
 
-    // Dodanie zawartości sceny
+    // dodanie zawartości sceny
     private void createScene() {
+        //utworzenie nowego paneli
         new JPanel();
         setLayout(new GridLayout(1,3, 20, 20));
-        setBorder(BorderFactory.createEmptyBorder(MAIN_PADDING_H, MAIN_PADDING_V, MAIN_PADDING_H, MAIN_PADDING_V));
+        setBorder(Styles.MAIN_BORDER);
 
-        project_info_section = createProjectInfoSection();
-        add(project_info_section);
+        // dodanie sekcji do okna
+        add(project_info_section = createProjectInfoSection());
         add(createTaskPanel());
         add(createAssigneePanel());
 
@@ -102,121 +93,126 @@ public class ProjectPreviewScene extends JPanel {
 
     //  --------------- PANELE SCENY ----------------
 
-    // Panel informacjami o projekcie
+    // sekcja okna z informacjami o projekcie
     private JPanel createProjectInfoSection() {
+        // utworzenie nowego paneli
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
-        panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 
+        // dodanie podpisu sekcji
         Label project_name_label = new Label("Informacje o projekcie");
-        project_name_label.setFont(HEADER_FONT);
+        project_name_label.setFont(Styles.HEADER_FONT);
         panel.add(project_name_label, BorderLayout.NORTH);
 
+        // dodanie zawartości sekcji
         JPanel info_panel_content = createInfoPanel();
         info_panel_content.setBackground(Color.WHITE);
         panel.add(info_panel_content, BorderLayout.CENTER);
 
+        // utworzenie i dodanie przycisków sekcji
         JPanel project_button_box = createProjectInfoButtons();
         panel.add(project_button_box, BorderLayout.SOUTH);
 
         return panel;
     }
 
-    // wnętrze panelu
+    // zawartość panelu z informacjami o projekcie
     private JPanel createInfoPanel() {
+        // utworzenie nowego paneli
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(3,1));
+        panel.setLayout(new GridLayout(3,2, 0, 0));
+        panel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
 
-        // nazwa projektu
-        JPanel name_panel = new JPanel();
-        name_panel.setBackground(Color.WHITE);
-        name_panel.setLayout(new BorderLayout());
-
+        // podpis pola z nazwą projektu
         JLabel name_label = new JLabel("Nazwa:");
-        name_label.setFont(LABEL_FONT);
+        name_label.setFont(Styles.LABEL_FONT);
+        name_label.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
 
+        // wartość pola
         JLabel name_content = new JLabel(project.getName());
-        name_content.setFont(LABEL_FONT);
+        name_content.setFont(Styles.LABEL_FONT);
+        name_content.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
 
-        name_panel.add(name_label, BorderLayout.NORTH);
-        name_panel.add(name_content, BorderLayout.CENTER);
+        // dodanie do okna
+        panel.add(name_label, BorderLayout.NORTH);
+        panel.add(name_content, BorderLayout.CENTER);
 
 
-        // data końcowa projektu
-        JPanel date_panel = new JPanel();
-        date_panel.setBackground(Color.WHITE);
-        date_panel.setLayout(new BorderLayout());
-
+        // podpis pola z datą końcowa projektu
         JLabel date_label = new JLabel("Data końcowa:");
-        date_label.setFont(LABEL_FONT);
+        date_label.setFont(Styles.LABEL_FONT);
+        date_label.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
 
+        // wartość pola
         JLabel date_content = new JLabel(String.valueOf(project.getDeadline()));
-        date_content.setFont(LABEL_FONT);
+        date_content.setFont(Styles.LABEL_FONT);
+        date_content.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
 
-        date_panel.add(date_label, BorderLayout.NORTH);
-        date_panel.add(date_content, BorderLayout.CENTER);
+        // dodanie do okna
+        panel.add(date_label, BorderLayout.NORTH);
+        panel.add(date_content, BorderLayout.CENTER);
 
 
-        // status projektu
-        JPanel status_panel = new JPanel();
-        status_panel.setBackground(Color.WHITE);
-        status_panel.setLayout(new BorderLayout());
-
+        // podpis pola ze statusem projektu
         JLabel status_label = new JLabel("Status projektu:");
-        status_label.setFont(LABEL_FONT);
+        status_label.setFont(Styles.LABEL_FONT);
+        status_label.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
 
+        // wartość pola
         JLabel status_content = new JLabel();
-        status_content.setFont(LABEL_FONT);
+        status_content.setFont(Styles.LABEL_FONT);
         if (project.getStatus()) {
             status_content.setText("Ukończono");
         } else {
             status_content.setText("W trakcie realizacji");
         }
+        status_content.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
 
-        status_panel.add(status_label, BorderLayout.NORTH);
-        status_panel.add(status_content, BorderLayout.CENTER);
-
-        panel.add(name_panel);
-        panel.add(date_panel);
-        panel.add(status_panel);
+        // dodanie do okna
+        panel.add(status_label, BorderLayout.NORTH);
+        panel.add(status_content, BorderLayout.CENTER);
 
         return panel;
     }
 
     // edytor infomacji o projekcie
     private JPanel createEditorPanel() {
+        // utworzenie nowego paneli
         JPanel main_panel = new JPanel();
         main_panel.setLayout(new BorderLayout());
 
+        // podpis sekcji edytowania projektu
         Label project_name_label = new Label("Edycja projektu");
-        project_name_label.setFont(HEADER_FONT);
+        project_name_label.setFont(Styles.HEADER_FONT);
         main_panel.add(project_name_label, BorderLayout.NORTH);
 
+        // panel pomoczniczy
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(3,1));
 
-        // nazwa projektu
+        // panel edycji nazwy projektu
         JPanel name_panel = new JPanel();
         name_panel.setBackground(Color.WHITE);
         name_panel.setLayout(new BorderLayout());
 
         JLabel name_label = new JLabel("Nazwa:");
-        name_label.setFont(LABEL_FONT);
+        name_label.setFont(Styles.LABEL_FONT);
 
         name_text_field = new JTextField(project.getName());
-        name_text_field.setFont(LABEL_FONT);
+        name_text_field.setFont(Styles.LABEL_FONT);
 
         name_panel.add(name_label, BorderLayout.NORTH);
         name_panel.add(name_text_field, BorderLayout.CENTER);
 
 
-        // data końcowa projektu
+        // panel edycji daty końcowej projektu
         JPanel date_panel = new JPanel();
         date_panel.setBackground(Color.WHITE);
         date_panel.setLayout(new BorderLayout());
 
         JLabel date_label = new JLabel("Data końcowa:");
-        date_label.setFont(LABEL_FONT);
+        date_label.setFont(Styles.LABEL_FONT);
 
         deadline_spinner = createDeadlineField();
 
@@ -224,61 +220,69 @@ public class ProjectPreviewScene extends JPanel {
         date_panel.add(deadline_spinner, BorderLayout.CENTER);
 
 
-        // status projektu
+        // panel edycji statusu projektu
         JPanel status_panel = new JPanel();
         status_panel.setBackground(Color.WHITE);
         status_panel.setLayout(new BorderLayout());
 
         JLabel status_label = new JLabel("Status projektu:");
-        status_label.setFont(LABEL_FONT);
+        status_label.setFont(Styles.LABEL_FONT);
 
-        status_checkbox = new JCheckBox("Ukończono");
-        status_checkbox.setFont(LABEL_FONT);
+        status_checkbox = new JCheckBox("Ukończono", project.getStatus());
+        status_checkbox.setFont(Styles.LABEL_FONT);
         status_checkbox.setBackground(Color.WHITE);
 
         status_panel.add(status_label, BorderLayout.NORTH);
         status_panel.add(status_checkbox, BorderLayout.CENTER);
 
+
+        // dodanie paneli do okna
         panel.add(name_panel);
         panel.add(date_panel);
         panel.add(status_panel);
-
         main_panel.add(panel, BorderLayout.CENTER);
         main_panel.add(createProjectEditorButtons(), BorderLayout.SOUTH);
+
         return main_panel;
     }
 
-    // Panel z zadaniami
+    // sekcja z zadaniami
     private JPanel createTaskPanel() {
+        // utworzenie nowego paneli
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
-        panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 
+        // podpis pola z zadaniami projektu
         Label project_name_label = new Label("Zadania");
-        project_name_label.setFont(HEADER_FONT);
+        project_name_label.setFont(Styles.HEADER_FONT);
         panel.add(project_name_label, BorderLayout.NORTH);
 
+        // lista zadań projektu
         panel.add(Jtasks, BorderLayout.CENTER);
         Jtasks.addMouseListener(chooseTaskListener());
 
+        // dodanie elementów do okna
         JPanel tasks_button_box = createTasksButtons();
         panel.add(tasks_button_box, BorderLayout.SOUTH);
 
         return panel;
     }
 
-    // Panel członkami projektu
+    // sekcja z członkami projektu
     private JPanel createAssigneePanel() {
+        // utworzenie nowego paneli
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
-        panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 
+        // utworzenie podpisu pola z uczestnikami projektu
         Label project_name_label = new Label("Uczestnicy");
-        project_name_label.setFont(HEADER_FONT);
+        project_name_label.setFont(Styles.HEADER_FONT);
         panel.add(project_name_label, BorderLayout.NORTH);
 
+        // dodanie elementów do okna
         panel.add(Jparticipants, BorderLayout.CENTER);
-        
         panel.add(editingParticipantsListPanel(), BorderLayout.SOUTH);
 
         return panel;
@@ -286,14 +290,18 @@ public class ProjectPreviewScene extends JPanel {
     
     // przyciski i wybór użytkownika z listy
     private JPanel editingParticipantsListPanel() {
+        // utworzenie nowego paneli
         JPanel buttons_and_list = new JPanel();
         buttons_and_list.setLayout(new BorderLayout());
-        // panel przycisków
+
+        // utworzenie przycisków sekcji
         JPanel users_button_box = createAssigneeButtons();
         buttons_and_list.add(users_button_box, BorderLayout.CENTER);
-        // lista użytkowników
+
+        // utworzenie listy użytkowników
         all_users_combobox.setVisible(false);
         buttons_and_list.add(all_users_combobox, BorderLayout.NORTH);
+
         return buttons_and_list;
     }
 
@@ -310,22 +318,29 @@ public class ProjectPreviewScene extends JPanel {
 
     // przyciski panelu z informacjami o projekcie
     private JPanel createProjectInfoButtons() {
+        // utworzenie nowego panelu
         JPanel button_panel = new JPanel();
         button_panel.setLayout(new GridLayout(1,3, 10, 10));
         button_panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
+        // utworzenie przycisku uruchamiającego edytor projektu
         JButton edit_project_button = new JButton("Edytuj");
-        edit_project_button.setFont(BUTTON_FONT);
+        edit_project_button.setFont(Styles.BUTTON_FONT);
+        edit_project_button.setBorder(Styles.BUTTON_BORDER);
         edit_project_button.addActionListener(editProjectButtonListener());
         button_panel.add(edit_project_button);
 
+        // utworzenie przycisku zapisującego zmiany w projekcie
         JButton save_project_button = new JButton("Zapisz");
-        save_project_button.setFont(BUTTON_FONT);
+        save_project_button.setFont(Styles.BUTTON_FONT);
+        save_project_button.setBorder(Styles.BUTTON_BORDER);
         save_project_button.addActionListener(saveButtonListener());
         button_panel.add(save_project_button);
 
+        // utworzenie przycisku powrotu do wyboru projektu/zadania
         JButton return_button = new JButton("Powrót");
-        return_button.setFont(BUTTON_FONT);
+        return_button.setFont(Styles.BUTTON_FONT);
+        return_button.setBorder(Styles.BUTTON_BORDER);
         return_button.addActionListener(returnButtonListener());
         button_panel.add(return_button);
 
@@ -338,18 +353,22 @@ public class ProjectPreviewScene extends JPanel {
         return button_panel;
     }
 
+    // przyciski edytora informacji o projekcie
     private JPanel createProjectEditorButtons() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1,2, 20, 20));
-        panel.setBorder(BorderFactory.createEmptyBorder(MAIN_PADDING_H, MAIN_PADDING_V, MAIN_PADDING_H, MAIN_PADDING_V));
+        panel.setBorder(Styles.MAIN_BORDER);
 
         JButton save_button = new JButton("Zapisz");
-        save_button.setFont(BUTTON_FONT);
+        save_button.setFont(Styles.BUTTON_FONT);
+        save_button.setBorder(Styles.BUTTON_BORDER);
+
         save_button.addActionListener(saveButtonListener());
 
 
         JButton cancel_button = new JButton("Anuluj");
-        cancel_button.setFont(BUTTON_FONT);
+        cancel_button.setFont(Styles.BUTTON_FONT);
+        cancel_button.setBorder(Styles.BUTTON_BORDER);
         cancel_button.addActionListener(cancelProjectInformationListener());
 
         panel.add(save_button);
@@ -358,7 +377,7 @@ public class ProjectPreviewScene extends JPanel {
         return panel;
     }
 
-    // Przyciski panelu z zadaniami
+    // przyciski sekcji z zadaniami
     private JPanel createTasksButtons() {
         JPanel button_panel = new JPanel();
 
@@ -366,12 +385,15 @@ public class ProjectPreviewScene extends JPanel {
         button_panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         JButton add_task_button = new JButton("Dodaj");
-        add_task_button.setFont(BUTTON_FONT);
+        add_task_button.setFont(Styles.BUTTON_FONT);
+        add_task_button.setBorder(Styles.BUTTON_BORDER);
+
         add_task_button.addActionListener(addTaskButtonListener());
         button_panel.add(add_task_button);
 
         JButton delete_task_button = new JButton("Usuń");
-        delete_task_button.setFont(BUTTON_FONT);
+        delete_task_button.setFont(Styles.BUTTON_FONT);
+        delete_task_button.setBorder(Styles.BUTTON_BORDER);
         delete_task_button.addActionListener(deleteTaskButtonListener());
         button_panel.add(delete_task_button);
 
@@ -384,7 +406,7 @@ public class ProjectPreviewScene extends JPanel {
         return button_panel;
     }
 
-    // Przyciski panelu z członkami projektu
+    // przyciski sekcji z członkami projektu
     private JPanel createAssigneeButtons() {
         JPanel button_panel = new JPanel();
 
@@ -392,17 +414,20 @@ public class ProjectPreviewScene extends JPanel {
         button_panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         JButton premissions_button = new JButton("Zmień uprawnienia");
-        premissions_button.setFont(BUTTON_FONT);
+        premissions_button.setFont(Styles.BUTTON_FONT);
+        premissions_button.setBorder(Styles.BUTTON_BORDER);
         premissions_button.addActionListener(permissionsButtonListener());
         button_panel.add(premissions_button);
 
         JButton add_user_button = new JButton("Dodaj");
-        add_user_button.setFont(BUTTON_FONT);
+        add_user_button.setFont(Styles.BUTTON_FONT);
+        add_user_button.setBorder(Styles.BUTTON_BORDER);
         add_user_button.addActionListener(addUserListener());
         button_panel.add(add_user_button);
 
         JButton delete_participant_button= new JButton("Usuń");
-        delete_participant_button.setFont(BUTTON_FONT);
+        delete_participant_button.setFont(Styles.BUTTON_FONT);
+        delete_participant_button.setBorder(Styles.BUTTON_BORDER);
         delete_participant_button.addActionListener(deleteUserButtonListener());
         button_panel.add(delete_participant_button);
 
@@ -419,9 +444,11 @@ public class ProjectPreviewScene extends JPanel {
 
     //  --------------- FUNKCJONALNOŚĆ  ---------------
 
+    // wyświetlenie edytora informacji o projekcie
     private void editProject() {
         is_editor_open = true;
 
+        // ponowne narysowanie okna
         JPanel updatedPanel = createEditorPanel();
         project_info_section.removeAll();
         project_info_section.add(updatedPanel);
@@ -430,12 +457,12 @@ public class ProjectPreviewScene extends JPanel {
         project_info_section.repaint();
     }
 
-    // pole z datą końcową zadania
+    // element wyboru daty końcowej zadania
     private JSpinner createDeadlineField() {
         // utworzenie elementu wyboru daty
         SpinnerModel spinnerModel = new SpinnerDateModel();
         JSpinner spinner = new JSpinner(spinnerModel);
-        spinner.setFont(LABEL_FONT);
+        spinner.setFont(Styles.LABEL_FONT);
 
         // konfiguracja elementu
         JSpinner.DateEditor dateEditor =
@@ -446,25 +473,10 @@ public class ProjectPreviewScene extends JPanel {
                 .atZone(ZoneId.systemDefault()).toInstant();
         spinner.setValue(Date.from(instant));
 
-
         return spinner;
     }
 
-
-    //  --------------- ACTION LISTENERY  ---------------
-
-    // Przycisk do edycji projektu
-    private ActionListener editProjectButtonListener() {
-        return e -> editProject();
-    }
-
-    private ActionListener cancelProjectInformationListener() {
-        return e -> {
-            MainProgram.setWindow("project_preview_scene", project);
-        };
-    }
-
-    // Przycisk zapisywania projektu
+    // zapisania zmian w projekcie
     private void saveProject() {
         project.setTasks(tasks_list_copy);
         project.setPrivileges(participants_dict_copy);
@@ -476,6 +488,61 @@ public class ProjectPreviewScene extends JPanel {
         }
     }
 
+    // wyświetlanie listy użytkowników
+    private class UserListCellRenderer extends DefaultListCellRenderer {
+        @Serial
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            User user = (User) value;
+            Boolean is_admin = participants_dict_copy.get(user);
+
+            if (is_admin != null) {
+                if (is_admin) {
+                    label.setText(user + " (administrator)");
+                } else {
+                    label.setText(user + " (uczestnik)");
+                }
+            }
+
+            return label;
+        }
+    }
+
+    // okno dialogowe z pytaniem o zapisanie projektu
+    private int showSaveProjectDialog() {
+        return JOptionPane.showOptionDialog(
+                null,
+                "Czy chcesz zapisać projekt przed przejściem do podglądu zadania?",
+                "Zapisz",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                new Object[]{"Zapisz", "Nie"},
+                "Zapisz"
+        );
+    }
+
+
+    //  --------------- NASŁUCHIWACZE ZDARZEŃ  ---------------
+
+    // EDYCJA INFORMACJI O PROJEKCIE
+
+    // przycisk do edycji projektu
+    private ActionListener editProjectButtonListener() {
+        return e -> editProject();
+    }
+
+    // przycisk przerwania edycji informacji o projekcie
+    private ActionListener cancelProjectInformationListener() {
+        return e -> {
+            MainProgram.setWindow("project_preview_scene", project);
+        };
+    }
+
+    // przycisk zapisania zmian informacji o projekcie (wyjście z edytora projektu)
     private ActionListener saveButtonListener() {
         return e -> {
             saveProject();
@@ -483,12 +550,9 @@ public class ProjectPreviewScene extends JPanel {
         };
     }
 
-    // Przycisk powrotu do wyboru projektu
-    private ActionListener returnButtonListener() {
-        return e -> MainProgram.setWindow("projects_scene");
-    }
 
-    // ------------------------------ EDYCJA LISTY ZADAŃ ------------------------------
+    //  EDYCJA LISTY ZADAŃ
+
     // Przycisk edytowania zadania
     private ActionListener addTaskButtonListener() {
         return e -> {
@@ -535,21 +599,9 @@ public class ProjectPreviewScene extends JPanel {
         };
     }
 
-    // okno dialogowe z pytaniem o zapisanie projektu
-    private int showSaveProjectDialog() {
-        return JOptionPane.showOptionDialog(
-                null,
-                "Czy chcesz zapisać projekt przed przejściem do podglądu zadania?",
-                "Zapisz",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                new Object[]{"Zapisz", "Nie"},
-                "Zapisz"
-        );
-    }
 
-    // ------------------------------ EDYCJA LISTY UCZESTNIKÓW ------------------------------
+    //  EDYCJA LISTY UCZESTNIKÓW
+
     // Przycisk edytowania uprawnień
     private ActionListener permissionsButtonListener() {
         return new ActionListener() {
@@ -557,14 +609,16 @@ public class ProjectPreviewScene extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 // wybór użytkownika z listy
                 User user = (User) Jparticipants.getSelectedValue();
-                // zapisanie aktualnych uprawnień
-                boolean cur_privileges = participants_dict_copy.get(user);
-                // zmiana uprawnień na "przeciwne"
-                participants_dict_copy.put(user, !cur_privileges);
-                // odświeżenie sceny po zmianie
-                revalidate();
-                repaint();
-                System.out.println("Edit Permissions for " + user);
+                if (user != null) {
+                    // zapisanie aktualnych uprawnień
+                    boolean cur_privileges = participants_dict_copy.get(user);
+                    // zmiana uprawnień na "przeciwne"
+                    participants_dict_copy.put(user, !cur_privileges);
+                    // odświeżenie sceny po zmianie
+                    revalidate();
+                    repaint();
+                    System.out.println("Edit Permissions for " + user);
+                }
             }
         };
     }
@@ -609,26 +663,11 @@ public class ProjectPreviewScene extends JPanel {
         };
     }
 
-    // wyświetlanie listy użytkowników
-    private class UserListCellRenderer extends DefaultListCellRenderer {
-        @Serial
-        private static final long serialVersionUID = 1L;
 
-        @Override
-        public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-            JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-            User user = (User) value;
-            Boolean is_admin = participants_dict_copy.get(user);
+    // ZMIANA SCENY
 
-            if (is_admin != null) {
-                if (is_admin) {
-                    label.setText(user + " (administrator)");
-                } else {
-                    label.setText(user + " (uczestnik)");
-                }
-            }
-
-            return label;
-        }
+    // przycisk powrotu do wyboru projektu/zadania
+    private ActionListener returnButtonListener() {
+        return e -> MainProgram.setWindow("projects_scene");
     }
 }

@@ -11,33 +11,28 @@ public class CurrentEditorScene extends TaskEditorScene{
     private JComboBox<String> progress_level_combobox;
 
 
-    // ---------------    STYL    ---------------
-
-    Border MAIN_BORDER = BorderFactory.createEmptyBorder(20,20,20,20);
-    Border ELEMENT_SPACING_BORDER = new CompoundBorder(
-            BorderFactory.createEmptyBorder(10,30,10,30),
-            BorderFactory.createLineBorder(Color.GRAY, 1));
-
-
     // ---------------    SCENA    ---------------
 
     public CurrentEditorScene(Current task) {
         super(task);
     }
 
+    // konstruktor zadania
     @Override
     protected void initializeAttributes() {
         super.initializeAttributes();
         progress_level_combobox = createLevelCombobox();
     }
 
+    // utworzenie sceny
     @Override
     protected void createMainPanel() {
         new JPanel();
         setLayout(new GridLayout(6, 1, 20, 20));
-        setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+        setBorder(Styles.MAIN_BORDER);
     }
 
+    // dodanie elementów do sceny
     @Override
     protected void addElements() {
         add(namePanel());
@@ -53,19 +48,25 @@ public class CurrentEditorScene extends TaskEditorScene{
 
     // panel wyboru statusu zadania
     protected JPanel chooseLevelPanel() {
+        // utworzenie nowego panelu
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 2));
+
+        // utworzenie okna wybory statusu
         JLabel status_label = new JLabel("Status:", SwingConstants.RIGHT);
-        status_label.setFont(FONT);
+        status_label.setFont(Styles.LABEL_FONT);
         status_label.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
         panel.add(status_label);
         panel.add(progress_level_combobox);
+
         return panel;
     }
 
-    // TODO: opis
+    // utworzenie pola wyboru poziomu ukończenia zadania
     private JComboBox<String> createLevelCombobox() {
         JComboBox<String> combobox = new JComboBox<>(Current.progress_levels);
+        combobox.setBackground(Color.WHITE);
+        combobox.setFont(Styles.LABEL_FONT);
         combobox.setSelectedIndex(((Current)task).getProgressLevel());
         return combobox;
     }
@@ -73,7 +74,7 @@ public class CurrentEditorScene extends TaskEditorScene{
 
     // ---------------   FUNKCJONALNOŚĆ SCENY  ---------------
 
-    // zapisywanie
+    // zapisywanie zmian
     @Override
     protected void saveChanges() {
         super.saveChanges();

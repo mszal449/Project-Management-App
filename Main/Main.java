@@ -14,10 +14,14 @@ public class Main {
         User assignee3 = new User("Asia", "asia@mail.com", "haslo3");
         User assignee4 = new User("Lusia", "lusia@mail.com", "haslo4");
         User assignee5 = new User("test", "test", "");
+        User assignee6 = new User("Czesia", "czesia@mail.com", "");
+        User assignee7 = new User("Krysia", "krysia@mail.com", "");
         project.addParticipant(assignee1);
         project.addParticipant(assignee2);
         project.addParticipant(assignee3);
-        project.addParticipant(assignee5);
+        project.addParticipant(assignee4);
+        project.addParticipant(assignee6);
+        project.addParticipant(assignee7);
         project2.addParticipant(assignee1);
         project2.addParticipant(assignee4);
         Planned task1 = new Planned("task1",

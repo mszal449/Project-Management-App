@@ -69,7 +69,7 @@ public class PlannedEditorScene extends TaskEditorScene{
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1, 2));
         JLabel name_text = new JLabel("Planowana data rozpoczęcia: ", SwingConstants.RIGHT);
-        name_text.setFont(FONT);
+        name_text.setFont(Styles.LABEL_FONT);
         name_text.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
         panel.add(name_text);
         panel.add(start_date_spinner);
@@ -78,10 +78,12 @@ public class PlannedEditorScene extends TaskEditorScene{
 
     //  --------------- FUNKCJONALNOŚC SCENY ----------------
 
-    // pole z datą
+    // element wyboru daty
     private JSpinner createStartDateField() {
         SpinnerModel spinnerModel = new SpinnerDateModel();
         JSpinner spinner = new JSpinner(spinnerModel);
+        spinner.setFont(Styles.LABEL_FONT);
+
         JSpinner.DateEditor dateEditor =
                 new JSpinner.DateEditor(spinner, "dd/MM/yyyy");
         spinner.setEditor(dateEditor);

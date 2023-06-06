@@ -4,6 +4,7 @@ import Classes.*;
 import Scenes.*;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.Objects;
 
 public class Window extends JFrame{
@@ -29,7 +30,7 @@ public class Window extends JFrame{
 
         // Konfiguracja parametrów okna
         setTitle("Projekt");
-        setSize(1100, 800);
+        setSize(1400, 900);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }

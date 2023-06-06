@@ -2,139 +2,124 @@ package Scenes;
 import Classes.Project;
 import Classes.Task;
 import Classes.User;
-import Main.Main;
 import Main.MainProgram;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.text.Element;
+import javax.swing.text.Style;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-// Okno wyboru projektów i podglądu zadania
+// scena wyboru projektów i podglądu zadań użytkownika
 public class ProjectsScene extends JPanel {
-    JList<Project> Jusers_projects;     // Lista wszystkich projektów
-    JList<Task> Jusers_tasks;           // Lista wszystkich zadań
+    JList<Project> users_projects;      // lista wszystkich projektów
+    JList<Task> users_tasks;            // lista wszystkich zadań
     Project chosen_project;             // wybrany projekt
     JButton open_project_button;        // przycisk otwarcia projektu
 
 
-    // Wygląd okna
-    static int LOGGED_USER_FONT_SIZE = 24;      // Czcionka informacji o zalogowanym użytkowniku
-    static int MAIN_PADDING_H = 20;             // Odległość zawartości od granicy okna
-    static int MAIN_PADDING_V = 20;             // FIXME: Nie działa na napis zalogowanego użytkownika? xd
-    static int LIST_HEADER_FONT_SIZE = 20;      // Wielkość czcionki nagłówków "Projects" i "Tasks"
-    static int LIST_ELEMENT_FONT_SIZE = 16;     // Wielkość czcionki elementów listy
-
-    // ---------------   CZCIONKI   ---------------
-
-    static Font HEADER_FONT = new Font("Arial", Font.PLAIN, 26);
-    static Font LIST_ELEMENT_FONT = new Font("Arial", Font.PLAIN, 20);
-    static Font BUTTON_FONT = new Font("Arial", Font.PLAIN, 20);
-
-
     // ---------------    SCENA    ---------------
 
-    // Konstruktor sceny
+    // konstruktor sceny
     public ProjectsScene() {
         // wczytanie projektów użytkownika
-        Jusers_projects = new JList<>(MainProgram.getProjects(MainProgram.getLoggedUser()));
-        // wczytanie zadań użytkownika
-        Jusers_tasks = new JList<>(MainProgram.getTasks(MainProgram.getLoggedUser()));
+        users_projects = new JList<>(MainProgram.getProjects(MainProgram.getLoggedUser()));
 
-        // Utworzenie czcionki list
-        Font font = new Font("Arial", Font.PLAIN, LIST_ELEMENT_FONT_SIZE);
-        Jusers_projects.setFont(font);
-        Jusers_tasks.setFont(font);
+        // wczytanie zadań użytkownika
+        users_tasks = new JList<>(MainProgram.getTasks(MainProgram.getLoggedUser()));
 
         CreateScene();
     }
 
-    // Utworzenie panelu sceny
+    // utworzenie panelu sceny
     private void CreateScene() {
-        // Utworzenie panelu
+        // nowy panel
         new JPanel();
-
-        // Konfiguracja panelu
         setLayout(new BorderLayout());
-        setBorder(BorderFactory.createEmptyBorder(MAIN_PADDING_V,
-                                                  MAIN_PADDING_H,
-                                                  MAIN_PADDING_V,
-                                                  MAIN_PADDING_H));
+        setBorder(Styles.MAIN_BORDER);
 
-        // Dodanie elementów do panelu
+        // dodanie elementów do panelu
         addElements();
     }
 
-    // Dodanie elementów do sceny
+    // dodanie elementów do sceny
     private void addElements() {
-        // Dodanie napisu z nazwą użytkownika
+        // dodanie napisu z nazwą użytkownika
         User logged_user = MainProgram.getLoggedUser();
         Label logged_user_label = new Label("Zalogowano jako " + logged_user);
-        logged_user_label.setFont(HEADER_FONT);
-        add(logged_user_label, BorderLayout.NORTH);
+        logged_user_label.setAlignment(Label.CENTER);
+        logged_user_label.setFont(Styles.HEADER_FONT);
 
-        // Utworzenie panelu przechowującego listy projektów i zadań
+        // utworzenie panelu przechowującego listy projektów i zadań
         JPanel lists_box = new JPanel();
-        lists_box.setLayout(new GridLayout(1, 2, 10, 0));
-        lists_box.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        lists_box.setLayout(new GridLayout(1, 2, 20, 20));
 
-        // Dodanie panelu z obsługującego projekty użytkownika
+        // dodanie panelu z obsługującego projekty użytkownika
         lists_box.add(createProjectsPanel());
 
-        // Dodanie panelu obsługującego zadania użytkownika
+        // dodanie panelu obsługującego zadania użytkownika
         lists_box.add(createTasksPanel());
 
+        add(logged_user_label, BorderLayout.NORTH);
         add(lists_box);
     }
 
 
     //  --------------- PANELE SCENY ----------------
 
-    // Utworzenie panelu z listą projektów
+    // utworzenie panelu z listą projektów
     private JPanel createProjectsPanel() {
-        // Utworzenie panelu
+        // utworzenie panelu
         JPanel panel = new JPanel();
 
-        // Konfiguracja panelu
+        // konfiguracja panelu
         panel.setLayout(new BorderLayout());
-        panel.setBorder(BorderFactory.createLineBorder(Color.black));
+        panel.setBorder(new CompoundBorder(
+            BorderFactory.createEmptyBorder(10,10,10,10),
+            BorderFactory.createLineBorder(Color.BLACK, 2)));
 
-        // Utworzenie nagłówka listy projektów
+        // utworzenie nagłówka listy projektów
         Label list_header_label= new Label("Projekty:");
-        list_header_label.setFont(LIST_ELEMENT_FONT);
+        list_header_label.setFont(Styles.LIST_HEADER_FONT);
         panel.add( list_header_label, BorderLayout.NORTH);
 
-        // Dodanie listy do okna
-        panel.add(Jusers_projects, BorderLayout.CENTER);
-        Jusers_projects.addMouseListener(ProjectsListListener());
+        // dodanie listy do okna
+        users_projects.setFont(Styles.LIST_ELEMENT_FONT);
+        panel.add(users_projects, BorderLayout.CENTER);
+        users_projects.addMouseListener(ProjectsListListener());
 
-        // Dodanie przycisków sekcji
+        // dodanie przycisków sekcji
         panel.add(createProjectsButtonPanel(), BorderLayout.SOUTH);
 
         return panel;
     }
 
 
-    // Utworzenie panelu z listą zadań
+    // utworzenie panelu z listą zadań
     private JPanel createTasksPanel() {
-        // Utworzenie panelu
+        // utworzenie panelu
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
-        panel.setBorder(BorderFactory.createLineBorder(Color.black));
+        panel.setBorder(new CompoundBorder(
+                BorderFactory.createEmptyBorder(10,10,10,10),
+                BorderFactory.createLineBorder(Color.BLACK, 2)));
 
-        // Utworzenie nagłówka listy zadań
+        // utworzenie nagłówka listy zadań
         Label list_header_label= new Label("Zadania:");
-        Font font = new Font("Arial", Font.PLAIN, LIST_HEADER_FONT_SIZE);
-        list_header_label.setFont(font);
+        list_header_label.setFont(Styles.LIST_HEADER_FONT);
         panel.add(list_header_label, BorderLayout.NORTH);
 
-        // Dodanie listy do okna
-        panel.add(Jusers_tasks, BorderLayout.CENTER);
-        Jusers_tasks.addMouseListener(TasksListListener());
+        // dodanie listy do okna
+        users_tasks.setFont(Styles.LIST_ELEMENT_FONT);
+        panel.add(users_tasks, BorderLayout.CENTER);
+        users_tasks.addMouseListener(TasksListListener());
 
-        // Dodanie przycisków sekcji
+        // dodanie przycisków sekcji
         panel.add(createTasksButtonPanel(), BorderLayout.SOUTH);
         return panel;
     }
@@ -142,7 +127,7 @@ public class ProjectsScene extends JPanel {
 
     //  --------------- PANELE PRZYCISKÓW ---------------
 
-    // Utworzenie przycisków listy zadań
+    // utworzenie przycisków listy zadań
     private JPanel createTasksButtonPanel() {
         // Utworzenie panelu
         JPanel panel = new JPanel();
@@ -152,9 +137,11 @@ public class ProjectsScene extends JPanel {
         panel.setLayout(new GridLayout(1,1));
 
         JButton chose_task_button = new JButton("Otwórz zadanie");
-        // TODO: Listener przycisku
+        chose_task_button.setFont(Styles.BUTTON_FONT);
+        chose_task_button.addActionListener(openTaskButtonListener());
 
-        chose_task_button.setFont(BUTTON_FONT);
+
+        chose_task_button.setFont(Styles.BUTTON_FONT);
 
         // Dodanie przycisku do okna
         panel.add(chose_task_button);
@@ -162,23 +149,23 @@ public class ProjectsScene extends JPanel {
         return panel;
     }
 
-    // Utworzenie przycisków listy projektów
+    // utworzenie przycisków listy projektów
     private JPanel createProjectsButtonPanel() {
-        // Utworzenie panelu
+        // utworzenie panelu
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1,2));
 
-        // Utworzenie przycisków
+        // przycisk wyboru projektu
         open_project_button = new JButton("Otwórz projekt");
         open_project_button.setEnabled(false);
         open_project_button.addActionListener(OpenProjectListener());
 
+        // przycisk utworzenia nowego projektu
         JButton new_project_button = new JButton("Nowy projekt");
         // TODO: Listener przycisku
 
-        open_project_button.setFont(BUTTON_FONT);
-        new_project_button.setFont(BUTTON_FONT);
-
+        open_project_button.setFont(Styles.BUTTON_FONT);
+        new_project_button.setFont(Styles.BUTTON_FONT);
 
         // Dodanie przycisków do okna
         panel.add(new_project_button);
@@ -200,15 +187,15 @@ public class ProjectsScene extends JPanel {
             public void mouseClicked(MouseEvent evt) {
                 if (evt.getClickCount() == 1) { // jeżeli kilknięto 1 raz...
                     // pobranie numeru indeksu
-                    int index = Jusers_projects.locationToIndex(evt.getPoint());
+                    int index = users_projects.locationToIndex(evt.getPoint());
                     // wybranie wpisu o danym indeksie
                     chosen_project = all_projects.get(index);
                     // ustawienie możliwości otwarcia projektu
                     open_project_button.setEnabled(true);
                 }
-                else if (evt.getClickCount() == 2) { // jeżeli kilknięto 1 raz...
+                else if (evt.getClickCount() == 2) { // jeżeli kilknięto 2 razy...
                     // pobranie numeru indeksu
-                    int index = Jusers_projects.locationToIndex(evt.getPoint());
+                    int index = users_projects.locationToIndex(evt.getPoint());
                     // wybranie wpisu o danym indeksie
                     Project selectedProject = all_projects.get(index);
                     MainProgram.setChosenProject(selectedProject);
@@ -223,6 +210,9 @@ public class ProjectsScene extends JPanel {
             }
         };
     }
+
+
+    //  --------------- NASŁUCHIWACZE ZDARZEŃ ---------------
 
     // Przycisk otwierania projektu
     private ActionListener OpenProjectListener() {
@@ -243,13 +233,29 @@ public class ProjectsScene extends JPanel {
             public void mouseClicked(MouseEvent evt) {
                 if (evt.getClickCount() == 2) { // jeżeli kilknięto 2 razy...
                     // pobranie numeru indeksu
-                    int index = Jusers_tasks.locationToIndex(evt.getPoint());
+                    int index = users_tasks.locationToIndex(evt.getPoint());
                     // wybranie wpisu o danym indeksie
-                    Task selectedTask = all_tasks.get(index);
-                    System.out.println("Wybrano zadanie " + selectedTask);
-                    MainProgram.setWindow("task_preview_scene", selectedTask);
+                    Task selected_task = all_tasks.get(index);
+                    System.out.println("Wybrano zadanie " + selected_task);
+                    MainProgram.setWindow("task_preview_scene", selected_task);
                 }
-                // TODO: Wybór zadania po 1 kliknięciu
+
+            }
+        };
+    }
+
+    // Przycisk otwierania zadania
+    private ActionListener openTaskButtonListener() {
+        // Nadanie dostępu do instancji wszystich zadań
+        DefaultListModel<Task> all_tasks = MainProgram.getTasks();
+
+        return new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // wybranie wpisu o danym indeksie
+                Task selected_task = all_tasks.getElementAt(users_tasks.getSelectedIndex());
+                System.out.println("Wybrano zadanie " + selected_task);
+                MainProgram.setWindow("task_preview_scene", selected_task);
             }
         };
     }
