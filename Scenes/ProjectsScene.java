@@ -50,28 +50,42 @@ public class ProjectsScene extends JPanel {
 
     /** dodanie elementów do sceny */
     private void addElements() {
-        // dodanie napisu z nazwą użytkownika
-        User logged_user = MainProgram.getLoggedUser();
-        Label logged_user_label = new Label("Zalogowano jako " + logged_user);
-        logged_user_label.setAlignment(Label.CENTER);
-        logged_user_label.setFont(Styles.HEADER_FONT);
+        // dodanie nagłówka
+        add(makeHeader(), BorderLayout.NORTH);
 
         // utworzenie panelu przechowującego listy projektów i zadań
         JPanel lists_box = new JPanel();
         lists_box.setLayout(new GridLayout(1, 2, 20, 20));
 
-        // dodanie panelu z obsługującego projekty użytkownika
+        // dodanie panelu zawierającego projekty użytkownika
         lists_box.add(createProjectsPanel());
 
         // dodanie panelu obsługującego zadania użytkownika
         lists_box.add(createTasksPanel());
-
-        add(logged_user_label, BorderLayout.NORTH);
         add(lists_box);
     }
 
 
     //  --------------- PANELE SCENY ----------------
+
+    /** nagłówek - nazwa użytkownika i przycisk wylogowywania */
+    private JPanel makeHeader() {
+        JPanel header = new JPanel();
+        header.setLayout(new BorderLayout());
+        // napis nagłówkowy
+        User logged_user = MainProgram.getLoggedUser();
+        Label logged_user_label = new Label("Zalogowano jako " + logged_user);
+        logged_user_label.setAlignment(Label.CENTER);
+        logged_user_label.setFont(Styles.HEADER_FONT);
+        header.add(logged_user_label, BorderLayout.CENTER);
+        // przycisk wylogowywania
+        JButton logout_button = new JButton("Wyloguj się");
+        logout_button.setBorder(Styles.BUTTON_BORDER);
+        logout_button.setFont(Styles.BUTTON_FONT);
+        logout_button.addActionListener(logoutListener());
+        header.add(logout_button, BorderLayout.EAST);
+        return header;
+    }
 
     /** utworzenie panelu z listą projektów */
     private JPanel createProjectsPanel() {
@@ -214,16 +228,19 @@ public class ProjectsScene extends JPanel {
     //  --------------- NASŁUCHIWACZE ZDARZEŃ ---------------
 
     /** Przycisk otwierania projektu */
-    private ActionListener OpenProjectListener() {
-        return new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                MainProgram.setWindow("project_preview_scene", chosen_project);
-            }
+    private ActionListener logoutListener() {
+        return e -> {
+            MainProgram.setWindow("login_scene");
+            MainProgram.setLoggedUser(null);
         };
     }
 
-    /** dodawanie nowego projektu */
+    /** Akcja otwierania projektu */
+    private ActionListener OpenProjectListener() {
+        return e -> MainProgram.setWindow("project_preview_scene", chosen_project);
+    }
+
+    /** Dodawanie nowego projektu */
     private ActionListener addProjectButtonListener() {
         return e -> {
             // FIXME: Nie działa jak dodajemy projekt jakimkolwiek innym użytkownikiem niż Basia? XD
