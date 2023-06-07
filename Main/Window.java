@@ -24,9 +24,9 @@ public class Window extends JFrame{
         // Utworzenie nowego okna
         new JFrame();
         // Konfiguracja parametrów okna
+        // TODO: nazwa aplikacji
         setTitle("Projekt");
-        setSize(600, 400);
-//        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }

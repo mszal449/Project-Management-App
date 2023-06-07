@@ -277,7 +277,7 @@ public class ProjectPreviewScene extends JPanel {
         panel.add(project_name_label, BorderLayout.NORTH);
 
         // lista zadań projektu
-        panel.add(Jtasks, BorderLayout.CENTER);
+        panel.add(new JScrollPane(Jtasks), BorderLayout.CENTER);
         Jtasks.addMouseListener(chooseTaskListener());
 
         // dodanie elementów do okna
@@ -300,7 +300,7 @@ public class ProjectPreviewScene extends JPanel {
         panel.add(project_name_label, BorderLayout.NORTH);
 
         // dodanie elementów do okna
-        panel.add(Jparticipants, BorderLayout.CENTER);
+        panel.add(new JScrollPane(Jparticipants), BorderLayout.CENTER);
         panel.add(editingParticipantsListPanel(), BorderLayout.SOUTH);
 
         return panel;

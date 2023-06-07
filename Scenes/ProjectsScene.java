@@ -91,7 +91,7 @@ public class ProjectsScene extends JPanel {
 
         // dodanie listy do okna
         users_projects.setFont(Styles.LIST_ELEMENT_FONT);
-        panel.add(users_projects, BorderLayout.CENTER);
+        panel.add(new JScrollPane(users_projects), BorderLayout.CENTER);
         users_projects.addMouseListener(ProjectsListListener());
 
         // dodanie przycisków sekcji
@@ -117,7 +117,7 @@ public class ProjectsScene extends JPanel {
 
         // dodanie listy do okna
         users_tasks.setFont(Styles.LIST_ELEMENT_FONT);
-        panel.add(users_tasks, BorderLayout.CENTER);
+        panel.add(new JScrollPane(users_tasks), BorderLayout.CENTER);
         users_tasks.addMouseListener(TasksListListener());
 
         // dodanie przycisków sekcji

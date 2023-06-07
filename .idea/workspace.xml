@@ -4,18 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6cc3313-cad9-4cc3-8b3f-4e1b13531a9b" name="Changes" comment="huge comments fix">
+    <list default="true" id="a6cc3313-cad9-4cc3-8b3f-4e1b13531a9b" name="Changes" comment="access modifiers fix">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/Current.java" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Current.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/Done.java" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Done.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main/MainProgram.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main/MainProgram.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main/Window.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scenes/LoginScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/LoginScene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scenes/PlannedEditorScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/PlannedEditorScene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scenes/ProjectPreviewScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/ProjectPreviewScene.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Scenes/ProjectsScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/ProjectsScene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scenes/SignupScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/SignupScene.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scenes/TaskEditorScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/TaskEditorScene.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Scenes/TaskPreviewScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/TaskPreviewScene.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -136,7 +129,8 @@
       <workItem from="1685959375998" duration="4892000" />
       <workItem from="1686035307487" duration="503000" />
       <workItem from="1686064584202" duration="10313000" />
-      <workItem from="1686127212146" duration="1276000" />
+      <workItem from="1686127212146" duration="1555000" />
+      <workItem from="1686165002437" duration="1027000" />
     </task>
     <task id="LOCAL-00001" summary="first draft of project structure">
       <created>1683215433286</created>
@@ -348,7 +342,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686086186206</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="access modifiers fix">
+      <created>1686128767231</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1686128767231</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -366,7 +367,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="first draft of project structure" />
     <MESSAGE value="basic methods and tests added" />
     <MESSAGE value="dodano logowanie" />
     <MESSAGE value="fix: dodanie globalnej instancji MainProgram" />
@@ -391,7 +391,8 @@
     <MESSAGE value="adding new project" />
     <MESSAGE value="fix on validating data in signup" />
     <MESSAGE value="huge comments fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="huge comments fix" />
+    <MESSAGE value="access modifiers fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="access modifiers fix" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

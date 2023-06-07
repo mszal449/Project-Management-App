@@ -173,8 +173,7 @@ public class TaskPreviewScene extends JPanel {
         // dodanie listy uczestników do pola
         JList<User> asignee_list= new JList<>(task.getAssignees());
         asignee_list.setFont(Styles.LABEL_FONT);
-        panel.add(asignee_list);
-
+        panel.add(new JScrollPane(asignee_list));
         return panel;
     }
 

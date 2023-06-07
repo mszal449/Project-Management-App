@@ -156,7 +156,7 @@ public abstract class TaskEditorScene extends JPanel{
         panel.add(name_and_buttons);
 
         // dodanie elementów do panelu
-        panel.add(assignees_jlist);
+        panel.add(new JScrollPane(assignees_jlist));
 
         return panel;
     }
