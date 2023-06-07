@@ -55,9 +55,9 @@ public class ProjectPreviewScene extends JPanel {
     // ---------------   SCENA   ---------------
 
     /** konstruktor sceny */
-    public ProjectPreviewScene(Project project) {
-        User[] users_array1;
-        this.project = project;
+    public ProjectPreviewScene(Project chosen_project) {
+        project = chosen_project;
+        project.getInfo();
 
         // utworzenie kopii listy zadań i listy użytkowników
         tasks_list_copy = new DefaultListModel<>();
@@ -505,6 +505,7 @@ public class ProjectPreviewScene extends JPanel {
                     .toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate());
             project.setStatus(status_checkbox.isSelected());
         }
+        project.getInfo();
     }
 
     

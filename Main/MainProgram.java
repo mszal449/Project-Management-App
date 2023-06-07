@@ -13,13 +13,13 @@ public class MainProgram {
     /** (jedyna) instancja klasy Main.MainProgram */
     private static MainProgram app_instance;
     /** Okno programu */
-    Window window;
+    private final Window window;
     /** aktualnie zalogowany użytkownik */
-    User logged_user;
+    private User logged_user;
     /** lista wszystkich użytkowników */
-    DefaultListModel<User> users;
+    private final DefaultListModel<User> users;
     /** lista wszystkich projektów */
-    DefaultListModel<Project> projects;
+    private final DefaultListModel<Project> projects;
 
     /** konstruktor */
     private MainProgram(DefaultListModel<User> users, DefaultListModel<Project> projects) {

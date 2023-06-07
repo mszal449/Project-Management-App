@@ -13,15 +13,11 @@ import static Classes.User.findUser;
 /** Scena rejestrowania konta */
 public class SignupScene extends JPanel {
     /** pole tekstowe na nazwę użytkownika */
-    JTextField name_text;
+    private JTextField name_text;
     /** pole tekstowe na adres email */
-    JTextField email_text;
+    private JTextField email_text;
     /** pole tekstowe na hasło */
-    JPasswordField password_text;
-    /** przycisk rejestracji nowego użytkownika */
-    JButton signup_button;
-    /** przycisk powrotu do ekranu logowania */
-    JButton back_to_login_button;
+    private JPasswordField password_text;
 
 
     // ---------------    SCENA    ---------------
@@ -60,12 +56,12 @@ public class SignupScene extends JPanel {
         password_text.setBorder(Styles.BUTTON_BORDER);
 
         // przycisk rejestracji
-        signup_button = new JButton("Zarejestruj się");
+        JButton signup_button = new JButton("Zarejestruj się");
         signup_button.setFont(Styles.BUTTON_FONT);
         signup_button.setBorder(Styles.BUTTON_BORDER);
 
         // przycisk powrotu do sceny logowania
-        back_to_login_button = new JButton("Wróć do logowania");
+        JButton back_to_login_button = new JButton("Wróć do logowania");
         back_to_login_button.setFont(Styles.BUTTON_FONT);
         back_to_login_button.setBorder(Styles.BUTTON_BORDER);
 

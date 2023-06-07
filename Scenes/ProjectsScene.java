@@ -15,13 +15,13 @@ import java.awt.event.MouseEvent;
 /** Scena wyboru projektów i podglądu zadań użytkownika */
 public class ProjectsScene extends JPanel {
     /** lista wszystkich projektów */
-    JList<Project> users_projects;
+    private final JList<Project> users_projects;
     /** lista wszystkich zadań */
-    JList<Task> users_tasks;
+    private final JList<Task> users_tasks;
     /** wybrany projekt */
-    Project chosen_project;
+    private Project chosen_project;
     /** przycisk otwarcia projektu */
-    JButton open_project_button;
+    private JButton open_project_button;
 
 
     // ---------------    SCENA    ---------------
@@ -226,8 +226,9 @@ public class ProjectsScene extends JPanel {
     /** dodawanie nowego projektu */
     private ActionListener addProjectButtonListener() {
         return e -> {
+            // FIXME: Nie działa jak dodajemy projekt jakimkolwiek innym użytkownikiem niż Basia? XD
             Project new_project = new Project(MainProgram.getLoggedUser());
-            MainProgram.getProjects().addElement(new_project);
+            MainProgram.addProject(new_project);
             MainProgram.setWindow("project_preview_scene", new_project);
             System.out.println("new project added");
         };
@@ -235,7 +236,7 @@ public class ProjectsScene extends JPanel {
 
     /** Wybór zadania z listy */
     private MouseAdapter TasksListListener() {
-        // Nadanie dostępu do instancji wszystich zadań
+        // Nadanie dostępu do instancji wszystkich zadań
         DefaultListModel<Task> all_tasks = MainProgram.getTasks();
 
         return new MouseAdapter() {

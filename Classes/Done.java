@@ -4,7 +4,8 @@ import java.time.LocalDate;
 
 /**  Klasa reprezentująca wykonane zadanie */
 public class Done extends Task {
-    private final LocalDate end_date; // data zakończenia */
+    /** data zakończenia */
+    private final LocalDate end_date;
 
     /**  konstruktor tworzący ukończone zadanie */
     public Done(String name, int day, int month, int year) {

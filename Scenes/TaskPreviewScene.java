@@ -12,7 +12,7 @@ import java.util.Map;
 /** scena podglądu projektu */
 public class TaskPreviewScene extends JPanel {
     /** wybrane zadanie */
-    Task task;
+    protected Task task;
     final int LABEL_ALIGNEMENT = SwingConstants.RIGHT;
 
 

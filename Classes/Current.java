@@ -11,9 +11,10 @@ public class Current extends Task {
             "Wysłano pierwszą wersję",
             "W trakcie poprawy",
             "Czeka na zatwierdzenie"};
-
-    private final LocalDate start_date; /** data rozpoczęcia */
-    private int cur_level; /** aktualny poziom postępu */
+    /** data rozpoczęcia */
+    private final LocalDate start_date;
+    /** aktualny poziom postępu */
+    private int cur_level;
 
     /** konstruktor tworzący trwające zadanie */
     public Current(String name, int day, int month, int year) {

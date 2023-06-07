@@ -18,9 +18,9 @@ import java.util.Date;
 /** Edytor zadania, które jest w fazie planów */
 public class PlannedEditorScene extends TaskEditorScene{
     /** czy tworzymy nowe zadanie? */
-    boolean is_new;
+    private final boolean is_new;
     /** pole wyboru nowej daty rozpoczęcia */
-    JSpinner start_date_spinner;
+    private JSpinner start_date_spinner;
 
 
     // ---------------    STYL    ---------------

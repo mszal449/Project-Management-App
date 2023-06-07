@@ -7,11 +7,11 @@ import java.util.Objects;
 /** Klasa reprezentująca użytkownika aplikacji */
 public class User {
     /** nazwa użytkownika */
-    String name;
+    private final String name;
     /** email */
-    String email;
+    private final String email;
     /** hasło */
-    String password;
+    private final String password;
 
     /** konstruktor */
     public User(String name, String email, String password) {
