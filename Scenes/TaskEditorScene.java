@@ -209,7 +209,6 @@ public abstract class TaskEditorScene extends JPanel{
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
 
-        // TODO: dodanie tutaj panelu do scrollowania?
         // dodanie listy wyboru użytkowników
         panel.add(all_participants_combobox, BorderLayout.NORTH);
         all_participants_combobox.setVisible(false);

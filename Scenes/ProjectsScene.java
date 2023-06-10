@@ -7,7 +7,6 @@ import Main.MainProgram;
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -209,10 +208,8 @@ public class ProjectsScene extends JPanel {
                     open_project_button.setEnabled(true);
                 }
                 else if (evt.getClickCount() == 2) { // jeżeli kilknięto 2 razy...
-                    // pobranie numeru indeksu
-                    int index = users_projects.locationToIndex(evt.getPoint());
-                    // wybranie wpisu o danym indeksie
-                    Project selectedProject = all_projects.get(index);
+                    // wybieramy projekt z listy
+                    Project selectedProject = users_projects.getSelectedValue();
                     if (selectedProject == null) {
                         System.out.println("Nie wybrano projektu.");
                     }
@@ -243,7 +240,6 @@ public class ProjectsScene extends JPanel {
     /** Dodawanie nowego projektu */
     private ActionListener addProjectButtonListener() {
         return e -> {
-            // FIXME: Nie działa jak dodajemy projekt jakimkolwiek innym użytkownikiem niż Basia? XD
             Project new_project = new Project(MainProgram.getLoggedUser());
             MainProgram.addProject(new_project);
             MainProgram.setWindow("project_preview_scene", new_project);
