@@ -164,7 +164,7 @@ public abstract class TaskEditorScene extends JPanel{
 
     //  --------------- ELEMENTY PANELI ----------------
 
-    /** Pole opisu zadania */
+    /** pole opisu zadania */
     private JScrollPane createDescriptionField() {
         JTextArea text = new JTextArea(task.getDescription(), 2,  50);
         text.setLineWrap(true);
@@ -173,7 +173,7 @@ public abstract class TaskEditorScene extends JPanel{
         return new JScrollPane(text);
     }
 
-    /** Pole z wyborem daty końcowej zadania */
+    /** pole z wyborem daty końcowej zadania */
     private JSpinner createDeadlineField() {
         // utworzenie elementu wyboru daty
         SpinnerModel spinnerModel = new SpinnerDateModel();

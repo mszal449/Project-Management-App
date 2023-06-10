@@ -21,6 +21,7 @@ public class Project implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    // konstruktory
     /** konstruktor */
     public Project(String name, LocalDate date) {
         this.name = name;
@@ -29,34 +30,57 @@ public class Project implements Serializable {
         is_done = false;
         deadline = date;
     }
-
     /** konstruktor używany przy tworzeniu nowego projektu */
     public Project(User loggedUser) {
         this("Nowy projekt", LocalDate.now().plusMonths(1));
         this.participants.put(loggedUser, true);
     }
 
+    // nazwa projektu
+    /** zmiana nazwy projektu */
+    public void setName(String new_name) {
+        name = new_name;
+    }
+    /** zwrócenie nazwy projektu */
+    public String getName() {
+        return name;
+    }
+
+    // słownik uczestników z uprawnieniami
+    /** zwrócenie słownika uczestników */
+    public Map<User, Boolean> getParticipants() {
+        return participants;
+    }
+    /** aktualizacja słownika uczestników */
+    public void setPrivileges(Map<User, Boolean> participantsDictCopy) {
+        participants = participantsDictCopy;
+    }
     /** dodawanie uczestnika do projektu */
     public void addParticipant(User user) {
         participants.putIfAbsent(user, false);
     }
-
     /** usuwanie uczestnika z projektu */
     public void deleteParticipant(User user) {
         participants.remove(user);
     }
-
     /** zmiana uprawnień użytkownika */
     public void setPrivileges(User user, Boolean privileges) {
         participants.put(user, privileges);
     }
-
     /** odczytanie uprawnień użytkownika */
     public boolean getPrivileges(User user) {
         return participants.get(user);
     }
 
-
+    // lista zadań
+    /** dostęp do listy zadań projektu */
+    public DefaultListModel<Task> getTasks() {
+        return tasks;
+    }
+    /** aktualizowanie listy zadań projektu */
+    public void setTasks(DefaultListModel<Task> tasks_list_copy) {
+        tasks = tasks_list_copy;
+    }
     /** dodawanie zadania do projektu */
     public void addTask(Task task) {
         task.project = this;
@@ -64,21 +88,35 @@ public class Project implements Serializable {
             tasks.addElement(task);
         }
     }
-
     /** usuwanie zadania z projektu */
     public void deleteTask(Task task) {
         tasks.removeElement(task);
     }
 
+    // data końcowa
+    /** zwrócenie daty końcowej */
+    public LocalDate getDeadline() {
+        return deadline;
+    }
     /** zmiana daty końcowej */
-    public void setDeadline(int day, int month, int year) {
-        deadline = LocalDate.of(year, month, day);
+    public void setDeadline(LocalDate new_deadline) {
+        deadline = new_deadline;
     }
 
+    // stan projektu
     /** oznczanie projektu jako ukończonego */
     public void setDone() {
         is_done = true;
     }
+    /** odczytanie stanu */
+    public Boolean getStatus()  {
+        return is_done;
+    }
+    /** ustawianie stanu */
+    public void setStatus(boolean val) {
+        is_done = val;
+    }
+
 
     // FIXME: usunąć
     /** metoda pomocnicza napis z informacjami o projekcie */
@@ -90,56 +128,8 @@ public class Project implements Serializable {
         System.out.println(is_done);
         System.out.println();
     }
-
-    // metoda pomocnicza zwracająca nazwę projektu
+    /** metoda pomocnicza zwracająca nazwę projektu */
     public String toString() {
         return name;
     }
-
-    // dostęp do listy zadań projektu
-    public DefaultListModel<Task> getTasks() {
-        return tasks;
-    }
-
-    // dostęp do listy użytkowników w projekcie
-    public Map<User, Boolean> getParticipants() {
-        return participants;
-    }
-
-    // Zmiana nazwy projektu
-    public void setName(String new_name) {
-        name = new_name;
-    }
-
-    // zwrócenie nazwy projektu
-    public String getName() {
-        return name;
-    }
-
-    // Zmiana planowanej ukończenia daty projektu
-    public void setDeadline(LocalDate new_deadline) {
-        deadline = new_deadline;
-    }
-
-    public Boolean getStatus()  {
-        return is_done;
-    }
-
-    public void setStatus(boolean val) {
-        is_done = val;
-    }
-
-    // zwrócenie planowanej daty projektu
-    public LocalDate getDeadline() {
-        return deadline;
-    }
-
-    public void setTasks(DefaultListModel<Task> tasks_list_copy) {
-        tasks = tasks_list_copy;
-    }
-
-    public void setPrivileges(Map<User, Boolean> participantsDictCopy) {
-        participants = participantsDictCopy;
-    }
-
 }

@@ -508,7 +508,6 @@ public class ProjectPreviewScene extends JPanel {
         project.getInfo();
     }
 
-    
 
     //  --------------- NASŁUCHIWACZE ZDARZEŃ  ---------------
 

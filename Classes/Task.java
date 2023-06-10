@@ -21,7 +21,7 @@ public abstract class Task implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    // konstruktor używany do tworzenia nowego zadania z poziomu aplikacji */
+    /** konstruktor używany do tworzenia nowego zadania z poziomu aplikacji */
     public Task(Project project) {
         name = "Nowe zadanie";
         description = "";
@@ -31,7 +31,7 @@ public abstract class Task implements Serializable {
         this.project = project;
     }
 
-    // "zwykły" konstruktor */
+    /** "zwykły" konstruktor */
     public Task(String name, int day, int month, int year) {
         this.name = name;
         this.assignees = new DefaultListModel<>();
@@ -39,7 +39,7 @@ public abstract class Task implements Serializable {
         deadline = LocalDate.of(year, month, day);
     }
 
-    // konstruktor "częściowo kopiujący" używany przy zmianie statusu zadania */
+    /** konstruktor "częściowo kopiujący" używany przy zmianie statusu zadania */
     public Task(Task task) {
         this.project = task.project;
         this.name = task.name;
@@ -49,12 +49,12 @@ public abstract class Task implements Serializable {
         task.project.addTask(this);
     }
 
-    // dostęp do projektu, do którego należy zadanie */
+    /** dostęp do projektu, do którego należy zadanie */
     public Project getProject() {
         return project;
     }
 
-    // dostęp do nazwy zadania */
+    /** dostęp do nazwy zadania */
     public String getName() {
         return name;
     }
@@ -62,7 +62,7 @@ public abstract class Task implements Serializable {
         this.name = name;
     }
 
-    // dostęp do opisu zadania */
+    /** dostęp do opisu zadania */
     public String getDescription() {
         return description;
     }
@@ -70,39 +70,36 @@ public abstract class Task implements Serializable {
         this.description = description;
     }
 
-    // dostęp do daty końcowej */
+    /** dostęp do daty końcowej */
     public LocalDate getDeadline() {
         return deadline;
-    }
-    public void setDeadline(int day, int month, int year) {
-        deadline = LocalDate.of(year, month, day);
     }
     public void setDeadline(LocalDate date) {
         deadline = date;
     }
 
-    // dostęp do listy osób przypisanych do zadania */
+    /** dostęp do listy osób przypisanych do zadania */
     public DefaultListModel<User> getAssignees() {
         return assignees;
     }
     public void setAssignees(DefaultListModel<User> assignees) {
         this.assignees = assignees;
     }
-    // dodanie osoby do listy */
+    /** dodanie osoby do listy */
     public void addAssignee(User assignee) {
         assignees.addElement(assignee);
     }
-    // usunięcie osoby z listy */
+    /** usunięcie osoby z listy */
     public void deleteAssignee(User assignee) {
         assignees.removeElement(assignee);
     }
 
-    // napis rezprezentujący zadanie */
+    /** napis rezprezentujący zadanie */
     public String toString() {
         return name + " " + deadline;
     }
 
-    // metoda pomocnicza wypisująca informacje o zadaniu do konsoli */
+    /** metoda pomocnicza wypisująca informacje o zadaniu do konsoli */
     public void getInfo() {
         System.out.println(this);
         System.out.println(assignees);
