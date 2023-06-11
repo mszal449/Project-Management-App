@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
-/** scena podglądu projektu */
+/** Scena podglądu zadania */
 public class TaskPreviewScene extends JPanel {
     /** wybrane zadanie */
     protected Task task;

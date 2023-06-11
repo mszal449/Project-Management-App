@@ -13,14 +13,18 @@ import java.awt.event.MouseEvent;
 
 /** Scena wyboru projektów i podglądu zadań użytkownika */
 public class ProjectsScene extends JPanel {
-    /** lista wszystkich projektów */
+    /** lista wszystkich projektów użytkownika */
     private final JList<Project> users_projects;
-    /** lista wszystkich zadań */
+    /** lista wszystkich zadań użytkownika */
     private final JList<Task> users_tasks;
     /** wybrany projekt */
     private Project chosen_project;
+    /** wybrane zadanie */
+    private Task chosen_task;
     /** przycisk otwarcia projektu */
     private JButton open_project_button;
+    /** przycisk otwarcia zadania */
+    private JButton open_task_button;
 
 
     // ---------------    SCENA    ---------------
@@ -146,19 +150,17 @@ public class ProjectsScene extends JPanel {
         // Utworzenie panelu
         JPanel panel = new JPanel();
 
-
         // Utworzenie przycisku
         panel.setLayout(new GridLayout(1,1));
 
-        JButton chose_task_button = new JButton("Otwórz zadanie");
-        chose_task_button.setFont(Styles.BUTTON_FONT);
-        chose_task_button.addActionListener(openTaskButtonListener());
-
-
-        chose_task_button.setFont(Styles.BUTTON_FONT);
+        open_task_button = new JButton("Otwórz zadanie");
+        open_task_button.setFont(Styles.BUTTON_FONT);
+        open_task_button.addActionListener(openTaskButtonListener());
+        open_task_button.setEnabled(false);
+        open_task_button.setFont(Styles.BUTTON_FONT);
 
         // Dodanie przycisku do okna
-        panel.add(chose_task_button);
+        panel.add(open_task_button);
 
         return panel;
     }
@@ -189,21 +191,15 @@ public class ProjectsScene extends JPanel {
     }
 
 
-    //  --------------- ACTION LISTENERS  ---------------
+    //  --------------- NASŁUCHIWACZE ZDARZEŃ ---------------
 
     /** Wybór projektu z listy */
     private MouseAdapter ProjectsListListener() {
-        // Nadanie dostępu do instancji wszystich projektów
-        DefaultListModel<Project> all_projects = MainProgram.getProjects();
-
-        // Zwrócenie nowego listenera listy
         return new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
                 if (evt.getClickCount() == 1) { // jeżeli kilknięto 1 raz...
                     // pobranie numeru indeksu
-                    int index = users_projects.locationToIndex(evt.getPoint());
-                    // wybranie wpisu o danym indeksie
-                    chosen_project = all_projects.get(index);
+                    chosen_project = users_projects.getSelectedValue();
                     // ustawienie możliwości otwarcia projektu
                     open_project_button.setEnabled(true);
                 }
@@ -220,9 +216,6 @@ public class ProjectsScene extends JPanel {
             }
         };
     }
-
-
-    //  --------------- NASŁUCHIWACZE ZDARZEŃ ---------------
 
     /** Wylogowywanie */
     private ActionListener logoutListener() {
@@ -243,24 +236,28 @@ public class ProjectsScene extends JPanel {
             Project new_project = new Project(MainProgram.getLoggedUser());
             MainProgram.addProject(new_project);
             MainProgram.setWindow("project_preview_scene", new_project);
-            System.out.println("new project added");
         };
     }
 
     /** Wybór zadania z listy */
     private MouseAdapter TasksListListener() {
-        // Nadanie dostępu do instancji wszystkich zadań
-        DefaultListModel<Task> all_tasks = MainProgram.getTasks();
-
         return new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                if (evt.getClickCount() == 2) { // jeżeli kilknięto 2 razy...
+                if (evt.getClickCount() == 1) { // jeżeli kilknięto 1 raz...
                     // pobranie numeru indeksu
-                    int index = users_tasks.locationToIndex(evt.getPoint());
-                    // wybranie wpisu o danym indeksie
-                    Task selected_task = all_tasks.get(index);
-                    System.out.println("Wybrano zadanie " + selected_task);
-                    MainProgram.setWindow("task_preview_scene", selected_task);
+                    chosen_task = users_tasks.getSelectedValue();
+                    // ustawienie możliwości otwarcia zadania
+                    open_task_button.setEnabled(true);
+                }
+                else if (evt.getClickCount() == 2) { // jeżeli kilknięto 2 razy...
+                    // wybieramy projekt z listy
+                    Task selected = users_tasks.getSelectedValue();
+                    if (selected == null) {
+                        System.out.println("Nie wybrano zadania.");
+                    }
+                    else {
+                        MainProgram.setWindow("task_preview_scene", selected);
+                    }
                 }
             }
         };
@@ -268,12 +265,8 @@ public class ProjectsScene extends JPanel {
 
     /** Przycisk otwierania zadania */
     private ActionListener openTaskButtonListener() {
-        // Nadanie dostępu do instancji wszystich zadań
-        DefaultListModel<Task> all_tasks = MainProgram.getTasks();
         return e -> {
-            // wybranie wpisu o danym indeksie
-            Task selected_task = all_tasks.getElementAt(users_tasks.getSelectedIndex());
-            System.out.println("Wybrano zadanie " + selected_task);
+            Task selected_task = users_tasks.getSelectedValue();
             MainProgram.setWindow("task_preview_scene", selected_task);
         };
     }

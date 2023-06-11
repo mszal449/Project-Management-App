@@ -4,7 +4,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 
- /** klasa zawierająca ogólne zasady dotyczące stylu scen */
+ /** Klasa zawierająca ogólne zasady dotyczące stylu scen */
 public class Styles {
     // Borders
     public static final Border MAIN_BORDER = BorderFactory.createEmptyBorder(20, 20, 20, 20);
