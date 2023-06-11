@@ -174,7 +174,7 @@ public class MainProgram implements Serializable {
     public void saveData() {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("data.ser"))) {
             out.writeObject(MainProgram.getInstance());
-            System.out.println("Zapisano dane użytkowników");
+            System.out.println("Zapisano dane");
         } catch (IOException e) {
             e.printStackTrace();
         }

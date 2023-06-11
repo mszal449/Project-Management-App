@@ -3,7 +3,6 @@ import Classes.User;
 import Main.MainProgram;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
@@ -41,7 +40,7 @@ public class LoginScene extends JPanel {
 
         // pole tekstowe na identyfikator użytkownika
 
-        JLabel login_label = new JLabel("Adres");
+        JLabel login_label = new JLabel("Email");
         login_label.setHorizontalAlignment(JLabel.CENTER);
         login_label.setLayout(new BorderLayout());
 
@@ -80,11 +79,6 @@ public class LoginScene extends JPanel {
         JButton signup_button = new JButton("Zarejestruj się");
         signup_button.setFont(Styles.BUTTON_FONT);
         signup_button.setBorder(Styles.BUTTON_BORDER);
-
-
-        // FIXME: Usunięcie automatycznego wprowadzania danych
-        login_text.setText("basia@mail.com");
-        password_text.setText("haslo1");
 
         // dodanie elementów do sceny
         add(login_panel);
