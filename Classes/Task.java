@@ -18,8 +18,6 @@ public abstract class Task implements Serializable {
     DefaultListModel<User> assignees;
     /** planowana data ukończenia */
     LocalDate deadline;
-    @Serial
-    private static final long serialVersionUID = 1L;
 
     /** konstruktor używany do tworzenia nowego zadania z poziomu aplikacji */
     public Task(Project project) {

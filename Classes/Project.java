@@ -1,7 +1,6 @@
 package Classes;
 
 import javax.swing.*;
-import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
@@ -18,8 +17,6 @@ public class Project implements Serializable {
     private  DefaultListModel<Task> tasks;
     /** lista uczestników projektu wraz z uprawnieniami */
     private Map<User, Boolean> participants;
-    @Serial
-    private static final long serialVersionUID = 1L;
 
     // konstruktory
     /** konstruktor */

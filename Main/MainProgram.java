@@ -6,10 +6,7 @@ import Classes.User;
 
 import javax.swing.*;
 import java.io.*;
-import java.util.Collection;
 
-
-// zastosowany wzorzec projektowy: https://pl.wikipedia.org/wiki/Singleton_(wzorzec_projektowy)
 /** Główna klasa programu */
 public class MainProgram implements Serializable {
 
