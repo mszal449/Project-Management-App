@@ -41,19 +41,48 @@ public class SignupScene extends JPanel {
     /** elementy systemu logowania */
     private void addElements() {
         // pole tekstowe na nazwę użytkownika
+        JPanel name = new JPanel();
+        name.setLayout(new BorderLayout());
+        JLabel name_label = new JLabel("Nazwa użytkownika");
+        name_label.setFont(Styles.LOGIN_FONT);
+        name_label.setHorizontalAlignment(JLabel.CENTER);
+
         name_text = new JTextField(40);
         name_text.setFont(Styles.LOGIN_FONT);
         name_text.setBorder(Styles.ELEMENT_BORDER);
 
+        name.add(name_label, BorderLayout.NORTH);
+        name.add(name_text, BorderLayout.CENTER);
+
         // pole tekstowe na adres email
+        JPanel email = new JPanel();
+        email.setLayout(new BorderLayout());
+        JLabel email_label = new JLabel("Email");
+        email_label.setFont(Styles.LOGIN_FONT);
+        email_label.setHorizontalAlignment(JLabel.CENTER);
+
         email_text = new JTextField(40);
         email_text.setFont(Styles.LOGIN_FONT);
         email_text.setBorder(Styles.ELEMENT_BORDER);
 
+        email.add(email_label, BorderLayout.NORTH);
+        email.add(email_text, BorderLayout.CENTER);
+
+
         // pole tekstowe na hasło
+        JPanel password = new JPanel();
+        password.setLayout(new BorderLayout());
+        JLabel password_label = new JLabel("Hasło");
+        password_label.setFont(Styles.LOGIN_FONT);
+        password_label.setHorizontalAlignment(JLabel.CENTER);
+
         password_text = new JPasswordField(40);
         password_text.setFont(Styles.LOGIN_FONT);
         password_text.setBorder(Styles.BUTTON_BORDER);
+
+        password.add(password_label, BorderLayout.NORTH);
+        password.add(password_text, BorderLayout.CENTER);
+
 
         // przycisk rejestracji
         JButton signup_button = new JButton("Zarejestruj się");
@@ -66,9 +95,9 @@ public class SignupScene extends JPanel {
         back_to_login_button.setBorder(Styles.BUTTON_BORDER);
 
         // Dodanie elementów do sceny
-        add(name_text);
-        add(email_text);
-        add(password_text);
+        add(name);
+        add(email);
+        add(password);
         add(signup_button);
         add(back_to_login_button);
 

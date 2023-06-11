@@ -2,10 +2,11 @@ package Classes;
 import Main.MainProgram;
 
 import javax.swing.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 /** Klasa reprezentująca użytkownika aplikacji */
-public class User {
+public class User implements Serializable {
     /** nazwa użytkownika */
     private final String name;
     /** email */

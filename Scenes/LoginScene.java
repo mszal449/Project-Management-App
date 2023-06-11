@@ -3,6 +3,7 @@ import Classes.User;
 import Main.MainProgram;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
@@ -35,16 +36,40 @@ public class LoginScene extends JPanel {
 
     /** dodanie elementów logowania do sceny */
     private void addElements() {
+        JPanel login_panel = new JPanel();
+        login_panel.setLayout(new BorderLayout());
+
         // pole tekstowe na identyfikator użytkownika
+
+        JLabel login_label = new JLabel("Adres");
+        login_label.setHorizontalAlignment(JLabel.CENTER);
+        login_label.setLayout(new BorderLayout());
+
+        login_label.setFont(Styles.LOGIN_FONT);
         login_text.setHorizontalAlignment(JTextField.CENTER);
         login_text.setFont(Styles.LOGIN_FONT);
         login_text.setBorder(Styles.ELEMENT_BORDER);
 
+        login_panel.add(login_label, BorderLayout.NORTH);
+        login_panel.add(login_text, BorderLayout.CENTER);
+
+
+
         // pole tekstowe na hasło użytkownika
+        JPanel password_panel = new JPanel();
+        password_panel.setLayout(new BorderLayout());
+        JLabel password_label = new JLabel("Hasło");
+        password_label.setHorizontalAlignment(JLabel.CENTER);
+        password_label.setFont(Styles.LOGIN_FONT);
+
         password_text = new JPasswordField(40);
         password_text.setHorizontalAlignment(JPasswordField.CENTER);
         password_text.setFont(Styles.LOGIN_FONT);
         password_text.setBorder(Styles.ELEMENT_BORDER);
+
+        password_panel.add(password_label, BorderLayout.NORTH);
+        password_panel.add(password_text, BorderLayout.CENTER);
+
 
         // przycisk logowania
         JButton login_button = new JButton("Zaloguj się");
@@ -62,8 +87,8 @@ public class LoginScene extends JPanel {
         password_text.setText("haslo1");
 
         // dodanie elementów do sceny
-        add(login_text);
-        add(password_text);
+        add(login_panel);
+        add(password_panel);
         add(login_button);
         add(signup_button);
 

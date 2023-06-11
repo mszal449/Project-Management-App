@@ -57,7 +57,6 @@ public class ProjectPreviewScene extends JPanel {
     /** konstruktor sceny */
     public ProjectPreviewScene(Project chosen_project) {
         project = chosen_project;
-        project.getInfo();
 
         // utworzenie kopii listy zadań i listy użytkowników
         tasks_list_copy = new DefaultListModel<>();
@@ -172,8 +171,8 @@ public class ProjectPreviewScene extends JPanel {
         panel.add(date_content, BorderLayout.CENTER);
 
 
-        // podpis pola ze statusem projektu
-        JLabel status_label = new JLabel("Status projektu:");
+        // podpis pola ze stanem projektu
+        JLabel status_label = new JLabel("Stan projektu:");
         status_label.setFont(Styles.LABEL_FONT);
         status_label.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
 
@@ -238,12 +237,12 @@ public class ProjectPreviewScene extends JPanel {
         date_panel.add(deadline_spinner, BorderLayout.CENTER);
 
 
-        // panel edycji statusu projektu
+        // panel edycji stanu projektu
         JPanel status_panel = new JPanel();
         status_panel.setBackground(Color.WHITE);
         status_panel.setLayout(new BorderLayout());
 
-        JLabel status_label = new JLabel("Status projektu:");
+        JLabel status_label = new JLabel("Stan projektu:");
         status_label.setFont(Styles.LABEL_FONT);
 
         status_checkbox = new JCheckBox("Ukończono", project.getStatus());
@@ -511,7 +510,6 @@ public class ProjectPreviewScene extends JPanel {
                     .toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate());
             project.setStatus(status_checkbox.isSelected());
         }
-        project.getInfo();
     }
 
 

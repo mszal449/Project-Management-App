@@ -5,11 +5,14 @@ import Classes.Task;
 import Classes.User;
 
 import javax.swing.*;
+import java.io.*;
+import java.util.Collection;
 
 
 // zastosowany wzorzec projektowy: https://pl.wikipedia.org/wiki/Singleton_(wzorzec_projektowy)
 /** Główna klasa programu */
-public class MainProgram {
+public class MainProgram implements Serializable {
+
     /** (jedyna) instancja klasy Main.MainProgram */
     private static MainProgram app_instance;
     /** Okno programu */
@@ -21,12 +24,25 @@ public class MainProgram {
     /** lista wszystkich projektów */
     private final DefaultListModel<Project> projects;
 
+
+    // ---------------    INSTANCJA PROGRAMU    ---------------
+
+    /** konstruktor */
+    private MainProgram() {
+        users = new DefaultListModel<>();
+        projects = new DefaultListModel<>();
+
+        loadUserData();
+        loadProjectData();
+        window = new Window();
+    }
+
     /** konstruktor */
     private MainProgram(DefaultListModel<User> users, DefaultListModel<Project> projects) {
-        // Wczytanie danych
+        // wczytanie danych
         this.users = users;
         this.projects = projects;
-        // Utworzenie głównego okna programu
+        // utworzenie głównego okna programu
         window = new Window();
     }
 
@@ -34,6 +50,14 @@ public class MainProgram {
     public static MainProgram getInstance(DefaultListModel<User> users, DefaultListModel<Project> projects) {
         if (app_instance == null) {
             app_instance = new MainProgram(users, projects);
+        }
+        return app_instance;
+    }
+
+    /** dostęp lub utworzenie app_instance */
+    public static MainProgram getInstance() {
+        if (app_instance == null) {
+            app_instance = new MainProgram();
         }
         return app_instance;
     }
@@ -47,10 +71,8 @@ public class MainProgram {
         app_instance.window.setScene(scene_name, args);
     }
 
-    /** dostęp do listy wszystkich użytkowników aplikacji */
-    public static DefaultListModel<User> getUsers() {
-        return app_instance.users;
-    }
+    // ------------- MODYFIKOWANIE DANYCH PROJEKTU -------------
+
     /** dodanie użytkownika */
     public static void addUser(User user) {
         app_instance.users.addElement(user);
@@ -59,24 +81,31 @@ public class MainProgram {
     public static void deleteUser(User user) {
         app_instance.users.removeElement(user);
     }
-
     /** dodanie projektu */
     public static void addProject(Project project) {
         app_instance.projects.addElement(project);
     }
-
     /** usunięcie projektu */
     public static void deleteProject(Project project) {
         app_instance.projects.removeElement(project);
+    }
+    /** zmiana aktualnie zalogowanego użytkownika */
+    public static void setLoggedUser(User user) {
+        app_instance.logged_user = user;
+    }
+
+
+
+    // ---------------  DOSTĘP DO DANYCH   ---------------
+
+    /** dostęp do listy wszystkich użytkowników aplikacji */
+    public static DefaultListModel<User> getUsers() {
+        return app_instance.users;
     }
 
     /** dostęp do informacji o aktualnie zalogowanym użytkowniku */
     public static User getLoggedUser() {
         return app_instance.logged_user;
-    }
-    /** zmiana aktualnie zalogowanego użytkownika */
-    public static void setLoggedUser(User user) {
-        app_instance.logged_user = user;
     }
 
     /** dostęp do listy projektów */
@@ -129,4 +158,53 @@ public class MainProgram {
 
         return users_tasks;
     }
+
+
+    // ---------------  SERIALIZACJA DANYCH   ---------------
+
+    /** metoda do wczytania danych użytkowników z pliku */
+    private void loadUserData() {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("users.ser"))) {
+            DefaultListModel<User> userData = (DefaultListModel<User>) in.readObject();
+            for (int i = 0; i < userData.size(); i++) {
+                users.addElement(userData.getElementAt(i));
+            }
+            System.out.println("Wczytano dane użytkowników");
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Nie znaleziono danych");
+        }
+    }
+
+    /** metoda do wczytania danych projektów z pliku */
+    private void loadProjectData() {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("projects.ser"))) {
+            DefaultListModel<Project> projectData = (DefaultListModel<Project>) in.readObject();
+            for (int i = 0; i < projectData.size(); i++) {
+                System.out.println(projectData.getElementAt(i).getName());
+                projects.addElement(projectData.getElementAt(i));
+            }
+            System.out.println("Wczytano dane projektów");
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Nie znaleziono danych");
+        }
+    }
+
+
+    /** metoda do zapisywania danych użytkowników i projektów przy zamknięciu aplikacji */
+    public void saveData() {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("users.ser"))) {
+            out.writeObject(users);
+            System.out.println("Zapisano dane użytkowników");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("projects.ser"))) {
+            out.writeObject(projects);
+            System.out.println("Zapisano dane projektów");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
+

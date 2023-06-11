@@ -116,18 +116,6 @@ public class Project implements Serializable {
     public void setStatus(boolean val) {
         is_done = val;
     }
-
-
-    // FIXME: usunąć
-    /** metoda pomocnicza napis z informacjami o projekcie */
-    public void getInfo() {
-        System.out.println(name);
-        System.out.println(deadline);
-        System.out.println(participants);
-        System.out.println(tasks);
-        System.out.println(is_done);
-        System.out.println();
-    }
     /** metoda pomocnicza zwracająca nazwę projektu */
     public String toString() {
         return name;
