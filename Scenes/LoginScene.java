@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 /** Scena logowania */
 public class LoginScene extends JPanel {
     /** miejsce na nazwę użytkownika */
-    private JTextField login_text;
+    private final JTextField login_text;
     /** miejsce na hasło */
     private JPasswordField password_text;
     // ---------------    SCENA    ---------------

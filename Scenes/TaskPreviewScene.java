@@ -217,7 +217,7 @@ public class TaskPreviewScene extends JPanel {
                     ("Nie posiadasz uprawnień do edycji tego zadania");
             action_button.setEnabled(false);
             action_button.setToolTipText
-                    ("Nie posiadasz uprawnień do zmiany statusu tego zadania");
+                    ("Nie posiadasz uprawnień do edycji tego zadania");
         }
         // przycisk powrotu
         JButton return_button = new JButton("Wróć");

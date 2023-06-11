@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 /** Klasa reprezentująca zadanie w trakcie wykonywania */
 public class Current extends Task {
-    /** poziomy postępu zadania */
+    /** poziomy postępu (stany) zadania */
     public static final String[] progress_levels = {
             "Rozpoczęto",
             "W trakcie",
@@ -38,18 +38,21 @@ public class Current extends Task {
         cur_level = 0;
     }
 
-    /** dostęp do informacji o statusie postępu */
+    /** dostęp do informacji o stanie */
     public String getProgressState() {
         return progress_levels[cur_level];
     }
+    /** dostęp do informacji o poziomie postępu */
     public int getProgressLevel() {
         return cur_level;
     }
+    /** zmiana poziomu postępu */
     public void setProgressLevel(int level) {
         if (level < 5 && level >= 0) {
             cur_level = level;
         }
     }
+    /** oznaczenie zadania jako wykonanego */
     public Done setDone() {
         Done new_task = new Done(this);
         project.addTask(new_task);

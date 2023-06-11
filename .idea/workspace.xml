@@ -4,11 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6cc3313-cad9-4cc3-8b3f-4e1b13531a9b" name="Changes" comment="adding new project fix :&gt;">
+    <list default="true" id="a6cc3313-cad9-4cc3-8b3f-4e1b13531a9b" name="Changes" comment="and another comments fix">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/Project.java" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Project.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/Current.java" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Current.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/Planned.java" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Planned.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Classes/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Task.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scenes/TaskEditorScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/TaskEditorScene.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main/MainProgram.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main/MainProgram.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scenes/LoginScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/LoginScene.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scenes/ProjectPreviewScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/ProjectPreviewScene.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scenes/TaskPreviewScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/TaskPreviewScene.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,7 +138,8 @@
       <workItem from="1686212539790" duration="1207000" />
       <workItem from="1686236899270" duration="57000" />
       <workItem from="1686237037696" duration="16000" />
-      <workItem from="1686404826150" duration="3328000" />
+      <workItem from="1686404826150" duration="3774000" />
+      <workItem from="1686483365536" duration="734000" />
     </task>
     <task id="LOCAL-00001" summary="first draft of project structure">
       <created>1683215433286</created>
@@ -381,7 +386,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686413153464</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="and another comments fix">
+      <created>1686415318608</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1686415318608</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -399,7 +411,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="LoginData subclass deleted" />
     <MESSAGE value="SignupScene view added" />
     <MESSAGE value="Updated project structure" />
     <MESSAGE value="made setScene variadic" />
@@ -424,7 +435,8 @@
     <MESSAGE value="scrollpanes added" />
     <MESSAGE value="logout button added" />
     <MESSAGE value="adding new project fix :&gt;" />
-    <option name="LAST_COMMIT_MESSAGE" value="adding new project fix :&gt;" />
+    <MESSAGE value="and another comments fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="and another comments fix" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

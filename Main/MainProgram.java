@@ -42,17 +42,20 @@ public class MainProgram {
     public static Window getWindow() {
         return app_instance.window;
     }
+    /** zmiana zawartości okna */
     public static void setWindow(String scene_name, Object ... args) {
         app_instance.window.setScene(scene_name, args);
     }
 
-    /** dostęp do listy użytkowników aplikacji */
+    /** dostęp do listy wszystkich użytkowników aplikacji */
     public static DefaultListModel<User> getUsers() {
         return app_instance.users;
     }
+    /** dodanie użytkownika */
     public static void addUser(User user) {
         app_instance.users.addElement(user);
     }
+    /** usunięcie użytkownika */
     public static void deleteUser(User user) {
         app_instance.users.removeElement(user);
     }
@@ -71,6 +74,7 @@ public class MainProgram {
     public static User getLoggedUser() {
         return app_instance.logged_user;
     }
+    /** zmiana aktualnie zalogowanego użytkownika */
     public static void setLoggedUser(User user) {
         app_instance.logged_user = user;
     }

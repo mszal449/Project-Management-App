@@ -19,13 +19,15 @@ public class Planned extends Task {
         start_date = LocalDate.now();
     }
 
-    /** dostęp do planowanej daty rozpoczęcia */
+    /** zmiana planowanej daty rozpoczęcia */
     public void setStartdate(int day, int month, int year) {
         start_date = LocalDate.of(year, month, day);
     }
+    /** zmiana planowanej daty rozpoczęcia */
     public void setStartdate(LocalDate date) {
         start_date = date;
     }
+    /** dostęp do planowanej daty rozpoczęcia */
     public LocalDate getStartdate() {
         return start_date;
     }

@@ -58,6 +58,7 @@ public abstract class Task implements Serializable {
     public String getName() {
         return name;
     }
+    /** zmiana nazwy zadania */
     public void setName(String name) {
         this.name = name;
     }
@@ -66,6 +67,7 @@ public abstract class Task implements Serializable {
     public String getDescription() {
         return description;
     }
+    /** zmiana opisu zadania */
     public void setDescription(String description) {
         this.description = description;
     }
@@ -74,6 +76,7 @@ public abstract class Task implements Serializable {
     public LocalDate getDeadline() {
         return deadline;
     }
+    /** zmiana daty końcowej */
     public void setDeadline(LocalDate date) {
         deadline = date;
     }
@@ -82,6 +85,7 @@ public abstract class Task implements Serializable {
     public DefaultListModel<User> getAssignees() {
         return assignees;
     }
+    /** zmiana listy osób przypisanych do zadania */
     public void setAssignees(DefaultListModel<User> assignees) {
         this.assignees = assignees;
     }

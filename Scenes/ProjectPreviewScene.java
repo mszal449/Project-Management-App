@@ -366,6 +366,8 @@ public class ProjectPreviewScene extends JPanel {
         if (!is_admin) {
             edit_project_button.setEnabled(false);
             save_project_button.setEnabled(false);
+            button_panel.setToolTipText
+                    ("Nie posiadasz uprawnień do edycji tego projektu");
         }
 
         return button_panel;
@@ -419,6 +421,8 @@ public class ProjectPreviewScene extends JPanel {
         if (!is_admin) {
             add_task_button.setEnabled(false);
             delete_task_button.setEnabled(false);
+            button_panel.setToolTipText
+                    ("Nie posiadasz uprawnień do edycji tego projektu");
         }
 
         return button_panel;
@@ -454,6 +458,8 @@ public class ProjectPreviewScene extends JPanel {
             premissions_button.setEnabled(false);
             add_user_button.setEnabled(false);
             delete_participant_button.setEnabled(false);
+            button_panel.setToolTipText
+                    ("Nie posiadasz uprawnień do edycji tego projektu");
         }
 
         return button_panel;
