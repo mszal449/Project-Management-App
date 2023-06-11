@@ -20,9 +20,9 @@ public class MainProgram implements Serializable {
     /** aktualnie zalogowany użytkownik */
     private User logged_user;
     /** lista wszystkich użytkowników */
-    private final DefaultListModel<User> users;
+    private  DefaultListModel<User> users;
     /** lista wszystkich projektów */
-    private final DefaultListModel<Project> projects;
+    private  DefaultListModel<Project> projects;
 
 
     // ---------------    INSTANCJA PROGRAMU    ---------------
@@ -32,8 +32,8 @@ public class MainProgram implements Serializable {
         users = new DefaultListModel<>();
         projects = new DefaultListModel<>();
 
-        loadUserData();
-        loadProjectData();
+        loadData();
+        System.out.println(users);
         window = new Window();
     }
 
@@ -155,7 +155,6 @@ public class MainProgram implements Serializable {
                 users_tasks.addElement(all_tasks.getElementAt(i));
             }
         }
-
         return users_tasks;
     }
 
@@ -163,45 +162,22 @@ public class MainProgram implements Serializable {
     // ---------------  SERIALIZACJA DANYCH   ---------------
 
     /** metoda do wczytania danych użytkowników z pliku */
-    private void loadUserData() {
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("users.ser"))) {
-            DefaultListModel<User> userData = (DefaultListModel<User>) in.readObject();
-            for (int i = 0; i < userData.size(); i++) {
-                users.addElement(userData.getElementAt(i));
-            }
+    private void loadData() {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("data.ser"))) {
+            app_instance = (MainProgram) in.readObject();
             System.out.println("Wczytano dane użytkowników");
+            this.users = app_instance.users;
+            this.projects = app_instance.projects;
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Nie znaleziono danych");
         }
     }
-
-    /** metoda do wczytania danych projektów z pliku */
-    private void loadProjectData() {
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("projects.ser"))) {
-            DefaultListModel<Project> projectData = (DefaultListModel<Project>) in.readObject();
-            for (int i = 0; i < projectData.size(); i++) {
-                System.out.println(projectData.getElementAt(i).getName());
-                projects.addElement(projectData.getElementAt(i));
-            }
-            System.out.println("Wczytano dane projektów");
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Nie znaleziono danych");
-        }
-    }
-
 
     /** metoda do zapisywania danych użytkowników i projektów przy zamknięciu aplikacji */
     public void saveData() {
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("users.ser"))) {
-            out.writeObject(users);
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("data.ser"))) {
+            out.writeObject(MainProgram.getInstance());
             System.out.println("Zapisano dane użytkowników");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("projects.ser"))) {
-            out.writeObject(projects);
-            System.out.println("Zapisano dane projektów");
         } catch (IOException e) {
             e.printStackTrace();
         }
