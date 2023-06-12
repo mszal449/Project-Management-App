@@ -4,15 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6cc3313-cad9-4cc3-8b3f-4e1b13531a9b" name="Changes" comment="final version">
+    <list default="true" id="a6cc3313-cad9-4cc3-8b3f-4e1b13531a9b" name="Changes" comment="final version v2 (prints deleted)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/Done.java" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Done.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classes/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main/MainProgram.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main/MainProgram.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main/Window.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scenes/CurrentEditorScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/CurrentEditorScene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scenes/LoginScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/LoginScene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scenes/ProjectPreviewScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/ProjectPreviewScene.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Scenes/ProjectsScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/ProjectsScene.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -145,7 +138,8 @@
       <workItem from="1686486906881" duration="3135000" />
       <workItem from="1686520151805" duration="1453000" />
       <workItem from="1686581646893" duration="359000" />
-      <workItem from="1686582027252" duration="924000" />
+      <workItem from="1686582027252" duration="3187000" />
+      <workItem from="1686605862588" duration="1290000" />
     </task>
     <task id="LOCAL-00001" summary="first draft of project structure">
       <created>1683215433286</created>
@@ -420,7 +414,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686521499907</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="final version v2 (prints deleted)">
+      <created>1686583109351</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1686583109351</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -438,7 +439,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="task preview and task editor added (but not complete yet)" />
     <MESSAGE value="awful but working task editor" />
     <MESSAGE value="better abstract task editor" />
     <MESSAGE value="chcange field in Current class" />
@@ -463,7 +463,8 @@
     <MESSAGE value="last comments fix I swear" />
     <MESSAGE value="unused improt statements deleted" />
     <MESSAGE value="final version" />
-    <option name="LAST_COMMIT_MESSAGE" value="final version" />
+    <MESSAGE value="final version v2 (prints deleted)" />
+    <option name="LAST_COMMIT_MESSAGE" value="final version v2 (prints deleted)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -474,12 +475,12 @@
         </breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Scenes/ProjectsScene.java</url>
-          <line>55</line>
+          <line>66</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Scenes/LoginScene.java</url>
-          <line>26</line>
+          <line>33</line>
           <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>

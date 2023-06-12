@@ -30,6 +30,8 @@ public class ProjectsScene extends JPanel {
     private Task chosen_task;
     /** przycisk otwarcia projektu */
     private JButton open_project_button;
+    /** przycisk usunięcia projektu */
+    private JButton delete_project_button;
     /** przycisk otwarcia zadania */
     private JButton open_task_button;
 
@@ -178,23 +180,30 @@ public class ProjectsScene extends JPanel {
     private JPanel createProjectsButtonPanel() {
         // utworzenie panelu
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(1,2));
+        panel.setLayout(new GridLayout(1,3));
 
         // przycisk wyboru projektu
         open_project_button = new JButton("Otwórz projekt");
         open_project_button.setEnabled(false);
         open_project_button.addActionListener(OpenProjectListener());
 
+        // przycisk usunięcia projektu
+        delete_project_button = new JButton("Usuń projekt");
+        delete_project_button.setEnabled(false);
+        delete_project_button.addActionListener(deleteProjectListener());
+
         // przycisk utworzenia nowego projektu
         JButton new_project_button = new JButton("Nowy projekt");
         new_project_button.addActionListener(addProjectButtonListener());
 
         open_project_button.setFont(Styles.BUTTON_FONT);
+        delete_project_button.setFont(Styles.BUTTON_FONT);
         new_project_button.setFont(Styles.BUTTON_FONT);
 
         // Dodanie przycisków do okna
         panel.add(new_project_button);
         panel.add(open_project_button);
+        panel.add(delete_project_button);
 
         return panel;
     }
@@ -209,8 +218,11 @@ public class ProjectsScene extends JPanel {
                 if (evt.getClickCount() == 1) { // jeżeli kilknięto 1 raz...
                     // pobranie numeru indeksu
                     chosen_project = users_projects.getSelectedValue();
-                    // ustawienie możliwości otwarcia projektu
+                    // ustawienie możliwości otwarcia i usunięcia projektu
                     open_project_button.setEnabled(true);
+                    // usunąć projekt mogą tylko jego administratorzy
+                    delete_project_button.setEnabled(chosen_project.getParticipants()
+                            .get(MainProgram.getLoggedUser()));
                 }
                 else if (evt.getClickCount() == 2) { // jeżeli kilknięto 2 razy...
                     // wybieramy projekt z listy
@@ -237,6 +249,14 @@ public class ProjectsScene extends JPanel {
     /** Otwieranie projektu */
     private ActionListener OpenProjectListener() {
         return e -> MainProgram.setWindow("project_preview_scene", chosen_project);
+    }
+
+    /** Usuwanie projektu */
+    private ActionListener deleteProjectListener() {
+        return e -> {
+            MainProgram.getProjects().removeElement(chosen_project);
+            MainProgram.setWindow("projects_scene");
+        };
     }
 
     /** Dodawanie nowego projektu */
