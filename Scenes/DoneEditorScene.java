@@ -1,3 +1,10 @@
+// Autorzy: Julia Kulczycka, Maciej Szałasz
+// Nazwa pliku: DoneEditorScene.java
+// Data ukończenia: 12.06.2023
+// Opis:
+// Edytor zakończonego zadania.
+
+
 package Scenes;
 
 import Classes.Done;

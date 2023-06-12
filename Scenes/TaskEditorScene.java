@@ -1,3 +1,10 @@
+// Autorzy: Julia Kulczycka, Maciej Szałasz
+// Nazwa pliku: TaskEditorScene.java
+// Data ukończenia: 12.06.2023
+// Opis:
+// Okno edycji zadania.
+
+
 package Scenes;
 import Classes.Task;
 import Classes.User;
@@ -55,7 +62,10 @@ public abstract class TaskEditorScene extends JPanel{
 
         // lista wszystkich uczestników projektu
         participants
-                = task.getProject().getParticipants().keySet().toArray(new User[0]);
+                = task.getProject()
+                    .getParticipants()
+                    .keySet()
+                    .toArray(new User[0]);
 
         // utworzenie pól edytowalnych
         name_field = new JTextField(task.getName());
@@ -68,7 +78,8 @@ public abstract class TaskEditorScene extends JPanel{
         all_participants_combobox.setFont(Styles.LABEL_FONT);
 
         assignees_jlist = new JList<>(assignees_list_copy);
-        assignees_jlist.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+        assignees_jlist.setBorder(BorderFactory
+                                  .createLineBorder(Color.GRAY, 1));
         assignees_jlist.setFont(Styles.LABEL_FONT);
     }
 
@@ -106,9 +117,11 @@ public abstract class TaskEditorScene extends JPanel{
         panel.setLayout(new GridLayout(1, 2));
 
         // utworzenie podpisu pola
-        JLabel description_text_label = new JLabel("Opis: ", SwingConstants.RIGHT);
+        JLabel description_text_label = new JLabel("Opis: ",
+                                                   SwingConstants.RIGHT);
         description_text_label.setFont(Styles.LABEL_FONT);
-        description_text_label.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+        description_text_label.setBorder(BorderFactory
+                                         .createEmptyBorder(20,20,20,20));
 
 
         // dodanie elementów do panelu
@@ -125,7 +138,8 @@ public abstract class TaskEditorScene extends JPanel{
         panel.setLayout(new GridLayout(1, 2));
 
         // utworzenie podpisu pola
-        JLabel deadline_text = new JLabel("Data końcowa: ", SwingConstants.RIGHT);
+        JLabel deadline_text = new JLabel("Data końcowa: ",
+                                          SwingConstants.RIGHT);
         deadline_text.setFont(Styles.LABEL_FONT);
         deadline_text.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 
@@ -147,11 +161,12 @@ public abstract class TaskEditorScene extends JPanel{
         name_and_buttons.setLayout(new GridLayout(2, 1, 10, 10));
 
         // utworzenie podpisu pola
-        JLabel asignee_label = new JLabel("Osoby odpowiedzialne: ", SwingConstants.RIGHT);
+        JLabel asignee_label = new JLabel("Osoby odpowiedzialne: ",
+                                          SwingConstants.RIGHT);
         asignee_label.setFont(Styles.LABEL_FONT);
 
         name_and_buttons.add(asignee_label);
-        name_and_buttons.setBorder(BorderFactory.createEmptyBorder(0,0, 0, 20));
+        name_and_buttons.setBorder(BorderFactory.createEmptyBorder(0,0,0,20));
         name_and_buttons.add(editAssigneesListOptions());
         panel.add(name_and_buttons);
 
@@ -249,12 +264,15 @@ public abstract class TaskEditorScene extends JPanel{
         task.setName(name_field.getText());
 
         // zapis opisu zadania
-        JTextArea note_text = (JTextArea) description_field.getViewport().getView();
+        JTextArea note_text = (JTextArea) description_field
+                                            .getViewport()
+                                            .getView();
         task.setDescription(note_text.getText());
 
         // zapis daty ukończenia
         task.setDeadline(((java.util.Date)deadline_spinner.getValue())
-                .toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate());
+                .toInstant()
+                .atZone(java.time.ZoneId.systemDefault()).toLocalDate());
 
         // zapis listy osób
         task.setAssignees(assignees_list_copy);
@@ -323,7 +341,8 @@ public abstract class TaskEditorScene extends JPanel{
                 if (selected_index > 0) {
                     User selected_user = participants[selected_index - 1];
                     if (!assignees_list_copy.contains(selected_user)) {
-                        assignees_list_copy.addElement(participants[selected_index - 1]);
+                        assignees_list_copy
+                            .addElement(participants[selected_index - 1]);
                     }
                 }
                 all_participants_combobox.setVisible(false);

@@ -1,3 +1,10 @@
+// Autorzy: Julia Kulczycka, Maciej Szałasz
+// Nazwa pliku: TestData.java
+// Data ukończenia: 12.06.2023
+// Opis:
+// Klasa zawierająca dane testowe.
+
+
 package Main;
 
 import Classes.*;
@@ -73,7 +80,7 @@ public class TestData {
                 new Current("Implementacja funkcjonalności", 30, 5, 2023));
         test_projects.get(0).addTask(new Done("Diagram UML", 14, 5, 2023));
         // dodanie zadań do drugiego projektu
-        test_projects.get(1).addTask(new Current("Poszukać noclegu", 30, 6, 2023));
+        test_projects.get(1).addTask(new Current("Poszukać noclegu",30,6,2023));
         test_projects.get(1).addTask(new Done("Zarezerwować lot", 1, 6, 2023));
     }
 

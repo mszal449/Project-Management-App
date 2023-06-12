@@ -1,3 +1,11 @@
+// Autorzy: Julia Kulczycka, Maciej Szałasz
+// Nazwa pliku: MainProgram.java
+// Data ukończenia: 12.06.2023
+// Opis:
+// Główna klasa programu.
+
+
+
 package Main;
 
 import Classes.Project;
@@ -34,7 +42,8 @@ public class MainProgram implements Serializable {
     }
 
     /** konstruktor */
-    private MainProgram(DefaultListModel<User> users, DefaultListModel<Project> projects) {
+    private MainProgram(DefaultListModel<User> users,
+                        DefaultListModel<Project> projects) {
         // wczytanie danych
         this.users = users;
         this.projects = projects;
@@ -43,7 +52,8 @@ public class MainProgram implements Serializable {
     }
 
     /** dostęp lub utworzenie app_instance */
-    public static MainProgram getInstance(DefaultListModel<User> users, DefaultListModel<Project> projects) {
+    public static MainProgram getInstance(DefaultListModel<User> users,
+                                          DefaultListModel<Project> projects) {
         if (app_instance == null) {
             app_instance = new MainProgram(users, projects);
         }
@@ -159,7 +169,8 @@ public class MainProgram implements Serializable {
 
     /** metoda do wczytania danych użytkowników z pliku */
     private void loadData() {
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("data.ser"))) {
+        try (ObjectInputStream in =
+                     new ObjectInputStream(new FileInputStream("data.ser"))) {
             app_instance = (MainProgram) in.readObject();
             this.users = app_instance.users;
             this.projects = app_instance.projects;
@@ -170,7 +181,8 @@ public class MainProgram implements Serializable {
 
     /** metoda do zapisywania danych użytkowników i projektów przy zamknięciu aplikacji */
     public void saveData() {
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("data.ser"))) {
+        try (ObjectOutputStream out =
+                     new ObjectOutputStream(new FileOutputStream("data.ser"))) {
             out.writeObject(MainProgram.getInstance());
         } catch (IOException e) {
             e.printStackTrace();

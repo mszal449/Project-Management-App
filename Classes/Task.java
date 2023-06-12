@@ -1,3 +1,10 @@
+// Autorzy: Julia Kulczycka, Maciej Szałasz
+// Nazwa pliku: Task.java
+// Data ukończenia: 12.06.2023
+// Opis:
+// Klasa reprezentująca zadanie do wykonania w ramach projektu.
+
+
 package Classes;
 
 import Main.MainProgram;
@@ -37,7 +44,8 @@ public abstract class Task implements Serializable {
         deadline = LocalDate.of(year, month, day);
     }
 
-    /** konstruktor "częściowo kopiujący" używany przy zmianie statusu zadania */
+    /** konstruktor "częściowo kopiujący" używany
+     * przy zmianie statusu zadania */
     public Task(Task task) {
         this.project = task.project;
         this.name = task.name;

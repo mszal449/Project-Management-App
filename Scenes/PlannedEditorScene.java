@@ -1,3 +1,10 @@
+// Autorzy: Julia Kulczycka, Maciej Szałasz
+// Nazwa pliku: PlannedEditorScene.java
+// Data ukończenia: 12.06.2023
+// Opis:
+// Edytor zadania, które jest w fazie planów.
+
+
 package Scenes;
 
 import Classes.Planned;
@@ -101,8 +108,12 @@ public class PlannedEditorScene extends TaskEditorScene{
     protected void saveChanges() {
         super.saveChanges();
         // zapis planowanej daty rozpoczęcia zadania
-        ((Planned) task).setStartdate(((java.util.Date)start_date_spinner.getValue())
-                .toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate());
+        ((Planned) task)
+                .setStartdate(((java.util.Date)start_date_spinner
+                    .getValue())
+                .toInstant()
+                .atZone(java.time.ZoneId.systemDefault())
+                .toLocalDate());
     }
 
     /** anulowanie zmian */
@@ -112,12 +123,13 @@ public class PlannedEditorScene extends TaskEditorScene{
             public void mouseClicked(MouseEvent evt) {
                 if (evt.getClickCount() == 1) {
                     if (!is_new) {
-                        MainProgram.setWindow("task_preview_scene", task);
+                        MainProgram.setWindow("task_preview_scene",task);
                     }
                     else {
                         Project project = task.getProject();
                         project.deleteTask(task);
-                        MainProgram.setWindow("project_preview_scene", project);
+                        MainProgram.setWindow("project_preview_scene",
+                                              project);
                     }
                 }
             }

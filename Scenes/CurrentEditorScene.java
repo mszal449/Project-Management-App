@@ -1,3 +1,10 @@
+// Autorzy: Julia Kulczycka, Maciej Szałasz
+// Nazwa pliku: CurrentEditorScene.java
+// Data ukończenia: 12.06.2023
+// Opis:
+// Edytor aktualnego zadania.
+
+
 package Scenes;
 
 import Classes.Current;

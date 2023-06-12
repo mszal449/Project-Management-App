@@ -1,3 +1,11 @@
+// Autorzy: Julia Kulczycka, Maciej Szałasz
+// Nazwa pliku: Project.java
+// Data ukończenia: 12.06.2023
+// Opis:
+// Klasa reprezentująca "cały" projekt z jego
+// wszystkimi zadaniami i uczestnikami.
+
+
 package Classes;
 
 import javax.swing.*;
@@ -5,7 +13,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
 
-/** Klasa reprezentująca "cały" projekt z jego wszystkimi zadaniami i uczestnikami */
+/** Klasa reprezentująca "cały" projekt z jego
+ * wszystkimi zadaniami i uczestnikami */
 public class Project implements Serializable {
     /** nazwa projektu */
     private String name;

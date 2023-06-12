@@ -1,3 +1,10 @@
+// Autorzy: Julia Kulczycka, Maciej Szałasz
+// Nazwa pliku: TaskPreviewScene.java
+// Data ukończenia: 12.06.2023
+// Opis:
+// Scena podglądu zadania.
+
+
 package Scenes;
 
 import Classes.*;
@@ -44,7 +51,9 @@ public class TaskPreviewScene extends JPanel {
 
     /** sprawdzenie uprawnień użytkownika */
     private boolean checkUserPermissions() {
-        Map<User, Boolean> project_permissions = task.getProject().getParticipants();
+        Map<User, Boolean> project_permissions = task
+                                                .getProject()
+                                                .getParticipants();
         User logged_user = MainProgram.getLoggedUser();
         return (project_permissions.get(logged_user)
                 || task.getAssignees().contains(logged_user));
@@ -91,7 +100,8 @@ public class TaskPreviewScene extends JPanel {
         description_text_area.setEditable(false);
         description_text_area.setLineWrap(true);
         description_text_area.setWrapStyleWord(true);
-        JScrollPane description_scroll_pane = new JScrollPane(description_text_area);
+        JScrollPane description_scroll_pane =
+                new JScrollPane(description_text_area);
 
         panel.add(description_text_label);
         panel.add(description_scroll_pane);
@@ -111,8 +121,10 @@ public class TaskPreviewScene extends JPanel {
         deadline_label.setFont(Styles.LABEL_FONT);
 
         // utworzenie napisu z datą końcową
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        JLabel date_content = new JLabel(task.getDeadline().format(dateTimeFormatter));
+        DateTimeFormatter dateTimeFormatter =
+                DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        JLabel date_content =
+                new JLabel(task.getDeadline().format(dateTimeFormatter));
         date_content.setFont(Styles.LABEL_FONT);
 
         panel.add(deadline_label);
@@ -134,21 +146,25 @@ public class TaskPreviewScene extends JPanel {
         panel.add(status_label);
 
         // utworzenie napisu ze statusem zadania
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        DateTimeFormatter dateTimeFormatter =
+                DateTimeFormatter.ofPattern("dd.MM.yyyy");
         if (task instanceof Planned) {
             JLabel date_label = new JLabel("planowane rozpoczęcie "
-                    + ((Planned) task).getStartdate().format(dateTimeFormatter));
+                    + ((Planned) task)
+                        .getStartdate()
+                        .format(dateTimeFormatter));
             date_label.setFont(Styles.LABEL_FONT);
             panel.add(date_label);
 
         } else {
             JLabel current_progrss_label;
             if (task instanceof Current) {
-                current_progrss_label = new JLabel(((Current) task).getProgressState());
+                current_progrss_label =
+                        new JLabel(((Current) task).getProgressState());
 
             } else {
                 current_progrss_label = new JLabel("zakończono "
-                        + ((Done) task).getEndDate().format(dateTimeFormatter));
+                        + ((Done)task).getEndDate().format(dateTimeFormatter));
 
             }
             current_progrss_label.setFont(Styles.LABEL_FONT);
@@ -166,7 +182,8 @@ public class TaskPreviewScene extends JPanel {
         panel.setBorder(Styles.ELEMENT_SPACING_BORDER);
 
         // utworzenie podpisu pola z listą uczestnikó zadania
-        JLabel participants_label = new JLabel("Uczestnicy: ", LABEL_ALIGNEMENT);
+        JLabel participants_label = new JLabel("Uczestnicy: ",
+                                               LABEL_ALIGNEMENT);
         participants_label.setFont(Styles.LABEL_FONT);
         panel.add(participants_label);
 
@@ -261,6 +278,7 @@ public class TaskPreviewScene extends JPanel {
 
     /** przycisk powrotu */
     private ActionListener returnButtonListener() {
-        return e -> MainProgram.setWindow("project_preview_scene", task.getProject());
+        return e -> MainProgram.setWindow("project_preview_scene",
+                                          task.getProject());
     }
 }

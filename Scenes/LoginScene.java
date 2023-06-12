@@ -1,3 +1,10 @@
+// Autorzy: Julia Kulczycka, Maciej Szałasz
+// Nazwa pliku: LoginScene.java
+// Data ukończenia: 12.06.2023
+// Opis:
+// Scena logowania.
+
+
 package Scenes;
 import Classes.User;
 import Main.MainProgram;

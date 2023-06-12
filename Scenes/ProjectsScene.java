@@ -1,3 +1,10 @@
+// Autorzy: Julia Kulczycka, Maciej Szałasz
+// Nazwa pliku: ProjectsScene.java
+// Data ukończenia: 12.06.2023
+// Opis:
+// Scena wyboru projektów i podglądu zadań użytkownika.
+
+
 package Scenes;
 import Classes.Project;
 import Classes.Task;
@@ -32,10 +39,12 @@ public class ProjectsScene extends JPanel {
     /** konstruktor sceny */
     public ProjectsScene() {
         // wczytanie projektów użytkownika
-        users_projects = new JList<>(MainProgram.getProjects(MainProgram.getLoggedUser()));
+        users_projects = new JList<>(MainProgram
+                                    .getProjects(MainProgram.getLoggedUser()));
 
         // wczytanie zadań użytkownika
-        users_tasks = new JList<>(MainProgram.getTasks(MainProgram.getLoggedUser()));
+        users_tasks = new JList<>(MainProgram
+                                  .getTasks(MainProgram.getLoggedUser()));
 
         CreateScene();
     }

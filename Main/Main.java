@@ -1,3 +1,10 @@
+// Autorzy: Julia Kulczycka, Maciej Szałasz
+// Nazwa pliku: Main.java
+// Data ukończenia: 12.06.2023
+// Opis:
+// Klasa główna.
+
+
 package Main;
 
 /** Klasa główna */

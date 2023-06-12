@@ -1,3 +1,10 @@
+// Autorzy: Julia Kulczycka, Maciej Szałasz
+// Nazwa pliku: Done.java
+// Data ukończenia: 12.06.2023
+// Opis:
+// Klasa reprezentująca wykonane zadanie.
+
+
 package Classes;
 
 import java.time.LocalDate;
@@ -13,7 +20,8 @@ public class Done extends Task {
         end_date = LocalDate.now();
     }
 
-    /**  konstruktor tworzący ukończone zadanie na podstawie trwającego zadania */
+    /**  konstruktor tworzący ukończone zadanie
+     * na podstawie trwającego zadania */
     public Done(Current current_task) {
         super(current_task);
         end_date = LocalDate.now();

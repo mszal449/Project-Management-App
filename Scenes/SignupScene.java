@@ -1,3 +1,10 @@
+// Autorzy: Julia Kulczycka, Maciej Szałasz
+// Nazwa pliku: SignupScene.java
+// Data ukończenia: 12.06.2023
+// Opis:
+// Scena rejestrowania konta.
+
+
 package Scenes;
 
 import Classes.User;
@@ -167,7 +174,8 @@ public class SignupScene extends JPanel {
         );
     }
 
-    /** okno dialogowe wyświetlające się, gdy dany adres e-mail nie jest unikatowy */
+    /** okno dialogowe wyświetlające się,
+     * gdy dany adres e-mail nie jest unikatowy */
     private int showLogInDialog() {
         return JOptionPane.showOptionDialog(
                 null,

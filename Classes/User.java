@@ -1,9 +1,17 @@
+// Autorzy: Julia Kulczycka, Maciej Szałasz
+// Nazwa pliku: User.java
+// Data ukończenia: 12.06.2023
+// Opis:
+// Klasa reprezentująca użytkownika aplikacji.
+
+
 package Classes;
 import Main.MainProgram;
 
 import javax.swing.*;
 import java.io.Serializable;
 import java.util.Objects;
+
 
 /** Klasa reprezentująca użytkownika aplikacji */
 public class User implements Serializable {

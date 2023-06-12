@@ -1,3 +1,10 @@
+// Autorzy: Julia Kulczycka, Maciej Szałasz
+// Nazwa pliku: ProjectPreviewScene.java
+// Data ukończenia: 12.06.2023
+// Opis:
+// Scena podglądu zadania.
+
+
 package Scenes;
 
 import Classes.Planned;
@@ -64,7 +71,9 @@ public class ProjectPreviewScene extends JPanel {
             tasks_list_copy.addElement((Task) element);
         }
         participants_dict_copy = new HashMap<>();
-        for (Map.Entry<User, Boolean> entry : project.getParticipants().entrySet()) {
+        for (Map.Entry<User, Boolean> entry : project
+                                              .getParticipants()
+                                              .entrySet()) {
             User user = entry.getKey();
             Boolean privileges = entry.getValue();
             participants_dict_copy.put(user, privileges);
@@ -184,7 +193,8 @@ public class ProjectPreviewScene extends JPanel {
         } else {
             status_content.setText("W trakcie realizacji");
         }
-        status_content.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
+        status_content.setBorder(BorderFactory.createLineBorder(Color.gray,
+                                                                1));
 
         // dodanie do okna
         panel.add(status_label, BorderLayout.NORTH);
@@ -338,7 +348,10 @@ public class ProjectPreviewScene extends JPanel {
         // utworzenie nowego panelu
         JPanel button_panel = new JPanel();
         button_panel.setLayout(new GridLayout(1,3, 10, 10));
-        button_panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        button_panel.setBorder(BorderFactory.createEmptyBorder(20,
+                                                               20,
+                                                               20,
+                                                               20));
 
         // utworzenie przycisku uruchamiającego edytor projektu
         JButton edit_project_button = new JButton("Edytuj");
@@ -401,7 +414,10 @@ public class ProjectPreviewScene extends JPanel {
         JPanel button_panel = new JPanel();
 
         button_panel.setLayout(new GridLayout(1,2, 10, 10));
-        button_panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        button_panel.setBorder(BorderFactory.createEmptyBorder(20,
+                                                               20,
+                                                               20,
+                                                               20));
 
         JButton add_task_button = new JButton("Dodaj");
         add_task_button.setFont(Styles.BUTTON_FONT);
@@ -432,7 +448,10 @@ public class ProjectPreviewScene extends JPanel {
         JPanel button_panel = new JPanel();
 
         button_panel.setLayout(new GridLayout(1,3, 10, 10));
-        button_panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        button_panel.setBorder(BorderFactory.createEmptyBorder(20,
+                                                               20,
+                                                               20,
+                                                               20));
 
         JButton premissions_button = new JButton("Zmień uprawnienia");
         premissions_button.setFont(Styles.BUTTON_FONT);
@@ -507,7 +526,9 @@ public class ProjectPreviewScene extends JPanel {
         if(is_editor_open) {
             project.setName(name_text_field.getText());
             project.setDeadline(((java.util.Date)deadline_spinner.getValue())
-                    .toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate());
+                    .toInstant()
+                    .atZone(java.time.ZoneId.systemDefault())
+                    .toLocalDate());
             project.setStatus(status_checkbox.isSelected());
         }
     }
@@ -529,7 +550,8 @@ public class ProjectPreviewScene extends JPanel {
         };
     }
 
-    /** przycisk zapisania zmian informacji o projekcie (wyjście z edytora projektu) */
+    /** przycisk zapisania zmian informacji
+     * o projekcie (wyjście z edytora projektu) */
     private ActionListener saveButtonListener() {
         return e -> {
             saveProject();
@@ -565,16 +587,19 @@ public class ProjectPreviewScene extends JPanel {
                 if (evt.getClickCount() == 2) {
                     int index = Jtasks.locationToIndex(evt.getPoint());
                     Task selected = tasks_list_copy.get(index);
-                    if (!is_admin) MainProgram.setWindow("task_preview_scene", selected);
+                    if (!is_admin) MainProgram.setWindow("task_preview_scene",
+                                                         selected);
                     else {
                         int result = showSaveProjectDialog();
                         // zapisanie projektu i przejście do podglądu zadania
                         if (result == JOptionPane.YES_OPTION) {
                             saveProject();
-                            MainProgram.setWindow("task_preview_scene", selected);
+                            MainProgram.setWindow("task_preview_scene",
+                                                  selected);
                         // przejście do podglądu zadania bez zapisywania
                         } else if (result == JOptionPane.NO_OPTION) {
-                            MainProgram.setWindow("task_preview_scene", selected);
+                            MainProgram.setWindow("task_preview_scene",
+                                                  selected);
                         }
                         // jeżeli zamkniemy okno dialogowe, nic się nie stanie
                         // w szczególności nie przejdziemy do podglądu zadania
@@ -657,8 +682,16 @@ public class ProjectPreviewScene extends JPanel {
         private static final long serialVersionUID = 1L;
 
         @Override
-        public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-            JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+        public Component getListCellRendererComponent(JList<?> list,
+                                                      Object value,
+                                                      int index,
+                                                      boolean isSelected,
+                                                      boolean cellHasFocus) {
+            JLabel label = (JLabel) super.getListCellRendererComponent(list,
+                                                                       value,
+                                                                       index,
+                                                                       isSelected,
+                                                                       cellHasFocus);
             User user = (User) value;
             Boolean is_admin = participants_dict_copy.get(user);
 

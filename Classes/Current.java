@@ -1,3 +1,9 @@
+// Autorzy: Julia Kulczycka, Maciej Szałasz
+// Nazwa pliku: Current.java
+// Data ukończenia: 12.06.2023
+// Opis:
+// Klasa reprezentująca zadanie w trakcie wykonywania.
+
 package Classes;
 
 import java.io.Serializable;
@@ -24,7 +30,8 @@ public class Current extends Task {
         cur_level = 0;
     }
 
-    /** konstruktor tworzący trwające zadanie na podstawie zaplanowanego zadania */
+    /** konstruktor tworzący trwające
+     *  zadanie na podstawie zaplanowanego zadania */
     public Current(Planned planned_task) {
         super(planned_task);
         start_date = LocalDate.now();

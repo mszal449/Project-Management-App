@@ -1,3 +1,10 @@
+// Autorzy: Julia Kulczycka, Maciej Szałasz
+// Nazwa pliku: Planned.java
+// Data ukończenia: 12.06.2023
+// Opis:
+// Klasa reprezentująca zadanie, które jeszcze nie zostało rozpoczęte.
+
+
 package Classes;
 
 import java.time.LocalDate;
@@ -8,7 +15,13 @@ public class Planned extends Task {
     private LocalDate start_date;
 
     /** konstruktor */
-    public Planned(String name,  int day, int month, int year, int s_day, int s_month, int s_year) {
+    public Planned(String name,
+                   int day,
+                   int month,
+                   int year,
+                   int s_day,
+                   int s_month,
+                   int s_year) {
         super(name, day, month, year);
         start_date = LocalDate.of(s_year, s_month, s_day);
     }
