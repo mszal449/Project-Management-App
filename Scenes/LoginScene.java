@@ -96,11 +96,13 @@ public class LoginScene extends JPanel {
     private ActionListener loginActionListener() {
         return e -> {
             String login = login_text.getText();
-            System.out.println(login);
             String password = new String(password_text.getPassword());
-            System.out.println(password);
             if (User.logIn(login, password)) {
                 MainProgram.setWindow("projects_scene");}
+            else {
+                JOptionPane.showMessageDialog
+                        (this, "Wprowadzono niepoprawne dane");
+            }
         };
     }
 }

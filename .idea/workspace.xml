@@ -4,12 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6cc3313-cad9-4cc3-8b3f-4e1b13531a9b" name="Changes" comment="unused improt statements deleted">
-      <change afterPath="$PROJECT_DIR$/Main/TestData.java" afterDir="false" />
+    <list default="true" id="a6cc3313-cad9-4cc3-8b3f-4e1b13531a9b" name="Changes" comment="final version">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/Done.java" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/Done.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classes/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/Classes/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main/MainProgram.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main/MainProgram.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main/Window.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scenes/CurrentEditorScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/CurrentEditorScene.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Scenes/LoginScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/LoginScene.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scenes/ProjectPreviewScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/ProjectPreviewScene.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scenes/ProjectsScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/Scenes/ProjectsScene.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,7 +143,9 @@
       <workItem from="1686404826150" duration="3774000" />
       <workItem from="1686483365536" duration="3401000" />
       <workItem from="1686486906881" duration="3135000" />
-      <workItem from="1686520151805" duration="983000" />
+      <workItem from="1686520151805" duration="1453000" />
+      <workItem from="1686581646893" duration="359000" />
+      <workItem from="1686582027252" duration="924000" />
     </task>
     <task id="LOCAL-00001" summary="first draft of project structure">
       <created>1683215433286</created>
@@ -407,7 +413,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686506163609</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="final version">
+      <created>1686521499907</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1686521499907</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -425,7 +438,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="made setScene variadic" />
     <MESSAGE value="task preview and task editor added (but not complete yet)" />
     <MESSAGE value="awful but working task editor" />
     <MESSAGE value="better abstract task editor" />
@@ -450,7 +462,8 @@
     <MESSAGE value="and another comments fix" />
     <MESSAGE value="last comments fix I swear" />
     <MESSAGE value="unused improt statements deleted" />
-    <option name="LAST_COMMIT_MESSAGE" value="unused improt statements deleted" />
+    <MESSAGE value="final version" />
+    <option name="LAST_COMMIT_MESSAGE" value="final version" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -460,18 +473,13 @@
           <option name="timeStamp" value="1" />
         </breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Scenes/CurrentEditorScene.java</url>
-          <line>51</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Scenes/ProjectsScene.java</url>
           <line>55</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Scenes/LoginScene.java</url>
-          <line>27</line>
+          <line>26</line>
           <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>

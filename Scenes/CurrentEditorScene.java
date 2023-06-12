@@ -81,7 +81,6 @@ public class CurrentEditorScene extends TaskEditorScene{
         super.saveChanges();
         // zapis statusu
         int selected_index = progress_level_combobox.getSelectedIndex();
-        System.out.println(selected_index);
         ((Current) task).setProgressLevel(selected_index);
     }
 }

@@ -1,6 +1,5 @@
 package Classes;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
 /**  Klasa reprezentująca wykonane zadanie */

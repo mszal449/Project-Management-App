@@ -545,7 +545,6 @@ public class ProjectPreviewScene extends JPanel {
         return e -> {
             Planned new_task = new Planned(project);
             tasks_list_copy.addElement(new_task);
-            System.out.println("add task");
         };
     }
 
@@ -556,7 +555,6 @@ public class ProjectPreviewScene extends JPanel {
             if (selected_index != -1) {
                 tasks_list_copy.remove(selected_index);
             }
-            System.out.println("Delete Task: " + selected_index);
         };
     }
 
@@ -616,7 +614,6 @@ public class ProjectPreviewScene extends JPanel {
                     // odświeżenie sceny po zmianie
                     revalidate();
                     repaint();
-                    System.out.println("Edit Permissions for " + user);
                 }
             }
         };
@@ -634,7 +631,6 @@ public class ProjectPreviewScene extends JPanel {
                     User selected_user = users_array[selected_index - 1];
                     if (!participants_dict_copy.containsKey(selected_user)) {
                         participants_dict_copy.put(selected_user, false);
-                        System.out.println("Add participant: " + selected_user);
                     }
                 }
                 Jparticipants.setListData(participants_dict_copy.keySet().toArray());
@@ -645,17 +641,13 @@ public class ProjectPreviewScene extends JPanel {
 
     /** Przycisk usuwania użytkownika z listy uczestników projektu */
     private ActionListener deleteUserButtonListener() {
-        return new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // wybranie użytkownika z listy
-                User user = (User) Jparticipants.getSelectedValue();
-                // usunięcie użytkownika z aktualnego projektu
-                participants_dict_copy.remove(user);
-                // zaktualizowanie listy uczestników
-                Jparticipants.setListData(participants_dict_copy.keySet().toArray());
-                System.out.println("Delete User: " + user);
-            }
+        return e -> {
+            // wybranie użytkownika z listy
+            User user = (User) Jparticipants.getSelectedValue();
+            // usunięcie użytkownika z aktualnego projektu
+            participants_dict_copy.remove(user);
+            // zaktualizowanie listy uczestników
+            Jparticipants.setListData(participants_dict_copy.keySet().toArray());
         };
     }
 

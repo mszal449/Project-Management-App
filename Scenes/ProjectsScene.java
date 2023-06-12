@@ -253,7 +253,7 @@ public class ProjectsScene extends JPanel {
                     // wybieramy projekt z listy
                     Task selected = users_tasks.getSelectedValue();
                     if (selected == null) {
-                        System.out.println("Nie wybrano zadania.");
+                        System.out.println("Nie wybrano zadania");
                     }
                     else {
                         MainProgram.setWindow("task_preview_scene", selected);

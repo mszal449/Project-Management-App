@@ -34,18 +34,12 @@ public class User implements Serializable {
     /** statyczna metoda do logowania */
     public static boolean logIn(String email, String password) {
         User user = findUser(email);
-        if (user == null) {
-            System.out.println("Nie istnieje taki użytkownik");
-            return false;
-        }
+        if (user == null) return false;
         else if (Objects.equals(user.password, password)) {
             MainProgram.setLoggedUser(user);
             return true;
         }
-        else {
-            System.out.println("Niepoprawne hasło - spróbuj jeszcze raz");
-            return false;
-        }
+        else return false;
     }
 
     /** konstruktor */

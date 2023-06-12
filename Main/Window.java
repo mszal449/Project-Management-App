@@ -73,7 +73,6 @@ public class Window extends JFrame{
         }
         add(scene);
         // Odświeżenie okna
-        System.out.println("Scena wczytana");
         revalidate();
         repaint();
     }

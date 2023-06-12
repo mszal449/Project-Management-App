@@ -30,7 +30,6 @@ public class MainProgram implements Serializable {
         projects = new DefaultListModel<>();
 
         loadData();
-        System.out.println(users);
         window = new Window();
     }
 
@@ -162,7 +161,6 @@ public class MainProgram implements Serializable {
     private void loadData() {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("data.ser"))) {
             app_instance = (MainProgram) in.readObject();
-            System.out.println("Wczytano dane użytkowników");
             this.users = app_instance.users;
             this.projects = app_instance.projects;
         } catch (IOException | ClassNotFoundException e) {
@@ -174,7 +172,6 @@ public class MainProgram implements Serializable {
     public void saveData() {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("data.ser"))) {
             out.writeObject(MainProgram.getInstance());
-            System.out.println("Zapisano dane");
         } catch (IOException e) {
             e.printStackTrace();
         }
